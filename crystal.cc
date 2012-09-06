@@ -100,7 +100,7 @@ int main (int argc, char** argv)
     G4cout << "Store x,y,z of hits : " << HITS << G4endl;
     G4cout << "Store x,y,z of absorptions : " << ABSORPTIONS << G4endl;
 
-    G4int showFotons = config.read<double> ("showPhotons");
+    G4int showPhotons = config.read<double> ("showPhotons");
 
     // Other crystal parameters
     G4double len = config.read<double> ("height");
@@ -208,6 +208,7 @@ int main (int argc, char** argv)
 
     // Stepping action
     SteppingAction* stepping_action = new SteppingAction;
+    stepping_action->setShowPhotons(showPhotons);
     runManager->SetUserAction (stepping_action);
 
     // Initialize G4 kernel

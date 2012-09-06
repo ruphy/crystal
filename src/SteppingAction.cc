@@ -20,7 +20,9 @@
 using namespace std;
 
 SteppingAction::SteppingAction()
-{}
+{
+    m_showPhotons = true;
+}
 
 SteppingAction::~SteppingAction()
 {}
@@ -156,8 +158,9 @@ void SteppingAction::UserSteppingAction (const G4Step* theStep)
         CreateTree::Instance()->MomReflY.push_back (thePostPoint->GetMomentumDirection().y());
         CreateTree::Instance()->MomReflZ.push_back (thePostPoint->GetMomentumDirection().z());
 
-
-//         theStep->GetTrack()->SetTrackStatus (fStopAndKill);
+        if (!m_showPhotons) {
+            theStep->GetTrack()->SetTrackStatus (fStopAndKill);
+        }
     }
 
     if (thePrePV->GetName() == "TopAir" &&  thePostPV->GetName() == "World") {
@@ -281,5 +284,10 @@ void SteppingAction::UserSteppingAction (const G4Step* theStep)
         }
     }// at boundary
 
+}
+
+void SteppingAction::setShowPhotons(bool showPhotons)
+{
+    m_showPhotons = showPhotons;
 }
 
