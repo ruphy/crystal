@@ -1,0 +1,71 @@
+#
+#
+# verbosity
+#
+/control/verbose 0
+/tracking/verbose 0
+
+
+#
+# select physicslist
+#
+#/testem/phys/addPhysics emlivermore
+
+#
+# step max
+#
+#/testem/stepMax  10.0 mm 
+
+#
+# initialize
+#
+/run/initialize
+
+#
+# set cuts
+#
+/run/setCut  0.001 mm
+
+#
+# processes
+#
+#/optics_engine/selectOpProcess Cerenkov
+#/optics_engine/setOpProcessActivation 0
+#/pet/phys/verbose 2
+#
+
+#
+# test geometry
+#
+#/geometry/test/grid_test true
+
+#
+# visualisation
+#
+/control/execute vis.mac
+
+
+#
+# particle gun
+#
+#/gun/particle gamma
+#/gun/energy 511 keV
+#/gun/direction 0 0 -1
+#/gun/position  0.0 0.0 0.76 cm
+/control/execute gps.mac
+
+#
+# run start
+#
+
+#/run/beamOn 1
+#/run/beamOn 5
+#/run/beamOn 10
+#/run/beamOn 100
+#/run/beamOn 500
+#/run/beamOn 1000
+#/run/beamOn 2000
+#/run/beamOn 5000
+#/run/beamOn 40000
+#/run/beamOn 200000
+
