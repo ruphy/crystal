@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# See http://reat.space.qinetiq.com/gps/new_gps_sum_files/gps_sum.htm
+# and http://reat.space.qinetiq.com/gps/examples/examples.htm (example 19)
+
 F=("$@")
 NEWF=$F.converted
 
