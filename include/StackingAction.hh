@@ -9,16 +9,16 @@
 
 class StackingAction : public G4UserStackingAction
 {
-  public:
+public:
     StackingAction();
-   ~StackingAction();
+    ~StackingAction();
 
-  public:
-    G4ClassificationOfNewTrack ClassifyNewTrack(const G4Track* aTrack);
+public:
+    G4ClassificationOfNewTrack ClassifyNewTrack (const G4Track* aTrack);
     void NewStage();
     void PrepareNewEvent();
 
-  private:
+private:
     G4int gammaCounter;
     G4int cerenkovCounter;
     G4int scintCounter;

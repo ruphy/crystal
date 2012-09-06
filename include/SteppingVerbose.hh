@@ -12,13 +12,13 @@ class SteppingVerbose;
 
 class SteppingVerbose : public G4SteppingVerbose
 {
- public:   
+public:
 
-   SteppingVerbose();
-  ~SteppingVerbose();
+    SteppingVerbose();
+    ~SteppingVerbose();
 
-   void StepInfo();
-   void TrackingStarted();
+    void StepInfo();
+    void TrackingStarted();
 
 };
 

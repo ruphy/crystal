@@ -49,11 +49,11 @@ class PhysicsListMessenger;
 
 class PhysicsList : public G4VUserPhysicsList
 {
-  public:
+public:
     PhysicsList();
-   ~PhysicsList();
+    ~PhysicsList();
 
-  public:
+public:
     void ConstructParticle();
     void ConstructProcess();
 
@@ -69,17 +69,17 @@ class PhysicsList : public G4VUserPhysicsList
     void ConstructGeneral();
     void ConstructEM();
     void ConstructOp();
-    
-    //for the Messenger 
-    void SetVerbose(G4int);
-    void SetNbOfPhotonsCerenkov(G4int);
-    
-    void SetCutForGamma(G4double);
-    void SetCutForElectron(G4double);
-    void SetCutForPositron(G4double);
-    void SetCutForProton(G4double);
 
-  private:
+    //for the Messenger
+    void SetVerbose (G4int);
+    void SetNbOfPhotonsCerenkov (G4int);
+
+    void SetCutForGamma (G4double);
+    void SetCutForElectron (G4double);
+    void SetCutForPositron (G4double);
+    void SetCutForProton (G4double);
+
+private:
     G4Cerenkov*          theCerenkovProcess;
     G4Scintillation*     theScintillationProcess;
     G4OpAbsorption*      theAbsorptionProcess;
@@ -91,8 +91,8 @@ class PhysicsList : public G4VUserPhysicsList
     G4double cutForElectron;
     G4double cutForPositron;
     G4double cutForProton;
-    
-    PhysicsListMessenger* pMessenger;   
+
+    PhysicsListMessenger* pMessenger;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

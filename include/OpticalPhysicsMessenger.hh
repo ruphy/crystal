@@ -43,60 +43,60 @@ class G4UIcmdWithAnInteger;
 class G4OpticalPhysicsMessenger: public G4UImessenger
 {
 
-  public:
+public:
 
-    G4OpticalPhysicsMessenger(G4OpticalPhysics*);
+    G4OpticalPhysicsMessenger (G4OpticalPhysics*);
     ~G4OpticalPhysicsMessenger();
 
     // methods
-    void SetNewValue(G4UIcommand*, G4String);
-    
+    void SetNewValue (G4UIcommand*, G4String);
+
 private:
 
-  /// Not implemented
-  G4OpticalPhysicsMessenger();
-  /// Not implemented
-  G4OpticalPhysicsMessenger(const G4OpticalPhysicsMessenger& right);
-  /// Not implemented
-  G4OpticalPhysicsMessenger& operator=(const G4OpticalPhysicsMessenger& right);
+    /// Not implemented
+    G4OpticalPhysicsMessenger();
+    /// Not implemented
+    G4OpticalPhysicsMessenger (const G4OpticalPhysicsMessenger& right);
+    /// Not implemented
+    G4OpticalPhysicsMessenger& operator= (const G4OpticalPhysicsMessenger& right);
 
-  // data members
+    // data members
 
-  /// associated clas
-  G4OpticalPhysics*     fOpticalPhysics;
+    /// associated clas
+    G4OpticalPhysics*     fOpticalPhysics;
 
-  /// command directory
-  G4UIdirectory*         fDir;
+    /// command directory
+    G4UIdirectory*         fDir;
 
-  /// selected optical process
-  G4VProcess*            fSelectedProcess;
+    /// selected optical process
+    G4VProcess*            fSelectedProcess;
 
-  /// selectOpProcess command
-  G4UIcmdWithAString*    fSelectOpProcessCmd;
+    /// selectOpProcess command
+    G4UIcmdWithAString*    fSelectOpProcessCmd;
 
-  /// setCerenkovActivation command
-  G4UIcmdWithABool*      fSetOpProcessActivationCmd;
+    /// setCerenkovActivation command
+    G4UIcmdWithABool*      fSetOpProcessActivationCmd;
 
-  /// setCerenkovVerbose command
-  G4UIcmdWithAnInteger*  fSetOpProcessVerboseCmd;
+    /// setCerenkovVerbose command
+    G4UIcmdWithAnInteger*  fSetOpProcessVerboseCmd;
 
-  /// setCerenkovMaxPhotons command
-  G4UIcmdWithAnInteger*  fSetCerenkovMaxPhotonsCmd;
+    /// setCerenkovMaxPhotons command
+    G4UIcmdWithAnInteger*  fSetCerenkovMaxPhotonsCmd;
 
-  /// setCerenkovMaxBetaChange command
-  G4UIcmdWithADouble*    fSetCerenkovMaxBetaChangeCmd;
+    /// setCerenkovMaxBetaChange command
+    G4UIcmdWithADouble*    fSetCerenkovMaxBetaChangeCmd;
 
-  /// setScintillationYieldFactor command
-  G4UIcmdWithADouble*    fSetScintillationYieldFactorCmd;
+    /// setScintillationYieldFactor command
+    G4UIcmdWithADouble*    fSetScintillationYieldFactorCmd;
 
-  /// setOpticalSurfaceModel command
-  G4UIcmdWithAString*    fSetOpticalSurfaceModelCmd;
+    /// setOpticalSurfaceModel command
+    G4UIcmdWithAString*    fSetOpticalSurfaceModelCmd;
 
-  /// setWLSTimeProfile command
-  G4UIcmdWithAString*    fSetWLSTimeProfileCmd;
+    /// setWLSTimeProfile command
+    G4UIcmdWithAString*    fSetWLSTimeProfileCmd;
 
-  /// setTrackSecondariesFirst command
-  G4UIcmdWithABool*      fSetTrackSecondariesFirstCmd;
+    /// setTrackSecondariesFirst command
+    G4UIcmdWithABool*      fSetTrackSecondariesFirstCmd;
 
 };
 

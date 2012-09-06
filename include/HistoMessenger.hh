@@ -17,21 +17,21 @@ class G4UIcmdWithAString;
 
 class HistoMessenger: public G4UImessenger
 {
-  public:
+public:
 
-   HistoMessenger(Histo* );
-  ~HistoMessenger();
+    HistoMessenger (Histo*);
+    ~HistoMessenger();
 
-   void SetNewValue(G4UIcommand* ,G4String );
+    void SetNewValue (G4UIcommand* , G4String);
 
-  private:
+private:
 
-   Histo*                  histo;
-   
-   G4UIdirectory*          histoDir;   
-   G4UIcmdWithAString*     factoryCmd;
-   G4UIcmdWithAString*     fileCmd;
-   G4UIcommand*            histoCmd;
+    Histo*                  histo;
+
+    G4UIdirectory*          histoDir;
+    G4UIcmdWithAString*     factoryCmd;
+    G4UIcmdWithAString*     fileCmd;
+    G4UIcommand*            histoCmd;
 
 };
 

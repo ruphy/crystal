@@ -13,19 +13,19 @@
 
 
 class G4VPrimaryGenerator;
- 
+
 class PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 {
 public:
-  //! constructor
-  PrimaryGeneratorAction();
-  //! destructor
-  ~PrimaryGeneratorAction();
-  //! defines primary particles (mandatory)
-  void GeneratePrimaries(G4Event*);
-private:  
-  G4GeneralParticleSource* gun;
- 
+    //! constructor
+    PrimaryGeneratorAction();
+    //! destructor
+    ~PrimaryGeneratorAction();
+    //! defines primary particles (mandatory)
+    void GeneratePrimaries (G4Event*);
+private:
+    G4GeneralParticleSource* gun;
+
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

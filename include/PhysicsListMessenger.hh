@@ -15,21 +15,21 @@ class G4UIcmdWithAnInteger;
 class PhysicsListMessenger: public G4UImessenger
 {
 public:
-  
-  PhysicsListMessenger(PhysicsList* );
-  virtual ~PhysicsListMessenger();
-    
-  void SetNewValue(G4UIcommand*, G4String);
-    
+
+    PhysicsListMessenger (PhysicsList*);
+    virtual ~PhysicsListMessenger();
+
+    void SetNewValue (G4UIcommand*, G4String);
+
 private:
-  
-  PhysicsList* pPhysicsList;
-    
-  G4UIcmdWithADoubleAndUnit* eCmd;
-  G4UIcmdWithAnInteger*      ebCmd;
-  G4UIcmdWithAnInteger*      cbCmd;
-  G4UIcmdWithAString*        pListCmd;
-    
+
+    PhysicsList* pPhysicsList;
+
+    G4UIcmdWithADoubleAndUnit* eCmd;
+    G4UIcmdWithAnInteger*      ebCmd;
+    G4UIcmdWithAnInteger*      cbCmd;
+    G4UIcmdWithAString*        pListCmd;
+
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
