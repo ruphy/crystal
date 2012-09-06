@@ -15,23 +15,23 @@
 
 PrimaryGeneratorAction::PrimaryGeneratorAction()
 {
-  G4GeneralParticleSource *gps = new G4GeneralParticleSource();
-  gun = gps;
-  
+    G4GeneralParticleSource* gps = new G4GeneralParticleSource();
+    gun = gps;
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
-{ 
-  gun->GeneratePrimaryVertex(anEvent);
+void PrimaryGeneratorAction::GeneratePrimaries (G4Event* anEvent)
+{
+    gun->GeneratePrimaryVertex (anEvent);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PrimaryGeneratorAction::~PrimaryGeneratorAction()
 {
-  delete gun;
+    delete gun;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

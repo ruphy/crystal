@@ -1,6 +1,6 @@
 // Martin Goettlich @ DESY
 //
- 
+
 #include "EventAction.hh"
 #include "G4RunManager.hh"
 #include "G4Event.hh"
@@ -16,47 +16,45 @@
 
 EventAction::EventAction()
 {
-	mppcCollID = -1;
+    mppcCollID = -1;
 }
- 
+
 EventAction::~EventAction()
 {
 }
 
-void EventAction::BeginOfEventAction(const G4Event* evt)
+void EventAction::BeginOfEventAction (const G4Event* evt)
 {
-  	G4int evtNb = evt->GetEventID();
-  	if(evtNb%100 == 0 && evtNb!=0 ) 
-	{
-    		G4cout << "---> Begin of Event: " << evtNb << G4endl;
-  	}
+    G4int evtNb = evt->GetEventID();
+    if (evtNb % 100 == 0 && evtNb != 0) {
+        G4cout << "---> Begin of Event: " << evtNb << G4endl;
+    }
 
-  	G4SDManager * SDman = G4SDManager::GetSDMpointer();
+    G4SDManager* SDman = G4SDManager::GetSDMpointer();
 
-  	// -------------------- INSTANCE RUN/EVENT IN TREE ---------------------- //
-  	Int_t run = CreateTree::Instance() -> Run;
+    // -------------------- INSTANCE RUN/EVENT IN TREE ---------------------- //
+    Int_t run = CreateTree::Instance() -> Run;
 
-  	CreateTree::Instance()->Clear();
-  	CreateTree::Instance()->Run = run;
-  	CreateTree::Instance()->Event = evt->GetEventID();
+    CreateTree::Instance()->Clear();
+    CreateTree::Instance()->Run = run;
+    CreateTree::Instance()->Event = evt->GetEventID();
 
 }
 
-void EventAction::EndOfEventAction(const G4Event* evt)
+void EventAction::EndOfEventAction (const G4Event* evt)
 {
-  CreateTree::Instance()->Fill();
+    CreateTree::Instance()->Fill();
 
-  if(0) 
-  {
-    G4cout<<"==> event summary <=="<<G4endl;
-    G4cout<<"Number of optical photons produces in this event : "<<CreateTree::Instance()->NumOptPhotons<<G4endl;
-    G4cout<<"Number of absorbed photons (at boundary)         : "<<CreateTree::Instance()->NumBoundaryAbsorption<<G4endl;
-    G4cout<<"Number of absorbed photons (in crystal)          : "<<CreateTree::Instance()->NumOptPhotonsAbsorbed<<G4endl;
-    Int_t check=CreateTree::Instance()->NumOptPhotons;
-    check-=CreateTree::Instance()->NumBoundaryAbsorption;
-    check-=CreateTree::Instance()->NumOptPhotonsAbsorbed;
-    if(check!=0) G4cout<<"Check sum test failed: "<<check<<G4endl;
-  }
+    if (0) {
+        G4cout << "==> event summary <==" << G4endl;
+        G4cout << "Number of optical photons produces in this event : " << CreateTree::Instance()->NumOptPhotons << G4endl;
+        G4cout << "Number of absorbed photons (at boundary)         : " << CreateTree::Instance()->NumBoundaryAbsorption << G4endl;
+        G4cout << "Number of absorbed photons (in crystal)          : " << CreateTree::Instance()->NumOptPhotonsAbsorbed << G4endl;
+        Int_t check = CreateTree::Instance()->NumOptPhotons;
+        check -= CreateTree::Instance()->NumBoundaryAbsorption;
+        check -= CreateTree::Instance()->NumOptPhotonsAbsorbed;
+        if (check != 0) G4cout << "Check sum test failed: " << check << G4endl;
+    }
 
 }
 
