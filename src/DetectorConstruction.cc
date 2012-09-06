@@ -136,7 +136,6 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     }
 
 
-
     //
     // Visualization attributes
     //
