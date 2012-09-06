@@ -110,40 +110,12 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
         //Nothing - Crystal completely polished
 
     } else if (surConfig == 1) {
-        //CASE 1: WRAPPING WITH AIR GAP
-
-
+        cout << "Configuring a naked crystal, with only a tiny wrapping" << endl;
         /*-------CRYSTAL SURFACE-------*/
         OpCrystalSurface = new G4OpticalSurface ("crystal");
         initializeSurface (OpCrystalSurface, "crystal");
         initializeReflectivitySurface (OpCrystalSurface, "crystal");
         CrystalSurfaceTop   = new G4LogicalBorderSurface ("CrystalSurfaceTop", Crystal_phys, expHall_phys, OpCrystalSurface);
-
-
-        /*-------WRAPPING-------*/
-        OpWrappingSurface = new G4OpticalSurface ("wrapping");
-        initializeSurface (OpWrappingSurface, "wrapping");
-        initializeReflectivitySurface (OpWrappingSurface, "wrapping");
-        TopWrappingSurface = new G4LogicalBorderSurface ("TopWrappingSurface", TA_phys, expHall_phys, OpWrappingSurface);
-
-    } else if (surConfig == 2) {
-        //CASE 2: LUT CRYSTAL SURFACE
-
-
-        /*-------CRYSTAL SURFACE-------*/
-        OpCrystalSurface = new G4OpticalSurface ("crystal");
-        initializeSurface (OpCrystalSurface, "crystal");
-        initializeReflectivitySurface (OpCrystalSurface, "crystal");
-        CrystalSurfaceTop   = new G4LogicalBorderSurface ("CrystalSurfaceTop", Crystal_phys, TA_phys, OpCrystalSurface);
-
-        //CASE 3: CRYSTAL NO WRAPPING, UNIFIED CRYSTAL SURFACE
-    } else if (surConfig == 3) {
-        cout << "SONO QUIIIIIIIIIIIIII" << endl;
-        /*-------CRYSTAL SURFACE-------*/
-        OpCrystalSurface = new G4OpticalSurface ("crystal");
-        initializeSurface (OpCrystalSurface, "crystal");
-        initializeReflectivitySurface (OpCrystalSurface, "crystal");
-        CrystalSurfaceTop   = new G4LogicalBorderSurface ("CrystalSurfaceTop", Crystal_phys, TA_phys, OpCrystalSurface);
 
     }
 
@@ -160,11 +132,6 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //always return the physical World
     return expHall_phys;
 }
-
-
-
-
-
 
 
 //
@@ -199,19 +166,6 @@ G4bool DetectorConstruction::GetUpdated() const
 //
 void DetectorConstruction::initializeSurface (G4OpticalSurface* mySurface, string surfaceType)
 {
-
-    if (surfaceType == "wrapping") {
-        surfinish   = wrappingSurfinish;
-        RefFile     = wReffile;
-        reflectivity    = wReflectivity;
-        surrefind   = wSurrefind;
-        surtype     = wSurtype;
-        specularspike   = wSpecularspike;
-        specularlobe    = wSpecularlobe;
-        sigmaalpha  = wSigmaalpha;
-        backscatter     = wBackscatter;
-        lambertian  = wLambertian;
-    }
     if (surfaceType == "crystal") {
         surfinish   = crystalSurfinish;
         RefFile     = cReffile;
