@@ -13,7 +13,7 @@ set(CMAKE_MODULE_PATH
     ${PROJECT_SOURCE_DIR}/cmake/
     ${CMAKE_MODULE_PATH})
 
-find_package(Geant4 REQUIRED)
+find_package(Geant4 REQUIRED ui_all vis_all)
 find_package(ROOT REQUIRED)
 
 message("Geant4: ${Geant4_INCLUDE_DIRS}, root: ${ROOT_INCLUDE_DIR}")

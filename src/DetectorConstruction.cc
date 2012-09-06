@@ -117,7 +117,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
         OpCrystalSurface = new G4OpticalSurface ("crystal");
         initializeSurface (OpCrystalSurface, "crystal");
         initializeReflectivitySurface (OpCrystalSurface, "crystal");
-        CrystalSurfaceTop   = new G4LogicalBorderSurface ("CrystalSurfaceTop", Crystal_phys, TA_phys, OpCrystalSurface);
+        CrystalSurfaceTop   = new G4LogicalBorderSurface ("CrystalSurfaceTop", Crystal_phys, expHall_phys, OpCrystalSurface);
 
 
         /*-------WRAPPING-------*/
