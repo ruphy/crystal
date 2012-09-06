@@ -35,6 +35,16 @@
 
 using namespace std;
 
+class DetectorConstruction::Private {
+    Private() {
+        topLayerMaterial = MyMaterials::Air();
+    }
+
+    G4Material* topLayerMaterial;
+
+    friend class DetectorConstruction;
+};
+
 DetectorConstruction::DetectorConstruction()
 {
     // set defaults for geometry and material properties
@@ -44,11 +54,17 @@ DetectorConstruction::DetectorConstruction()
     crystal_abslength    = -1;
 
     updated = true;
+    d = new Private;
 }
 
 DetectorConstruction::~DetectorConstruction()
 {
-    ;
+    delete d;
+}
+
+void DetectorConstruction::setTopLayerMaterial(G4Material *material)
+{
+    d->topLayerMaterial = material;
 }
 
 G4VPhysicalVolume* DetectorConstruction::Construct()

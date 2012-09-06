@@ -27,6 +27,8 @@ public:
     DetectorConstruction();
     ~DetectorConstruction();
 
+    void setTopLayerMaterial(G4Material *material);
+
     // World dimensions
     G4double expHall_x;
     G4double expHall_y;
@@ -100,6 +102,10 @@ public:
     void initializeMaterials();
     void initializeSurface (G4OpticalSurface* mySurface, string surfaceType);
     void initializeReflectivitySurface (G4OpticalSurface* mySurface, string surfaceType);
+
+private:
+    class Private;
+    Private *d;
 };
 
 

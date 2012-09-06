@@ -25,6 +25,7 @@
 #include "StackingAction.hh"
 #include "SteppingVerbose.hh"
 #include "SteppingAction.hh"
+#include "MyMaterials.hh"
 
 #include "Randomize.hh"
 
@@ -110,19 +111,6 @@ int main (int argc, char** argv)
     G4double crystaly = config.read<double> ("crystaly");
     G4cout << "Crystal dimension y [mm]: " << crystaly << G4endl;
 
-    // Scintillator characteristics
-    G4cout << "\nScintillator properties: " << G4endl;
-    G4long material = config.read<int> ("scmaterial");
-    if (material == 1) G4cout << "Scintillator material: LSO" << G4endl;
-    else if (material == 2)  G4cout << "Scintillator material: LYSO" << G4endl;
-    else if (material == 3)  G4cout << "Scintillator material: LuAG:Ce" << G4endl;
-    else if (material == 4)  G4cout << "Scintillator material: LuAG:Pr" << G4endl;
-    else if (material == 5)  G4cout << "Scintillator material: PbWO" << G4endl;
-    else if (material == 6)  G4cout << "Scintillator material: Air" << G4endl;
-    else if (material > 6 || material <= 0) {
-        G4cerr << "<main>: Invalid material specifier: " << material << G4endl;
-        exit (0);
-    }
     G4double lightyield = config.read<double> ("lightyield");
     if (lightyield >= 0) {
         G4cout << "Light yield [1/MeV]: " << lightyield << G4endl;
@@ -155,7 +143,23 @@ int main (int argc, char** argv)
     // -----------------------------------------
 
     CreateTree* mytree = new CreateTree ("g4pet", HITS, ABSORPTIONS);
-    G4VUserDetectorConstruction* detector = new DetectorConstruction();
+    DetectorConstruction* detector = new DetectorConstruction();
+
+    G4Material *tlMaterial = 0;
+    switch (config.read<int> ("tlmaterial")) {
+        case 1:
+            G4cout << "Scintillator material: Silicon" << G4endl;
+            tlMaterial = MyMaterials::Silicon();
+            break;
+        case 2:
+            G4cout << "Scintillator material: Air" << G4endl;
+            tlMaterial = MyMaterials::Air();
+            break;
+        default:
+            G4cerr << "<main>: Invalid material specifier: " << config.read<int> ("tlmaterial") << G4endl;
+            exit (0);
+    }
+    detector->setTopLayerMaterial(tlMaterial);
 
     // -----------------------------------------
     // -----------------------------------------
