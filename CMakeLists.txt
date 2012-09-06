@@ -41,7 +41,8 @@ target_link_libraries(crystal ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 # relies on these scripts being in the current working directory.
 #
 set(crystal_CFGS
-  *.mac
+  vis.mac
+  gps.mac
   crystal.cfg
   run.in
   )
