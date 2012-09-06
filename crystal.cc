@@ -100,6 +100,7 @@ int main (int argc, char** argv)
     G4cout << "Store x,y,z of hits : " << HITS << G4endl;
     G4cout << "Store x,y,z of absorptions : " << ABSORPTIONS << G4endl;
 
+    G4int showFotons = config.read<double> ("showPhotons");
 
     // Other crystal parameters
     G4double len = config.read<double> ("height");
@@ -272,7 +273,7 @@ long int CreateSeed()
     s += getpid();
     cout << "PID  : " << getpid() << endl;
 
-    FILE* fp = fopen ("/proc/uptime", "r");
+    FILE* fp = fopen ("/dev/urandom", "r");
     int uptime, upsecs;
     if (fp != NULL) {
         char buf[BUFSIZ];

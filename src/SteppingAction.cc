@@ -157,7 +157,7 @@ void SteppingAction::UserSteppingAction (const G4Step* theStep)
         CreateTree::Instance()->MomReflZ.push_back (thePostPoint->GetMomentumDirection().z());
 
 
-        theStep->GetTrack()->SetTrackStatus (fStopAndKill);
+//         theStep->GetTrack()->SetTrackStatus (fStopAndKill);
     }
 
     if (thePrePV->GetName() == "TopAir" &&  thePostPV->GetName() == "World") {
