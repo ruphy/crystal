@@ -46,7 +46,7 @@
 #include "TCint.h"
 using namespace std;
 
-
+// Ciao vecchio pirata
 
 long int CreateSeed();
 
