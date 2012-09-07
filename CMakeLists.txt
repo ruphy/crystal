@@ -17,7 +17,7 @@ find_package(Geant4 REQUIRED ui_all vis_all)
 find_package(ROOT REQUIRED)
 
 message("Geant4: ${Geant4_INCLUDE_DIRS}, root: ${ROOT_INCLUDE_DIR}")
-include_directories(/usr/${Geant4_INCLUDE_DIRS} ${ROOT_INCLUDE_DIR} ${PROJECT_SOURCE_DIR}/include /usr/include/Geant4)
+include_directories(${Geant4_INCLUDE_DIRS} ${ROOT_INCLUDE_DIR} ${PROJECT_SOURCE_DIR}/include)
 add_definitions(${Geant4_DEFINITIONS})
 set(CMAKE_CXX_FLAGS ${Geant4_CXX_FLAGS})
 
@@ -27,12 +27,12 @@ set(CMAKE_CXX_FLAGS ${Geant4_CXX_FLAGS})
 # NB: headers are included so they will show up in IDEs
 #
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
-file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
+#file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
 #----------------------------------------------------------------------------
 # Add the executable, and link it to the Geant4 libraries
 #
-add_executable(crystal crystal.cc ${sources} ${headers})
+add_executable(crystal crystal.cc ${sources})
 target_link_libraries(crystal ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
 
 #----------------------------------------------------------------------------
