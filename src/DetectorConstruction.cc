@@ -84,10 +84,6 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
     G4OpticalSurface *OpCrystalSurface      = NULL;
 
 
-
-
-
-
     //
     // C O M M O N   V O L U M E S
     //
@@ -110,11 +106,11 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
     Crystal_phys = new G4PVPlacement(0, G4ThreeVector(0, 0, 0), Crystal_log, "Crystal", expHall_log, false, 0);
 
 
-    /*-------TOP AIR LAYER-------*/
+    /*-------Sensor-------*/
 
-    G4Box *TA_box = new G4Box("TopAir", 0.5 * crystal_x, 0.5 * crystal_y, 0.5 * airgap);
-    G4LogicalVolume *TA_log  = new G4LogicalVolume(TA_box, Air, "TopAir", 0, 0, 0);
-    G4VPhysicalVolume *TA_phys = new G4PVPlacement(0, G4ThreeVector(0, 0, 0.5 * (crystal_height + airgap)), TA_log, "TopAir", expHall_log, false, 0);
+    G4Box *TA_box = new G4Box("Sensor", 0.5 * crystal_x, 0.5 * crystal_y, 0.5 * airgap);
+    G4LogicalVolume *TA_log  = new G4LogicalVolume(TA_box, Air, "Sensor", 0, 0, 0);
+    G4VPhysicalVolume *TA_phys = new G4PVPlacement(0, G4ThreeVector(0, 0, 0.5 * (crystal_height + airgap)), TA_log, "Sensor", expHall_log, false, 0);
     TA_log->SetVisAttributes(G4Color(128/255,0,0));
 
 
