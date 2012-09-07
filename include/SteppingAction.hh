@@ -16,7 +16,7 @@ public:
 
     SteppingAction();
     ~SteppingAction();
-    virtual void UserSteppingAction (const G4Step*);
+    virtual void UserSteppingAction(const G4Step *);
 
     void setShowPhotons(bool showPhotons);
     //void SetOneStepPrimaries(G4bool b){oneStepPrimaries=b;}

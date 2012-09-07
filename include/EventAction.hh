@@ -20,8 +20,8 @@ public:
     EventAction();
     ~EventAction();
 
-    void BeginOfEventAction (const G4Event*);
-    void EndOfEventAction (const G4Event*);
+    void BeginOfEventAction(const G4Event *);
+    void EndOfEventAction(const G4Event *);
 
 };
 

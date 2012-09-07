@@ -10,7 +10,7 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PrimaryGeneratorMessenger::PrimaryGeneratorMessenger (
-    PrimaryGeneratorAction* Gun)
+    PrimaryGeneratorAction *Gun)
     : Action (Gun)
 {
     /*
@@ -39,7 +39,7 @@ PrimaryGeneratorMessenger::~PrimaryGeneratorMessenger()
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 void PrimaryGeneratorMessenger::SetNewValue (
-    G4UIcommand* command, G4String newValue)
+    G4UIcommand *command, G4String newValue)
 {
     /*
     if( command == polarCmd ) {

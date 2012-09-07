@@ -45,58 +45,58 @@ class G4OpticalPhysicsMessenger: public G4UImessenger
 
 public:
 
-    G4OpticalPhysicsMessenger (G4OpticalPhysics*);
+    G4OpticalPhysicsMessenger(G4OpticalPhysics *);
     ~G4OpticalPhysicsMessenger();
 
     // methods
-    void SetNewValue (G4UIcommand*, G4String);
+    void SetNewValue(G4UIcommand *, G4String);
 
 private:
 
     /// Not implemented
     G4OpticalPhysicsMessenger();
     /// Not implemented
-    G4OpticalPhysicsMessenger (const G4OpticalPhysicsMessenger& right);
+    G4OpticalPhysicsMessenger(const G4OpticalPhysicsMessenger &right);
     /// Not implemented
-    G4OpticalPhysicsMessenger& operator= (const G4OpticalPhysicsMessenger& right);
+    G4OpticalPhysicsMessenger &operator= (const G4OpticalPhysicsMessenger &right);
 
     // data members
 
     /// associated clas
-    G4OpticalPhysics*     fOpticalPhysics;
+    G4OpticalPhysics     *fOpticalPhysics;
 
     /// command directory
-    G4UIdirectory*         fDir;
+    G4UIdirectory         *fDir;
 
     /// selected optical process
-    G4VProcess*            fSelectedProcess;
+    G4VProcess            *fSelectedProcess;
 
     /// selectOpProcess command
-    G4UIcmdWithAString*    fSelectOpProcessCmd;
+    G4UIcmdWithAString    *fSelectOpProcessCmd;
 
     /// setCerenkovActivation command
-    G4UIcmdWithABool*      fSetOpProcessActivationCmd;
+    G4UIcmdWithABool      *fSetOpProcessActivationCmd;
 
     /// setCerenkovVerbose command
-    G4UIcmdWithAnInteger*  fSetOpProcessVerboseCmd;
+    G4UIcmdWithAnInteger  *fSetOpProcessVerboseCmd;
 
     /// setCerenkovMaxPhotons command
-    G4UIcmdWithAnInteger*  fSetCerenkovMaxPhotonsCmd;
+    G4UIcmdWithAnInteger  *fSetCerenkovMaxPhotonsCmd;
 
     /// setCerenkovMaxBetaChange command
-    G4UIcmdWithADouble*    fSetCerenkovMaxBetaChangeCmd;
+    G4UIcmdWithADouble    *fSetCerenkovMaxBetaChangeCmd;
 
     /// setScintillationYieldFactor command
-    G4UIcmdWithADouble*    fSetScintillationYieldFactorCmd;
+    G4UIcmdWithADouble    *fSetScintillationYieldFactorCmd;
 
     /// setOpticalSurfaceModel command
-    G4UIcmdWithAString*    fSetOpticalSurfaceModelCmd;
+    G4UIcmdWithAString    *fSetOpticalSurfaceModelCmd;
 
     /// setWLSTimeProfile command
-    G4UIcmdWithAString*    fSetWLSTimeProfileCmd;
+    G4UIcmdWithAString    *fSetWLSTimeProfileCmd;
 
     /// setTrackSecondariesFirst command
-    G4UIcmdWithABool*      fSetTrackSecondariesFirstCmd;
+    G4UIcmdWithABool      *fSetTrackSecondariesFirstCmd;
 
 };
 

@@ -52,7 +52,7 @@ long int CreateSeed();
 
 
 
-int main (int argc, char** argv)
+int main(int argc, char **argv)
 {
     // -----------------------------------------
     // -----------------------------------------
@@ -60,13 +60,13 @@ int main (int argc, char** argv)
     // -----------------------------------------
     // -----------------------------------------
 
-    if (argc < 2) {
+    if(argc < 2) {
         cout << "Syntax: crystal <configuration file>" << endl;
-        exit (0);
+        exit(0);
     }
 #pragma link off all classes;
 #pragma link C++ class std::vector<float>;
-    gInterpreter->GenerateDictionary ("vector<float>", "vector");
+    gInterpreter->GenerateDictionary("vector<float>", "vector");
 
 
 
@@ -83,15 +83,15 @@ int main (int argc, char** argv)
     cout << "=====>   C O N F I G U R A T I O N   <====\n" << endl;
 
     G4cout << "Configuration file: '" << argv[1] << "'" << G4endl;
-    ConfigFile config (argv[1]);
+    ConfigFile config(argv[1]);
     string filename;
-    config.readInto (filename, "output");
+    config.readInto(filename, "output");
     G4cout << "Writing data to file '" << filename << "' ..." << G4endl;
     string macro;
-    config.readInto (macro, "macro");
+    config.readInto(macro, "macro");
     G4cout << "Reading macro '" << macro << "' ..." << G4endl;
     G4long myseed = config.read<long int> ("seed");
-    if (myseed == -1) {
+    if(myseed == -1) {
         G4cout << "Creating random seed..." << G4endl;
         myseed = CreateSeed();
     }
@@ -112,19 +112,19 @@ int main (int argc, char** argv)
     G4cout << "Crystal dimension y [mm]: " << crystaly << G4endl;
 
     G4double lightyield = config.read<double> ("lightyield");
-    if (lightyield >= 0) {
+    if(lightyield >= 0) {
         G4cout << "Light yield [1/MeV]: " << lightyield << G4endl;
     } else {
         G4cout << "Light yield [1/MeV]: material default" << G4endl;
     }
     G4double risetime = config.read<double> ("risetime");
-    if (risetime >= 0) {
+    if(risetime >= 0) {
         G4cout << "Scintillation rise time [ns]: " << risetime << G4endl;
     } else {
         G4cout << "Scintillation rise time [ns]: material default" << G4endl;
     }
     G4double abslen = config.read<double> ("abslength");
-    if (abslen >= 0) {
+    if(abslen >= 0) {
         G4cout << "Absorption length in crystal [mm]: " << abslen << G4endl;
     } else {
         G4cout << "Absorption length in crystal [mm]: material default" << G4endl;
@@ -142,22 +142,22 @@ int main (int argc, char** argv)
     // -----------------------------------------
     // -----------------------------------------
 
-    CreateTree* mytree = new CreateTree ("g4pet", HITS, ABSORPTIONS);
-    DetectorConstruction* detector = new DetectorConstruction();
+    CreateTree *mytree = new CreateTree("g4pet", HITS, ABSORPTIONS);
+    DetectorConstruction *detector = new DetectorConstruction();
 
     G4Material *tlMaterial = 0;
-    switch (config.read<int> ("tlmaterial")) {
-        case 1:
-            G4cout << "Scintillator material: Silicon" << G4endl;
-            tlMaterial = MyMaterials::Silicon();
-            break;
-        case 2:
-            G4cout << "Scintillator material: Air" << G4endl;
-            tlMaterial = MyMaterials::Air();
-            break;
-        default:
-            G4cerr << "<main>: Invalid material specifier: " << config.read<int> ("tlmaterial") << G4endl;
-            exit (0);
+    switch(config.read<int> ("tlmaterial")) {
+    case 1:
+        G4cout << "Scintillator material: Silicon" << G4endl;
+        tlMaterial = MyMaterials::Silicon();
+        break;
+    case 2:
+        G4cout << "Scintillator material: Air" << G4endl;
+        tlMaterial = MyMaterials::Air();
+        break;
+    default:
+        G4cerr << "<main>: Invalid material specifier: " << config.read<int> ("tlmaterial") << G4endl;
+        exit(0);
     }
     detector->setTopLayerMaterial(tlMaterial);
 
@@ -170,62 +170,62 @@ int main (int argc, char** argv)
     cout << "\n\n" << endl;
     cout << "=====>   S I M U L A T I O N   <====" << endl;
 
-    CLHEP::HepRandom::setTheSeed (myseed);
+    CLHEP::HepRandom::setTheSeed(myseed);
 
     // User Verbose output class
-    G4VSteppingVerbose* verbosity = new SteppingVerbose;
-    G4VSteppingVerbose::SetInstance (verbosity);
+    G4VSteppingVerbose *verbosity = new SteppingVerbose;
+    G4VSteppingVerbose::SetInstance(verbosity);
 
     // Run manager
-    G4RunManager* runManager = new G4RunManager;
+    G4RunManager *runManager = new G4RunManager;
 
     // UserInitialization classes - mandatory / Detector
-    runManager->SetUserInitialization (detector);
+    runManager->SetUserInitialization(detector);
 
     // UserInitialization classes - mandatory / Physics list
-    G4VUserPhysicsList* physics = NULL;
+    G4VUserPhysicsList *physics = NULL;
     physics = new PhysicsList;
-    runManager->SetUserInitialization (physics);
+    runManager->SetUserInitialization(physics);
 
     // Visualization manager
 #ifdef G4VIS_USE
-    G4VisManager* visManager = new G4VisExecutive;
+    G4VisManager *visManager = new G4VisExecutive;
     visManager->Initialize();
 #endif
 
     // UserAction classes
-    G4UserRunAction* run_action = new RunAction;
-    runManager->SetUserAction (run_action);
+    G4UserRunAction *run_action = new RunAction;
+    runManager->SetUserAction(run_action);
 
     // Gen action
-    G4VUserPrimaryGeneratorAction* gen_action = NULL;
+    G4VUserPrimaryGeneratorAction *gen_action = NULL;
     gen_action = new PrimaryGeneratorAction;
-    runManager->SetUserAction (gen_action);
+    runManager->SetUserAction(gen_action);
 
     // Event action
-    G4UserEventAction* event_action = new EventAction;
-    runManager->SetUserAction (event_action);
+    G4UserEventAction *event_action = new EventAction;
+    runManager->SetUserAction(event_action);
 
     // Stacking action
-    G4UserStackingAction* stacking_action = new StackingAction;
-    runManager->SetUserAction (stacking_action);
+    G4UserStackingAction *stacking_action = new StackingAction;
+    runManager->SetUserAction(stacking_action);
 
     // Stepping action
-    SteppingAction* stepping_action = new SteppingAction;
+    SteppingAction *stepping_action = new SteppingAction;
     stepping_action->setShowPhotons(showPhotons);
-    runManager->SetUserAction (stepping_action);
+    runManager->SetUserAction(stepping_action);
 
     // Initialize G4 kernel
     runManager->Initialize();
 
     // Get the pointer to the User Interface manager
-    G4UImanager* UI = G4UImanager::GetUIpointer();
+    G4UImanager *UI = G4UImanager::GetUIpointer();
 
-    if (macro == "") {
+    if(macro == "") {
         // Define UI session for interactive mode
-        G4UIsession* session = 0;
+        G4UIsession *session = 0;
 #ifdef G4UI_USE_TCSH
-        session = new G4UIterminal (new G4UItcsh);
+        session = new G4UIterminal(new G4UItcsh);
 #else
         session = new G4UIterminal();
 #endif
@@ -237,11 +237,11 @@ int main (int argc, char** argv)
         //UI->ApplyCommand("/control/execute physics.in");
         G4String command = "/control/execute ";
         G4String fileName = macro;
-        UI->ApplyCommand (command + fileName);
+        UI->ApplyCommand(command + fileName);
     }
 
     //per fermare il terminale utente
-    G4UIExecutive* ui = new G4UIExecutive (argc, argv);
+    G4UIExecutive *ui = new G4UIExecutive(argc, argv);
     ui->SessionStart();
     delete ui;
 
@@ -256,10 +256,10 @@ int main (int argc, char** argv)
     delete runManager;
     delete verbosity;
 
-    if (argv[2] != NULL) {
+    if(argv[2] != NULL) {
         filename = argv[2];
     }
-    TFile* outfile = new TFile ( (TString) filename, "RECREATE");
+    TFile *outfile = new TFile((TString) filename, "RECREATE");
     outfile->cd();
     G4cout << "Writing tree to file " << filename << " ..." << G4endl;
     mytree->GetTree()->Write();
@@ -273,34 +273,34 @@ int main (int argc, char** argv)
 long int CreateSeed()
 {
     TRandom1 rangen;
-    long int s = time (0);
+    long int s = time(0);
     cout << "Time : " << s << endl;
     s += getpid();
     cout << "PID  : " << getpid() << endl;
 
-    FILE* fp = fopen ("/dev/urandom", "r");
+    FILE *fp = fopen("/dev/urandom", "r");
     int uptime, upsecs;
-    if (fp != NULL) {
+    if(fp != NULL) {
         char buf[BUFSIZ];
         int res;
-        char* b = fgets (buf, BUFSIZ, fp);
-        if (b == buf) {
+        char *b = fgets(buf, BUFSIZ, fp);
+        if(b == buf) {
             /* The following sscanf must use the C locale.  */
-            setlocale (LC_NUMERIC, "C");
-            res = sscanf (buf, "%i", &upsecs);
-            setlocale (LC_NUMERIC, "");
-            if (res == 1) uptime = (time_t) upsecs;
+            setlocale(LC_NUMERIC, "C");
+            res = sscanf(buf, "%i", &upsecs);
+            setlocale(LC_NUMERIC, "");
+            if(res == 1) uptime = (time_t) upsecs;
         }
-        fclose (fp);
+        fclose(fp);
     }
 
     cout << "Uptime: " << upsecs << endl;
     s += upsecs;
 
     cout << "Seed for srand: " << s << endl;
-    srand (s);
-    rangen.SetSeed (rand());
-    long int seed = round (1000000 * rangen.Uniform());
+    srand(s);
+    rangen.SetSeed(rand());
+    long int seed = round(1000000 * rangen.Uniform());
     return seed;
 }
 

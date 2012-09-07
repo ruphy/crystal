@@ -39,30 +39,30 @@ public:
     void save();
     // Save histogramms to file
 
-    void add1D (const G4String&, const G4String&, G4int nb = 100, G4double x1 = 0.,
-                G4double x2 = 1., G4double u = 1.);
+    void add1D(const G4String &, const G4String &, G4int nb = 100, G4double x1 = 0.,
+               G4double x2 = 1., G4double u = 1.);
     // In this method histogramms are predefined
 
-    void setHisto1D (G4int, G4int, G4double, G4double, G4double);
+    void setHisto1D(G4int, G4int, G4double, G4double, G4double);
     // It change bins and boundaries
 
-    void fill (G4int, G4double, G4double);
+    void fill(G4int, G4double, G4double);
     // Histogramms are filled
 
-    void scale (G4int, G4double);
+    void scale(G4int, G4double);
 
-    void addTuple (const G4String&, const G4String&, const G4String&);
+    void addTuple(const G4String &, const G4String &, const G4String &);
     // In this method nTuple is booked
 
-    void fillTuple (const G4String&, G4double);
+    void fillTuple(const G4String &, G4double);
     // Fill nTuple parameter
 
     void addRow();
     // Save tuple event
 
-    void setFileName (const G4String&);
+    void setFileName(const G4String &);
 
-    void setFileType (const G4String&);
+    void setFileType(const G4String &);
 
 private:
 
@@ -75,11 +75,11 @@ private:
     G4int    verbose;
     G4int    defaultAct;
 
-    std::vector<AIDA::IHistogram1D*> histo;
-    AIDA::IAnalysisFactory* af;
-    AIDA::ITuple*   ntup;
-    AIDA::ITree*    tree;
-    HistoMessenger* messenger;
+    std::vector<AIDA::IHistogram1D *> histo;
+    AIDA::IAnalysisFactory *af;
+    AIDA::ITuple   *ntup;
+    AIDA::ITree    *tree;
+    HistoMessenger *messenger;
     std::vector<G4int>     active;
     std::vector<G4int>     bins;
     std::vector<G4double>  xmin;

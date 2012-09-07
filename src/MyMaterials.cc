@@ -11,15 +11,15 @@ MyMaterials::~MyMaterials()
     ;
 }
 
-G4Material* MyMaterials::Air()
+G4Material *MyMaterials::Air()
 {
     G4double a, z, density;
     G4int nelements;
 
-    G4Element* N = new G4Element ("Nitrogen", "N", z = 7 , a = 14.01 * g / mole);
-    G4Element* O = new G4Element ("Oxygen"  , "O", z = 8 , a = 16.00 * g / mole);
+    G4Element *N = new G4Element ("Nitrogen", "N", z = 7 , a = 14.01 * g / mole);
+    G4Element *O = new G4Element ("Oxygen"  , "O", z = 8 , a = 16.00 * g / mole);
 
-    G4Material* Air = new G4Material ("Air", density = 1.29 * mg / cm3, nelements = 2);
+    G4Material *Air = new G4Material ("Air", density = 1.29 * mg / cm3, nelements = 2);
     Air->AddElement (N, 70.*perCent);
     Air->AddElement (O, 30.*perCent);
 
@@ -44,7 +44,7 @@ G4Material* MyMaterials::Air()
         1.00, 1.00, 1.00, 1.00, 1.00
     };
 
-    G4MaterialPropertiesTable* myMPT = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable *myMPT = new G4MaterialPropertiesTable();
     myMPT->AddProperty ("RINDEX", PhotonEnergy, RefractiveIndex, nEntries);
 
     Air->SetMaterialPropertiesTable (myMPT);
@@ -53,14 +53,14 @@ G4Material* MyMaterials::Air()
 }
 
 
-G4Material* MyMaterials::Water()
+G4Material *MyMaterials::Water()
 {
     G4double a, z, density;
     G4int nelements;
 
-    G4Element* H = new G4Element ("Hydrogen", "H", z = 1 , a = 1.01 * g / mole);
-    G4Element* O = new G4Element ("Oxygen"  , "O", z = 8 , a = 16.00 * g / mole);
-    G4Material* Water = new G4Material ("Water", density = 1.0 * g / cm3, nelements = 2);
+    G4Element *H = new G4Element ("Hydrogen", "H", z = 1 , a = 1.01 * g / mole);
+    G4Element *O = new G4Element ("Oxygen"  , "O", z = 8 , a = 16.00 * g / mole);
+    G4Material *Water = new G4Material ("Water", density = 1.0 * g / cm3, nelements = 2);
     Water->AddElement (H, 2);
     Water->AddElement (O, 1);
 
@@ -111,7 +111,7 @@ G4Material* MyMaterials::Water()
         7.00, 6.00, 5.00, 4.00
     };
 
-    G4MaterialPropertiesTable* myMPT = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable *myMPT = new G4MaterialPropertiesTable();
     myMPT->AddProperty ("RINDEX",       PhotonEnergy, RefractiveIndex, nEntries);
     myMPT->AddProperty ("ABSLENGTH",    PhotonEnergy, Absorption,      nEntries);
     myMPT->AddProperty ("FASTCOMPONENT", PhotonEnergy, ScintilFast,     nEntries);
@@ -127,15 +127,15 @@ G4Material* MyMaterials::Water()
 
     return Water;
 }
-G4Material* MyMaterials::Vacuum()
+G4Material *MyMaterials::Vacuum()
 {
     G4double a, z, density;
     G4int nelements;
 
-    G4Element* N = new G4Element ("Nitrogen", "N", z = 7 , a = 14.01 * g / mole);
-    G4Element* O = new G4Element ("Oxygen"  , "O", z = 8 , a = 16.00 * g / mole);
+    G4Element *N = new G4Element ("Nitrogen", "N", z = 7 , a = 14.01 * g / mole);
+    G4Element *O = new G4Element ("Oxygen"  , "O", z = 8 , a = 16.00 * g / mole);
 
-    G4Material* Air = new G4Material ("Air", density = 0.001 * mg / cm3, nelements = 2);
+    G4Material *Air = new G4Material ("Air", density = 0.001 * mg / cm3, nelements = 2);
     Air->AddElement (N, 70.*perCent);
     Air->AddElement (O, 30.*perCent);
 
@@ -147,19 +147,19 @@ G4Material* MyMaterials::Vacuum()
     G4double RefractiveIndex[nEntries] =
     { 1.00, 1.00, 1.00 };
 
-    G4MaterialPropertiesTable* myMPT = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable *myMPT = new G4MaterialPropertiesTable();
     myMPT->AddProperty ("RINDEX", PhotonEnergy, RefractiveIndex, nEntries);
 
     Air->SetMaterialPropertiesTable (myMPT);
 
     return Air;
 }
-G4Material* MyMaterials::Silicon()
+G4Material *MyMaterials::Silicon()
 {
     G4double a, z, density;
 
-    G4Element* Si = new G4Element ("Silicon",    "Si", z = 14., a = 28.09 * g / mole);
-    G4Material* Silicon = new G4Material ("Silicon", density = 2.33 * g / cm3, 1);
+    G4Element *Si = new G4Element ("Silicon",    "Si", z = 14., a = 28.09 * g / mole);
+    G4Material *Silicon = new G4Material ("Silicon", density = 2.33 * g / cm3, 1);
     Silicon->AddElement (Si, 1);
 
     const G4int NUM = 4;
@@ -168,7 +168,7 @@ G4Material* MyMaterials::Silicon()
     G4double RIND_INDEX[NUM]     = { 4.0, 4.0, 4.0, 4.0 };
     G4double ABS_LENGTH[NUM]     = { 0.1 * mm, 0.1 * mm, 0.1 * mm, 0.1 * mm};
 
-    G4MaterialPropertiesTable* Si_mt = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable *Si_mt = new G4MaterialPropertiesTable();
     Si_mt->AddProperty ("RINDEX",        Energy,  RIND_INDEX,     NUM);
     Si_mt->AddProperty ("ABSLENGTH",     Energy,  ABS_LENGTH,     NUM);
 
@@ -177,14 +177,14 @@ G4Material* MyMaterials::Silicon()
     return Silicon;
 
 }
-G4Material* MyMaterials::OpticalGrease()
+G4Material *MyMaterials::OpticalGrease()
 {
     G4double a, z, density;
-    G4Element* H = new G4Element ("Hydrogen", "H", z = 1 , a = 1.01 * g / mole);
-    G4Element* O = new G4Element ("Oxygen"  , "O", z = 8 , a = 16.00 * g / mole);
-    G4Element* C = new G4Element ("Carbon"  , "C", z = 6 , a = 12.01 * g / mole);
+    G4Element *H = new G4Element ("Hydrogen", "H", z = 1 , a = 1.01 * g / mole);
+    G4Element *O = new G4Element ("Oxygen"  , "O", z = 8 , a = 16.00 * g / mole);
+    G4Element *C = new G4Element ("Carbon"  , "C", z = 6 , a = 12.01 * g / mole);
 
-    G4Material* Grease = new G4Material ("Grease", density = 1.0 * g / cm3, 3);
+    G4Material *Grease = new G4Material ("Grease", density = 1.0 * g / cm3, 3);
     Grease->AddElement (C, 1);
     Grease->AddElement (H, 1);
     Grease->AddElement (O, 1);
@@ -218,7 +218,7 @@ G4Material* MyMaterials::OpticalGrease()
 //            30.000*m, 28.500*m, 27.000*m, 24.500*m, 22.000*m, 19.500*m,
 //            17.500*m, 14.500*m };
 
-    G4MaterialPropertiesTable* myMPT = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable *myMPT = new G4MaterialPropertiesTable();
     myMPT->AddProperty ("RINDEX",       PhotonEnergy, RefractiveIndex, nEntries);
 //   myMPT->AddProperty("ABSLENGTH",    PhotonEnergy, Absorption,      nEntries);
     Grease->SetMaterialPropertiesTable (myMPT);
@@ -226,14 +226,14 @@ G4Material* MyMaterials::OpticalGrease()
 }
 
 
-G4Material* MyMaterials::LUAGCE()  // Lutetium Aluminum Garnet
+G4Material *MyMaterials::LUAGCE()  // Lutetium Aluminum Garnet
 {
     G4double a, z, density;
-    G4Element*  O = new G4Element ("Oxygen",    "O",   z = 8,  a = 16.00 * g / mole);
-    G4Element* Lu = new G4Element ("Lutetium",  "Lu",  z = 71, a = 174.97 * g / mole);
-    G4Element* Al = new G4Element ("Aluminum",  "Al",  z = 27, a = 28.09 * g / mole);
+    G4Element  *O = new G4Element ("Oxygen",    "O",   z = 8,  a = 16.00 * g / mole);
+    G4Element *Lu = new G4Element ("Lutetium",  "Lu",  z = 71, a = 174.97 * g / mole);
+    G4Element *Al = new G4Element ("Aluminum",  "Al",  z = 27, a = 28.09 * g / mole);
 
-    G4Material* mat = new G4Material ("LUAG", density = 6.7 * g / cm3, 3);
+    G4Material *mat = new G4Material ("LUAG", density = 6.7 * g / cm3, 3);
     mat->AddElement (Lu, 3);
     mat->AddElement (Al, 12);
     mat->AddElement (O, 5);
@@ -253,7 +253,7 @@ G4Material* MyMaterials::LUAGCE()  // Lutetium Aluminum Garnet
     G4double ABS_LENGTH[NUMENTRIES_2]       = { 138.*mm, 138.*mm, 138.*mm };
     //G4double Rayleigh[NUMENTRIES_2]       = { 138.*mm, 138.*mm, 138.*mm};
 
-    G4MaterialPropertiesTable* mt = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable *mt = new G4MaterialPropertiesTable();
     mt->AddProperty ("FASTCOMPONENT", FAST_Energy, FAST_COMPONENT, NUMENTRIES_1);
     mt->AddProperty ("RINDEX",        RIND_Energy, RIND_INDEX,     NUMENTRIES_2);
     mt->AddProperty ("ABSLENGTH",     ABS_Energy,  ABS_LENGTH,     NUMENTRIES_2);
@@ -268,14 +268,14 @@ G4Material* MyMaterials::LUAGCE()  // Lutetium Aluminum Garnet
 
     return mat;
 }
-G4Material* MyMaterials::LUAGPR()
+G4Material *MyMaterials::LUAGPR()
 {
     G4double a, z, density;
-    G4Element*  O = new G4Element ("Oxygen",    "O",   z = 8,  a = 16.00 * g / mole);
-    G4Element* Lu = new G4Element ("Lutetium",  "Lu",  z = 71, a = 174.97 * g / mole);
-    G4Element* Al = new G4Element ("Aluminum",  "Al",  z = 27, a = 28.09 * g / mole);
+    G4Element  *O = new G4Element ("Oxygen",    "O",   z = 8,  a = 16.00 * g / mole);
+    G4Element *Lu = new G4Element ("Lutetium",  "Lu",  z = 71, a = 174.97 * g / mole);
+    G4Element *Al = new G4Element ("Aluminum",  "Al",  z = 27, a = 28.09 * g / mole);
 
-    G4Material* mat = new G4Material ("LUAG", density = 6.7 * g / cm3, 3);
+    G4Material *mat = new G4Material ("LUAG", density = 6.7 * g / cm3, 3);
     mat->AddElement (Lu, 3);
     mat->AddElement (Al, 12);
     mat->AddElement (O, 5);
@@ -292,7 +292,7 @@ G4Material* MyMaterials::LUAGPR()
     G4double ABS_LENGTH[NUMENTRIES_2]       = { 138.*mm, 138.*mm, 138.*mm };
     //G4double Rayleigh[NUMENTRIES_2]       = { 138.*mm, 138.*mm, 138.*mm};
 
-    G4MaterialPropertiesTable* mt = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable *mt = new G4MaterialPropertiesTable();
     mt->AddProperty ("FASTCOMPONENT", FAST_Energy, FAST_COMPONENT, NUMENTRIES_1);
     mt->AddProperty ("RINDEX",        RIND_Energy, RIND_INDEX,     NUMENTRIES_2);
     mt->AddProperty ("ABSLENGTH",     ABS_Energy,  ABS_LENGTH,     NUMENTRIES_2);
@@ -307,14 +307,14 @@ G4Material* MyMaterials::LUAGPR()
 
     return mat;
 }
-G4Material* MyMaterials::LYSO()
+G4Material *MyMaterials::LYSO()
 {
     G4double a, z, density;
-    G4Element*  O = new G4Element ("Oxygen",    "O",   z = 8.,  a = 16.00 * g / mole);
-    G4Element* Lu = new G4Element ("Lutetium",  "Lu",  z = 71., a = 174.97 * g / mole);
-    G4Element* Si = new G4Element ("Silicon",   "Si",  z = 14., a = 28.09 * g / mole);
+    G4Element  *O = new G4Element ("Oxygen",    "O",   z = 8.,  a = 16.00 * g / mole);
+    G4Element *Lu = new G4Element ("Lutetium",  "Lu",  z = 71., a = 174.97 * g / mole);
+    G4Element *Si = new G4Element ("Silicon",   "Si",  z = 14., a = 28.09 * g / mole);
 
-    G4Material* mat = new G4Material ("LYSO", density = 7.1 * g / cm3, 3, kStateSolid);
+    G4Material *mat = new G4Material ("LYSO", density = 7.1 * g / cm3, 3, kStateSolid);
     mat->AddElement (Lu, 2);
     mat->AddElement (Si, 1);
     mat->AddElement (O, 5);
@@ -866,7 +866,7 @@ G4Material* MyMaterials::LYSO()
     //G4double Rayleigh[NUMENTRIES_2]       = { 138.*mm, 138.*mm, 138.*mm};
 
 
-    G4MaterialPropertiesTable* mt = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable *mt = new G4MaterialPropertiesTable();
     mt->AddProperty ("FASTCOMPONENT", FAST_Energy, FAST_COMPONENT, NUMENTRIES_1);
     mt->AddProperty ("RINDEX",        RIND_Energy, RIND_INDEX,     NUMENTRIES_2);
     mt->AddProperty ("ABSLENGTH",     ABS_Energy,  ABS_LENGTH,     NUMENTRIES_3);
@@ -881,14 +881,14 @@ G4Material* MyMaterials::LYSO()
 
     return mat;
 }
-G4Material* MyMaterials::LSO()
+G4Material *MyMaterials::LSO()
 {
     G4double a, z, density;
-    G4Element*  O = new G4Element ("Oxygen",    "O",   z = 8.,  a = 16.00 * g / mole);
-    G4Element* Lu = new G4Element ("Lutetium",  "Lu",  z = 71., a = 174.97 * g / mole);
-    G4Element* Si = new G4Element ("Silicon",   "Si",  z = 14., a = 28.09 * g / mole);
+    G4Element  *O = new G4Element ("Oxygen",    "O",   z = 8.,  a = 16.00 * g / mole);
+    G4Element *Lu = new G4Element ("Lutetium",  "Lu",  z = 71., a = 174.97 * g / mole);
+    G4Element *Si = new G4Element ("Silicon",   "Si",  z = 14., a = 28.09 * g / mole);
 
-    G4Material* LSO = new G4Material ("LSO", density = 7.4 * g / cm3, 3);
+    G4Material *LSO = new G4Material ("LSO", density = 7.4 * g / cm3, 3);
     LSO->AddElement (Lu, 2);
     LSO->AddElement (Si, 1);
     LSO->AddElement (O, 5);
@@ -1292,7 +1292,7 @@ G4Material* MyMaterials::LSO()
     G4double LSO_ABS_LENGTH[LSO_NUMENTRIES_2]       = { 1 * mm, 138.*mm, 138.*mm, 138.*mm };
     //G4double LSO_Rayleigh[LSO_NUMENTRIES_2]       = { 138.*mm, 138.*mm, 138.*mm};
 
-    G4MaterialPropertiesTable* LSO_mt = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable *LSO_mt = new G4MaterialPropertiesTable();
     LSO_mt->AddProperty ("FASTCOMPONENT", LSO_FAST_Energy, LSO_FAST_COMPONENT, LSO_NUMENTRIES_1);
     LSO_mt->AddProperty ("RINDEX",        LSO_RIND_Energy, LSO_RIND_INDEX,     LSO_NUMENTRIES_2);
     LSO_mt->AddProperty ("ABSLENGTH",     LSO_ABS_Energy,  LSO_ABS_LENGTH,     LSO_NUMENTRIES_2);
@@ -1325,14 +1325,14 @@ G4Material* MyMaterials::LSO()
 }
 
 
-G4Material* MyMaterials::lowLYLYSO()
+G4Material *MyMaterials::lowLYLYSO()
 {
     G4double a, z, density;
-    G4Element*  O = new G4Element ("Oxygen",    "O",   z = 8.,  a = 16.00 * g / mole);
-    G4Element* Lu = new G4Element ("Lutetium",  "Lu",  z = 71., a = 174.97 * g / mole);
-    G4Element* Si = new G4Element ("Silicon",   "Si",  z = 14., a = 28.09 * g / mole);
+    G4Element  *O = new G4Element ("Oxygen",    "O",   z = 8.,  a = 16.00 * g / mole);
+    G4Element *Lu = new G4Element ("Lutetium",  "Lu",  z = 71., a = 174.97 * g / mole);
+    G4Element *Si = new G4Element ("Silicon",   "Si",  z = 14., a = 28.09 * g / mole);
 
-    G4Material* mat = new G4Material ("LYSO", density = 7.1 * g / cm3, 3, kStateSolid);
+    G4Material *mat = new G4Material ("LYSO", density = 7.1 * g / cm3, 3, kStateSolid);
     mat->AddElement (Lu, 2);
     mat->AddElement (Si, 1);
     mat->AddElement (O, 5);
@@ -1884,7 +1884,7 @@ G4Material* MyMaterials::lowLYLYSO()
     //G4double Rayleigh[NUMENTRIES_2]       = { 138.*mm, 138.*mm, 138.*mm};
 
 
-    G4MaterialPropertiesTable* mt = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable *mt = new G4MaterialPropertiesTable();
     mt->AddProperty ("FASTCOMPONENT", FAST_Energy, FAST_COMPONENT, NUMENTRIES_1);
     mt->AddProperty ("RINDEX",        RIND_Energy, RIND_INDEX,     NUMENTRIES_2);
     mt->AddProperty ("ABSLENGTH",     ABS_Energy,  ABS_LENGTH,     NUMENTRIES_3);
@@ -1903,14 +1903,14 @@ G4Material* MyMaterials::lowLYLYSO()
 
 
 /*============PbWO===================*/
-G4Material* MyMaterials::PbWO()
+G4Material *MyMaterials::PbWO()
 {
     G4double a, z, density;
-    G4Element* O = new G4Element ("Oxygen",    "O",   z = 8.,  a = 16.00 * g / mole);
-    G4Element* Pb = new G4Element ("Lead",     "Pb",  z = 82., a = 207.21 * g / mole);
-    G4Element* W = new G4Element ("Tungsten",  "W",   z = 74., a = 183.85 * g / mole);
+    G4Element *O = new G4Element ("Oxygen",    "O",   z = 8.,  a = 16.00 * g / mole);
+    G4Element *Pb = new G4Element ("Lead",     "Pb",  z = 82., a = 207.21 * g / mole);
+    G4Element *W = new G4Element ("Tungsten",  "W",   z = 74., a = 183.85 * g / mole);
 
-    G4Material* PbWO = new G4Material ("PbWO", density = 8.28 * g / cm3, 3);
+    G4Material *PbWO = new G4Material ("PbWO", density = 8.28 * g / cm3, 3);
     PbWO->AddElement (Pb, 1);
     PbWO->AddElement (W, 1);
     PbWO->AddElement (O, 4);
@@ -2345,7 +2345,7 @@ G4Material* MyMaterials::PbWO()
 
 
 
-    G4MaterialPropertiesTable* PbWO_mt = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable *PbWO_mt = new G4MaterialPropertiesTable();
     PbWO_mt->AddProperty ("FASTCOMPONENT", PbWO_FAST_Energy, PbWO_FAST_COMPONENT, PbWO_NUMENTRIES_1);
     PbWO_mt->AddProperty ("RINDEX",        PbWO_RIND_Energy, PbWO_RIND_INDEX,     PbWO_NUMENTRIES_2);
     PbWO_mt->AddProperty ("ABSLENGTH",      PbWO_ABS_Energy,  PbWO_ABS_LENGTH,  PbWO_ABS_entries);
@@ -2373,7 +2373,7 @@ G4Material* MyMaterials::PbWO()
     return PbWO;
 }
 
-G4double MyMaterials::CalculateSellmeier (G4double indexZero, G4double* nVec, G4double* lVec, G4double wavelength)
+G4double MyMaterials::CalculateSellmeier (G4double indexZero, G4double *nVec, G4double *lVec, G4double wavelength)
 {
 
     /*------http://gentitfx.fr/SLitrani/code/SLitraniCode/TLitSellmeier.html----*/

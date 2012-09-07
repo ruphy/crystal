@@ -8,7 +8,7 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-PhysicsListMessenger::PhysicsListMessenger (PhysicsList* pPhys)
+PhysicsListMessenger::PhysicsListMessenger (PhysicsList *pPhys)
     : pPhysicsList (pPhys)
 {
     eCmd = new G4UIcmdWithADoubleAndUnit ("/testem/phys/setMaxE", this);
@@ -49,7 +49,7 @@ PhysicsListMessenger::~PhysicsListMessenger()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void PhysicsListMessenger::SetNewValue (G4UIcommand* command,
+void PhysicsListMessenger::SetNewValue (G4UIcommand *command,
                                         G4String newValue)
 {
     /*HistoManager* man = HistoManager::GetPointer();

@@ -9,11 +9,11 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-HistoManager* HistoManager::fManager = 0;
+HistoManager *HistoManager::fManager = 0;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-HistoManager* HistoManager::GetPointer()
+HistoManager *HistoManager::GetPointer()
 {
     if (!fManager) {
         fManager = new HistoManager();
@@ -111,7 +111,7 @@ void HistoManager::EndOfRun()
            G4int (nEvt) << G4endl ;
     G4cout << G4endl;
     G4cout << "   Mean energy deposit in absorber = " <<
-           y1 / keV << " +- " << y2* std::sqrt (norm) / keV << " keV; ";
+           y1 / keV << " +- " << y2 *std::sqrt (norm) / keV << " keV; ";
     if (y1 > 0.0) {
         G4cout << "   RMS/Emean = " << y2 / y1;
     }
@@ -182,7 +182,7 @@ void HistoManager::EndOfEvent()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void HistoManager::AddEnergy (G4double edep, G4Step* step)
+void HistoManager::AddEnergy (G4double edep, G4Step *step)
 {
     if (1 < verbose) {
         G4cout << "HistoManager::AddEnergy: e(keV)= " << edep / keV

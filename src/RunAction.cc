@@ -20,7 +20,7 @@ RunAction::~RunAction()
     delete timer;
 }
 
-void RunAction::BeginOfRunAction (const G4Run* aRun)
+void RunAction::BeginOfRunAction (const G4Run *aRun)
 {
     G4cout << "### Run " << aRun->GetRunID() << " start." << G4endl;
     timer->Start();
@@ -28,7 +28,7 @@ void RunAction::BeginOfRunAction (const G4Run* aRun)
     CreateTree::Instance()-> Run = aRun->GetRunID();
 }
 
-void RunAction::EndOfRunAction (const G4Run* aRun)
+void RunAction::EndOfRunAction (const G4Run *aRun)
 {
     timer->Stop();
     G4cout << "number of event = " << aRun->GetNumberOfEvent()

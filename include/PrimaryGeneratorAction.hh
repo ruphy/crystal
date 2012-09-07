@@ -22,9 +22,9 @@ public:
     //! destructor
     ~PrimaryGeneratorAction();
     //! defines primary particles (mandatory)
-    void GeneratePrimaries (G4Event*);
+    void GeneratePrimaries(G4Event *);
 private:
-    G4GeneralParticleSource* gun;
+    G4GeneralParticleSource *gun;
 
 };
 

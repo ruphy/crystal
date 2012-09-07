@@ -43,14 +43,14 @@ class G4UIcmdWithADoubleAndUnit;
 class StepMaxMessenger: public G4UImessenger
 {
 public:
-    StepMaxMessenger (StepMax*);
+    StepMaxMessenger(StepMax *);
     ~StepMaxMessenger();
 
-    void SetNewValue (G4UIcommand*, G4String);
+    void SetNewValue(G4UIcommand *, G4String);
 
 private:
-    StepMax* stepMax;
-    G4UIcmdWithADoubleAndUnit* StepMaxCmd;
+    StepMax *stepMax;
+    G4UIcmdWithADoubleAndUnit *StepMaxCmd;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

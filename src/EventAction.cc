@@ -23,14 +23,14 @@ EventAction::~EventAction()
 {
 }
 
-void EventAction::BeginOfEventAction (const G4Event* evt)
+void EventAction::BeginOfEventAction (const G4Event *evt)
 {
     G4int evtNb = evt->GetEventID();
     if (evtNb % 100 == 0 && evtNb != 0) {
         G4cout << "---> Begin of Event: " << evtNb << G4endl;
     }
 
-    G4SDManager* SDman = G4SDManager::GetSDMpointer();
+    G4SDManager *SDman = G4SDManager::GetSDMpointer();
 
     // -------------------- INSTANCE RUN/EVENT IN TREE ---------------------- //
     Int_t run = CreateTree::Instance() -> Run;
@@ -41,7 +41,7 @@ void EventAction::BeginOfEventAction (const G4Event* evt)
 
 }
 
-void EventAction::EndOfEventAction (const G4Event* evt)
+void EventAction::EndOfEventAction (const G4Event *evt)
 {
     CreateTree::Instance()->Fill();
 
@@ -53,7 +53,8 @@ void EventAction::EndOfEventAction (const G4Event* evt)
         Int_t check = CreateTree::Instance()->NumOptPhotons;
         check -= CreateTree::Instance()->NumBoundaryAbsorption;
         check -= CreateTree::Instance()->NumOptPhotonsAbsorbed;
-        if (check != 0) G4cout << "Check sum test failed: " << check << G4endl;
+        if (check != 0)
+            G4cout << "Check sum test failed: " << check << G4endl;
     }
 
 }

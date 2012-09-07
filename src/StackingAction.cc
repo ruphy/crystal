@@ -17,7 +17,7 @@ StackingAction::~StackingAction()
 {}
 
 G4ClassificationOfNewTrack
-StackingAction::ClassifyNewTrack (const G4Track* aTrack)
+StackingAction::ClassifyNewTrack (const G4Track *aTrack)
 {
 
     // ------------ Retrieve tracks and particle history -------------- //
@@ -33,16 +33,24 @@ StackingAction::ClassifyNewTrack (const G4Track* aTrack)
         CreateTree::Instance()->PartEn[idx] = aTrack->GetKineticEnergy();
         CreateTree::Instance()->PartID[idx] = aTrack->GetTrackID();
         CreateTree::Instance()->PartProcess[idx] = -1; // unknown process
-        if (aTrack->GetCreatorProcess() && aTrack->GetCreatorProcess()->GetProcessName() == "phot")  CreateTree::Instance()->PartProcess[idx] = 1; // phot
-        if (aTrack->GetCreatorProcess() && aTrack->GetCreatorProcess()->GetProcessName() == "compt") CreateTree::Instance()->PartProcess[idx] = 2; // compt
-        if (aTrack->GetCreatorProcess() && aTrack->GetCreatorProcess()->GetProcessName() == "eBrem") CreateTree::Instance()->PartProcess[idx] = 3; // brems
-        if (aTrack->GetCreatorProcess() && aTrack->GetCreatorProcess()->GetProcessName() == "eIoni") CreateTree::Instance()->PartProcess[idx] = 4; // ioni
-        if (!aTrack->GetCreatorProcess())  CreateTree::Instance()->PartProcess[idx] = 0; //
+        if (aTrack->GetCreatorProcess() && aTrack->GetCreatorProcess()->GetProcessName() == "phot")
+            CreateTree::Instance()->PartProcess[idx] = 1;  // phot
+        if (aTrack->GetCreatorProcess() && aTrack->GetCreatorProcess()->GetProcessName() == "compt")
+            CreateTree::Instance()->PartProcess[idx] = 2;  // compt
+        if (aTrack->GetCreatorProcess() && aTrack->GetCreatorProcess()->GetProcessName() == "eBrem")
+            CreateTree::Instance()->PartProcess[idx] = 3;  // brems
+        if (aTrack->GetCreatorProcess() && aTrack->GetCreatorProcess()->GetProcessName() == "eIoni")
+            CreateTree::Instance()->PartProcess[idx] = 4;  // ioni
+        if (!aTrack->GetCreatorProcess())
+            CreateTree::Instance()->PartProcess[idx] = 0;  //
         CreateTree::Instance()->PartIDParent[idx] = aTrack->GetParentID();
         CreateTree::Instance()->PartType[idx] = -1;
-        if (aTrack->GetDefinition()->GetParticleName() == "gamma") CreateTree::Instance()->PartType[idx] = 0; // gamma
-        if (aTrack->GetDefinition()->GetParticleName() == "e-") CreateTree::Instance()->PartType[idx] = 1; // e-
-        if (aTrack->GetDefinition()->GetParticleName() == "e+") CreateTree::Instance()->PartType[idx] = 2; // e+
+        if (aTrack->GetDefinition()->GetParticleName() == "gamma")
+            CreateTree::Instance()->PartType[idx] = 0;  // gamma
+        if (aTrack->GetDefinition()->GetParticleName() == "e-")
+            CreateTree::Instance()->PartType[idx] = 1;  // e-
+        if (aTrack->GetDefinition()->GetParticleName() == "e+")
+            CreateTree::Instance()->PartType[idx] = 2;  // e+
 
 
 

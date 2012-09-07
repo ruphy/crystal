@@ -18,11 +18,11 @@ public:
     ~RunAction();
 
 public:
-    void BeginOfRunAction (const G4Run* aRun);
-    void EndOfRunAction (const G4Run* aRun);
+    void BeginOfRunAction(const G4Run *aRun);
+    void EndOfRunAction(const G4Run *aRun);
 
 private:
-    G4Timer* timer;
+    G4Timer *timer;
 };
 
 

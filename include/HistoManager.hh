@@ -19,7 +19,7 @@ class HistoManager
 public:
     // With description
 
-    static HistoManager* GetPointer();
+    static HistoManager *GetPointer();
 
 private:
 
@@ -37,22 +37,22 @@ public: // Without description
     void BeginOfEvent();
     void EndOfEvent();
 
-    void AddEnergy (G4double edep, G4Step*);
+    void AddEnergy(G4double edep, G4Step *);
 
-    inline void SetMaxEnergy (G4double value);
+    inline void SetMaxEnergy(G4double value);
 
-    inline void SetNumberBins (G4int value);
+    inline void SetNumberBins(G4int value);
 
-    inline void SetNumberBinsCluster (G4int value);
+    inline void SetNumberBinsCluster(G4int value);
 
-    inline void SetVerbose (G4int value);
+    inline void SetVerbose(G4int value);
 
     inline G4int GetVerbose() const;
 
 private:
 
     // MEMBERS
-    static HistoManager* fManager;
+    static HistoManager *fManager;
 
     G4int nHisto;
     G4int verbose;
@@ -71,26 +71,26 @@ private:
     G4double overflow;
     G4DataVector Egas;
 
-    Histo*    histo;
-    G4ElectronIonPair* elIonPair;
+    Histo    *histo;
+    G4ElectronIonPair *elIonPair;
 };
 
-inline void HistoManager::SetMaxEnergy (G4double value)
+inline void HistoManager::SetMaxEnergy(G4double value)
 {
     maxEnergy = value;
 }
 
-inline void HistoManager::SetNumberBins (G4int value)
+inline void HistoManager::SetNumberBins(G4int value)
 {
     nBinsE = value;
 }
 
-inline void HistoManager::SetNumberBinsCluster (G4int value)
+inline void HistoManager::SetNumberBinsCluster(G4int value)
 {
     nBinsCluster = value;
 }
 
-inline void HistoManager::SetVerbose (G4int value)
+inline void HistoManager::SetVerbose(G4int value)
 {
     verbose = value;
 }

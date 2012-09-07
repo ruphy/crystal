@@ -79,16 +79,16 @@ public:
     G4double Ephoton[3];
 
     //Materials
-    G4Material* Air;
-    G4Material* Water;
-    G4Material* Vacuum;
-    G4Material* Silicon;
-    G4Material* OptGrease;
-    G4Material* ScMaterial;
+    G4Material *Air;
+    G4Material *Water;
+    G4Material *Vacuum;
+    G4Material *Silicon;
+    G4Material *OptGrease;
+    G4Material *ScMaterial;
 
 
 
-    G4VPhysicalVolume* Construct();
+    G4VPhysicalVolume *Construct();
 
     //
     // Update geometry
@@ -98,10 +98,10 @@ public:
     G4bool updated;
 
     //DetectorMessenger* detectorMessenger;
-    void readConfigFile (string configFileName);
+    void readConfigFile(string configFileName);
     void initializeMaterials();
-    void initializeSurface (G4OpticalSurface* mySurface, string surfaceType);
-    void initializeReflectivitySurface (G4OpticalSurface* mySurface, string surfaceType);
+    void initializeSurface(G4OpticalSurface *mySurface, string surfaceType);
+    void initializeReflectivitySurface(G4OpticalSurface *mySurface, string surfaceType);
 
 private:
     class Private;

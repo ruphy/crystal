@@ -71,28 +71,28 @@ public:
     void ConstructOp();
 
     //for the Messenger
-    void SetVerbose (G4int);
-    void SetNbOfPhotonsCerenkov (G4int);
+    void SetVerbose(G4int);
+    void SetNbOfPhotonsCerenkov(G4int);
 
-    void SetCutForGamma (G4double);
-    void SetCutForElectron (G4double);
-    void SetCutForPositron (G4double);
-    void SetCutForProton (G4double);
+    void SetCutForGamma(G4double);
+    void SetCutForElectron(G4double);
+    void SetCutForPositron(G4double);
+    void SetCutForProton(G4double);
 
 private:
-    G4Cerenkov*          theCerenkovProcess;
-    G4Scintillation*     theScintillationProcess;
-    G4OpAbsorption*      theAbsorptionProcess;
-    G4OpRayleigh*        theRayleighScatteringProcess;
-    G4OpMieHG*           theMieHGScatteringProcess;
-    G4OpBoundaryProcess* theBoundaryProcess;
+    G4Cerenkov          *theCerenkovProcess;
+    G4Scintillation     *theScintillationProcess;
+    G4OpAbsorption      *theAbsorptionProcess;
+    G4OpRayleigh        *theRayleighScatteringProcess;
+    G4OpMieHG           *theMieHGScatteringProcess;
+    G4OpBoundaryProcess *theBoundaryProcess;
 
     G4double cutForGamma;
     G4double cutForElectron;
     G4double cutForPositron;
     G4double cutForProton;
 
-    PhysicsListMessenger* pMessenger;
+    PhysicsListMessenger *pMessenger;
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

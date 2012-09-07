@@ -12,7 +12,7 @@ class CreateTree
 {
 private:
 
-    TTree*              ftree;
+    TTree              *ftree;
     TString             fname;
 
     Bool_t              HITS;
@@ -23,10 +23,10 @@ private:
 
 public:
 
-    CreateTree (TString name, Bool_t hits, Bool_t absorptions);
+    CreateTree(TString name, Bool_t hits, Bool_t absorptions);
     ~CreateTree();
 
-    TTree*              GetTree() const {
+    TTree              *GetTree() const {
         return ftree;
     };
     TString             GetName() const {
@@ -37,10 +37,10 @@ public:
     };
     Bool_t              Write();
     void                Clear();
-    static CreateTree*  Instance() {
+    static CreateTree  *Instance() {
         return fInstance;
     };
-    static CreateTree*  fInstance;
+    static CreateTree  *fInstance;
 
     Bool_t              Hits() const {
         return this->HITS;

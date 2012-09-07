@@ -19,19 +19,19 @@ class HistoMessenger: public G4UImessenger
 {
 public:
 
-    HistoMessenger (Histo*);
+    HistoMessenger(Histo *);
     ~HistoMessenger();
 
-    void SetNewValue (G4UIcommand* , G4String);
+    void SetNewValue(G4UIcommand * , G4String);
 
 private:
 
-    Histo*                  histo;
+    Histo                  *histo;
 
-    G4UIdirectory*          histoDir;
-    G4UIcmdWithAString*     factoryCmd;
-    G4UIcmdWithAString*     fileCmd;
-    G4UIcommand*            histoCmd;
+    G4UIdirectory          *histoDir;
+    G4UIcmdWithAString     *factoryCmd;
+    G4UIcmdWithAString     *fileCmd;
+    G4UIcommand            *histoCmd;
 
 };
 

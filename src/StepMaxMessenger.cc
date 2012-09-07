@@ -37,7 +37,7 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-StepMaxMessenger::StepMaxMessenger (StepMax* stepM)
+StepMaxMessenger::StepMaxMessenger (StepMax *stepM)
     : stepMax (stepM)
 {
     StepMaxCmd = new G4UIcmdWithADoubleAndUnit ("/testem/stepMax", this);
@@ -57,7 +57,7 @@ StepMaxMessenger::~StepMaxMessenger()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void StepMaxMessenger::SetNewValue (G4UIcommand* command, G4String newValue)
+void StepMaxMessenger::SetNewValue (G4UIcommand *command, G4String newValue)
 {
     if (command == StepMaxCmd) {
         stepMax->SetMaxStep (StepMaxCmd->GetNewDoubleValue (newValue));

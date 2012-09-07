@@ -25,7 +25,7 @@
 #/vis/viewer/set/style wireframe
 #
 # Draw coordinate axes:
-#/vis/scene/add/axes 0 0 0 1 m
+/vis/scene/add/axes 0 0 0 0.05 m
 #
 # Draw smooth trajectories at end of event, showing trajectory points
 # as markers 2 pixels wide:
@@ -33,6 +33,8 @@
 /vis/modeling/trajectories/create/drawByCharge
 /vis/modeling/trajectories/drawByCharge-0/default/setDrawStepPts true
 /vis/modeling/trajectories/drawByCharge-0/default/setStepPtsSize 1
+/vis/modeling/trajectories/drawByCharge-0/setRGBA 0 .215 .78 .215 0.5
+
 # (if too many tracks cause core dump => /tracking/storeTrajectory 0)
 #
 # Draw hits at end of event:
@@ -49,7 +51,7 @@
 # Many other options are available with /vis/modeling and /vis/filtering.
 # For example, to select colour by particle ID:
 #/vis/modeling/trajectories/create/drawByParticleID
-#/vis/modeling/trajectories/drawByParticleID-0/set e- blue
+#/vis/modeling/trajectories/drawByParticleID-0/set opticalphoton 1 1 1
 #
 # To superimpose all of the events from a given run:
 /vis/scene/endOfEventAction accumulate
@@ -61,6 +63,7 @@
 # For file-based drivers, use this to create an empty detector view:
 #/vis/viewer/flush
 #
+/vis/viewer/set/background 0.929 0.969 0.98
 /vis/viewer/set/viewpointThetaPhi 45 -30
 /vis/viewer/zoomTo 1
 /vis/drawView 90 90

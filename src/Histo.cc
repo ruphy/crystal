@@ -84,9 +84,10 @@ void Histo::book()
 #ifdef G4ANALYSIS_USE
     G4cout << "### Histo books " << nHisto << " histograms " << G4endl;
     // Creating the analysis factory
-    if (!af) af = AIDA_createAnalysisFactory();
+    if (!af)
+        af = AIDA_createAnalysisFactory();
     // Creating the tree factory
-    AIDA::ITreeFactory* tf = af->createTreeFactory();
+    AIDA::ITreeFactory *tf = af->createTreeFactory();
 
     // Creating a tree mapped to a new hbook file.
 
@@ -103,20 +104,21 @@ void Histo::book()
         return;
     }
     // Creating a histogram factory, whose histograms will be handled by the tree
-    AIDA::IHistogramFactory* hf = af->createHistogramFactory (*tree);
+    AIDA::IHistogramFactory *hf = af->createHistogramFactory (*tree);
 
     // Creating an 1-dimensional histograms in the root directory of the tree
     for (G4int i = 0; i < nHisto; i++) {
         if (active[i]) {
             G4String ss = ids[i];
-            if (histType == "root") ss = "h" + ids[i];
+            if (histType == "root")
+                ss = "h" + ids[i];
             histo[i] = hf->createHistogram1D (ss, titles[i], bins[i], xmin[i], xmax[i]);
         }
     }
     delete hf;
     // Creating a tuple factory, whose tuples will be handled by the tree
     if (tupleList != "") {
-        AIDA::ITupleFactory* tpf = af->createTupleFactory (*tree);
+        AIDA::ITupleFactory *tpf = af->createTupleFactory (*tree);
         ntup = tpf->create (tupleId, tupleName, tupleList);
         delete tpf;
     }
@@ -142,7 +144,7 @@ void Histo::save()
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-void Histo::add1D (const G4String& id, const G4String& name, G4int nb,
+void Histo::add1D (const G4String &id, const G4String &name, G4int nb,
                    G4double x1, G4double x2, G4double u)
 {
     if (verbose > 0) {
@@ -192,9 +194,11 @@ void Histo::fill (G4int i, G4double x, G4double w)
                << G4endl;
     }
 #ifdef G4ANALYSIS_USE
-    if (!tree) return;
+    if (!tree)
+        return;
     if (i >= 0 && i < nHisto) {
-        if (active[i]) histo[i]->fill ( (x / unit[i]), w);
+        if (active[i])
+            histo[i]->fill ( (x / unit[i]), w);
     } else {
         G4cout << "Histo::fill: WARNING! wrong histogram index " << i << G4endl;
     }
@@ -209,7 +213,8 @@ void Histo::scale (G4int i, G4double x)
         G4cout << "Scale histogram: #" << i << " by factor " << x << G4endl;
     }
 #ifdef G4ANALYSIS_USE
-    if (!tree) return;
+    if (!tree)
+        return;
     if (i >= 0 && i < nHisto) {
         histo[i]->scale (x);
     } else {
@@ -220,7 +225,7 @@ void Histo::scale (G4int i, G4double x)
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-void Histo::addTuple (const G4String& w1, const G4String& w2, const G4String& w3)
+void Histo::addTuple (const G4String &w1, const G4String &w2, const G4String &w3)
 {
     tupleId = w1;
     tupleName = w2;
@@ -229,13 +234,14 @@ void Histo::addTuple (const G4String& w1, const G4String& w2, const G4String& w3
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-void Histo::fillTuple (const G4String& parname, G4double x)
+void Histo::fillTuple (const G4String &parname, G4double x)
 {
     if (verbose > 1) {
         G4cout << "fill tuple by parameter <" << parname << "> = " << x << G4endl;
     }
 #ifdef G4ANALYSIS_USE
-    if (ntup) ntup->fill (ntup->findColumn (parname), (float) x);
+    if (ntup)
+        ntup->fill (ntup->findColumn (parname), (float) x);
 #endif
 }
 
@@ -244,23 +250,27 @@ void Histo::fillTuple (const G4String& parname, G4double x)
 void Histo::addRow()
 {
 #ifdef G4ANALYSIS_USE
-    if (ntup) ntup->addRow();
+    if (ntup)
+        ntup->addRow();
 #endif
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-void Histo::setFileName (const G4String& nam)
+void Histo::setFileName (const G4String &nam)
 {
     histName = nam;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....
 
-void Histo::setFileType (const G4String& nam)
+void Histo::setFileType (const G4String &nam)
 {
-    if (nam == "root" || nam == "hbook" || nam == "aida") histType = nam;
-    else if (nam == "xml" || nam == "XML") histType = "aida";
+    if (nam == "root" || nam == "hbook" || nam == "aida")
+        histType = nam;
+    else
+        if (nam == "xml" || nam == "XML")
+            histType = "aida";
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo....

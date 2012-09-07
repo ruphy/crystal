@@ -35,12 +35,13 @@
 
 using namespace std;
 
-class DetectorConstruction::Private {
+class DetectorConstruction::Private
+{
     Private() {
         topLayerMaterial = MyMaterials::Air();
     }
 
-    G4Material* topLayerMaterial;
+    G4Material *topLayerMaterial;
 
     friend class DetectorConstruction;
 };
@@ -67,20 +68,20 @@ void DetectorConstruction::setTopLayerMaterial(G4Material *material)
     d->topLayerMaterial = material;
 }
 
-G4VPhysicalVolume* DetectorConstruction::Construct()
+G4VPhysicalVolume *DetectorConstruction::Construct()
 {
-    readConfigFile ("crystal.cfg");
+    readConfigFile("crystal.cfg");
     initializeMaterials();
 
     //
     //   S U R F A C E S   I N I T I A L I Z A T I O N
     //
 
-    G4LogicalBorderSurface* CrystalSurfaceTop   = NULL;
-    G4LogicalBorderSurface* TopWrappingSurface      = NULL;
+    G4LogicalBorderSurface *CrystalSurfaceTop   = NULL;
+    G4LogicalBorderSurface *TopWrappingSurface      = NULL;
 
-    G4OpticalSurface* OpWrappingSurface         = NULL;
-    G4OpticalSurface* OpCrystalSurface      = NULL;
+    G4OpticalSurface *OpWrappingSurface         = NULL;
+    G4OpticalSurface *OpCrystalSurface      = NULL;
 
 
 
@@ -94,27 +95,27 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 
     /*-------EXPERIMENTAL HALL-------*/
 
-    G4Box* expHall_box = new G4Box ("World", expHall_x, expHall_y, expHall_z);
-    G4LogicalVolume* expHall_log = new G4LogicalVolume (expHall_box, Air, "World", 0, 0, 0);
-    G4VPhysicalVolume* expHall_phys = new G4PVPlacement (0, G4ThreeVector (0, 0, 0), expHall_log, "World", 0, false, 0);
+    G4Box *expHall_box = new G4Box("World", expHall_x, expHall_y, expHall_z);
+    G4LogicalVolume *expHall_log = new G4LogicalVolume(expHall_box, Air, "World", 0, 0, 0);
+    G4VPhysicalVolume *expHall_phys = new G4PVPlacement(0, G4ThreeVector(0, 0, 0), expHall_log, "World", 0, false, 0);
 
 
     /*-------CRYSTAL-------*/
 
-    G4LogicalVolume*   Crystal_log    = NULL;
-    G4VPhysicalVolume* Crystal_phys   = NULL;
+    G4LogicalVolume   *Crystal_log    = NULL;
+    G4VPhysicalVolume *Crystal_phys   = NULL;
 
-    G4Box* Crystal_box = new G4Box ("Crystal", 0.5 * crystal_x, 0.5 * crystal_y, 0.5 * crystal_height);
-    Crystal_log = new G4LogicalVolume (Crystal_box, ScMaterial, "Crystal", 0, 0, 0);
-    Crystal_phys = new G4PVPlacement (0, G4ThreeVector (0, 0, 0), Crystal_log, "Crystal", expHall_log, false, 0);
+    G4Box *Crystal_box = new G4Box("Crystal", 0.5 * crystal_x, 0.5 * crystal_y, 0.5 * crystal_height);
+    Crystal_log = new G4LogicalVolume(Crystal_box, ScMaterial, "Crystal", 0, 0, 0);
+    Crystal_phys = new G4PVPlacement(0, G4ThreeVector(0, 0, 0), Crystal_log, "Crystal", expHall_log, false, 0);
 
 
     /*-------TOP AIR LAYER-------*/
 
-    G4Box* TA_box = new G4Box ("TopAir", 0.5 * crystal_x, 0.5 * crystal_y, 0.5 * airgap);
-    G4LogicalVolume* TA_log  = new G4LogicalVolume (TA_box, Air, "TopAir", 0, 0, 0);
-    G4VPhysicalVolume* TA_phys = new G4PVPlacement (0, G4ThreeVector (0, 0, 0.5 * (crystal_height + airgap)), TA_log, "TopAir", expHall_log, false, 0);
-
+    G4Box *TA_box = new G4Box("TopAir", 0.5 * crystal_x, 0.5 * crystal_y, 0.5 * airgap);
+    G4LogicalVolume *TA_log  = new G4LogicalVolume(TA_box, Air, "TopAir", 0, 0, 0);
+    G4VPhysicalVolume *TA_phys = new G4PVPlacement(0, G4ThreeVector(0, 0, 0.5 * (crystal_height + airgap)), TA_log, "TopAir", expHall_log, false, 0);
+    TA_log->SetVisAttributes(G4Color(128/255,0,0));
 
 
     //
@@ -122,16 +123,16 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //
 
     //CASE 0: CRYSTAL ONLY
-    if (surConfig == 0) {
+    if(surConfig == 0) {
         //Nothing - Crystal completely polished
 
-    } else if (surConfig == 1) {
+    } else if(surConfig == 1) {
         cout << "Configuring a naked crystal, with only a tiny wrapping" << endl;
         /*-------CRYSTAL SURFACE-------*/
-        OpCrystalSurface = new G4OpticalSurface ("crystal");
-        initializeSurface (OpCrystalSurface, "crystal");
-        initializeReflectivitySurface (OpCrystalSurface, "crystal");
-        CrystalSurfaceTop   = new G4LogicalBorderSurface ("CrystalSurfaceTop", Crystal_phys, expHall_phys, OpCrystalSurface);
+        OpCrystalSurface = new G4OpticalSurface("crystal");
+        initializeSurface(OpCrystalSurface, "crystal");
+        initializeReflectivitySurface(OpCrystalSurface, "crystal");
+        CrystalSurfaceTop   = new G4LogicalBorderSurface("CrystalSurfaceTop", Crystal_phys, expHall_phys, OpCrystalSurface);
 
     }
 
@@ -139,10 +140,8 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     //
     // Visualization attributes
     //
-    G4VisAttributes* VisAttCrystal = new G4VisAttributes (G4Colour (0 / 255., 0 / 255., 255 / 255.));
-
-    Crystal_log->SetVisAttributes (VisAttCrystal);
-    expHall_log->SetVisAttributes (G4VisAttributes::Invisible);
+    Crystal_log->SetVisAttributes(G4Colour(0, 87 / 255., 219 / 255.));
+    expHall_log->SetVisAttributes(G4VisAttributes::Invisible);
 
     //always return the physical World
     return expHall_phys;
@@ -164,7 +163,7 @@ void DetectorConstruction::UpdateGeometry()
     G4LogicalBorderSurface::CleanSurfaceTable();
 
     //define new one
-    G4RunManager::GetRunManager()->DefineWorldVolume (this->Construct());
+    G4RunManager::GetRunManager()->DefineWorldVolume(this->Construct());
     G4RunManager::GetRunManager()->GeometryHasBeenModified();
 
     CreateTree::Instance()->CrystalHeight = crystal_height;
@@ -179,9 +178,9 @@ G4bool DetectorConstruction::GetUpdated() const
 
 // Initialization classes
 //
-void DetectorConstruction::initializeSurface (G4OpticalSurface* mySurface, string surfaceType)
+void DetectorConstruction::initializeSurface(G4OpticalSurface *mySurface, string surfaceType)
 {
-    if (surfaceType == "crystal") {
+    if(surfaceType == "crystal") {
         surfinish   = crystalSurfinish;
         RefFile     = cReffile;
         reflectivity    = cReflectivity;
@@ -196,74 +195,74 @@ void DetectorConstruction::initializeSurface (G4OpticalSurface* mySurface, strin
 
 
 
-    if (this->surfinish <= 5) {
+    if(this->surfinish <= 5) {
         G4cout << "Using unified model." << G4endl;
-        mySurface -> SetModel (unified);
-        switch (this->surtype) {
+        mySurface -> SetModel(unified);
+        switch(this->surtype) {
         case 0:
-            mySurface -> SetType (dielectric_metal);
+            mySurface -> SetType(dielectric_metal);
             G4cout << "Surface type: dielectric_metal" << G4endl;
             break;
         case 1:
-            mySurface -> SetType (dielectric_dielectric);
+            mySurface -> SetType(dielectric_dielectric);
             G4cout << "Surface type: dielectric_dielectric" << G4endl;
             break;
         }
-    } else if (this->surfinish > 5 && surfaceType == "wrapping") G4cout << "Value not allowed" << G4endl;
+    } else if(this->surfinish > 5 && surfaceType == "wrapping") G4cout << "Value not allowed" << G4endl;
     else {
         G4cout << "Using LUT for surface treatment." << G4endl;
-        mySurface -> SetModel (LUT);
-        mySurface -> SetType (dielectric_LUT);
+        mySurface -> SetModel(LUT);
+        mySurface -> SetType(dielectric_LUT);
     }
 
-    switch (this->surfinish) {
+    switch(this->surfinish) {
     case 0:
-        mySurface -> SetFinish (polished);
+        mySurface -> SetFinish(polished);
         G4cout << "Surface finish: polished" << G4endl;
         break;
     case 1:
-        mySurface -> SetFinish (polishedfrontpainted);
+        mySurface -> SetFinish(polishedfrontpainted);
         G4cout << "Surface finish: polishedfrontpainted" << G4endl;
         break;
     case 2:
-        mySurface -> SetFinish (polishedbackpainted);
+        mySurface -> SetFinish(polishedbackpainted);
         G4cout << "Surface finish: polishedbackpainted" << G4endl;
         break;
     case 3:
-        mySurface -> SetFinish (ground);
+        mySurface -> SetFinish(ground);
         G4cout << "Surface finish: ground" << G4endl;
         break;
     case 4:
-        mySurface -> SetFinish (groundfrontpainted);
+        mySurface -> SetFinish(groundfrontpainted);
         G4cout << "Surface finish: groundfrontpainted" << G4endl;
         break;
     case 5:
-        mySurface -> SetFinish (groundbackpainted);
+        mySurface -> SetFinish(groundbackpainted);
         G4cout << "Surface finish: groundbackpainted" << G4endl;
         break;
     case 17:
-        mySurface -> SetFinish (polishedteflonair);
+        mySurface -> SetFinish(polishedteflonair);
         G4cout << "Surface finish: polishedteflonair" << G4endl;
         break;
     case 18:
-        mySurface -> SetFinish (polishedtioair);
+        mySurface -> SetFinish(polishedtioair);
         G4cout << "Surface finish: polishedtioair" << G4endl;
         break;
     case 26:
-        mySurface -> SetFinish (etchedtioair);
+        mySurface -> SetFinish(etchedtioair);
         G4cout << "Surface finish: etchedtioair" << G4endl;
         break;
     case 34:
-        mySurface -> SetFinish (groundtioair);
+        mySurface -> SetFinish(groundtioair);
         G4cout << "Surface finish: groundtioair" << G4endl;
         break;
     case 36:
-        mySurface -> SetFinish (polishedtyvekair);
+        mySurface -> SetFinish(polishedtyvekair);
         G4cout << "Surface finish: polishedtyvekair" << G4endl;
         break;
     default:
         G4cout << "Surface finish unkown!" << G4endl;
-        exit (0);
+        exit(0);
     }
 }
 
@@ -271,21 +270,21 @@ void DetectorConstruction::initializeSurface (G4OpticalSurface* mySurface, strin
 //
 // reflectivity
 //
-void DetectorConstruction::initializeReflectivitySurface (G4OpticalSurface* surface, string surfaceType)
+void DetectorConstruction::initializeReflectivitySurface(G4OpticalSurface *surface, string surfaceType)
 {
 
     int NumRefl = 0;
     G4double EphotonRefl[1000];
     G4double Refl[1000];
-    if (this->RefFile != "none") {
+    if(this->RefFile != "none") {
         ifstream myReadFile;
-        myReadFile.open (this->RefFile);
+        myReadFile.open(this->RefFile);
 
         G4cout << "Reflectivities read from file:" << G4endl;
-        if (myReadFile.is_open()) {
-            while (!myReadFile.eof()) {
+        if(myReadFile.is_open()) {
+            while(!myReadFile.eof()) {
                 myReadFile >> EphotonRefl[NumRefl];
-                if (EphotonRefl[NumRefl] == -1) break;
+                if(EphotonRefl[NumRefl] == -1) break;
                 myReadFile >> Refl[NumRefl];
                 // convert to energy (1eV corresponds to 1239.8 nm: energy [eV]= 1239.8nmeV/lambda[nm])
                 EphotonRefl[NumRefl] = 1239.8 / EphotonRefl[NumRefl] * eV;
@@ -293,7 +292,7 @@ void DetectorConstruction::initializeReflectivitySurface (G4OpticalSurface* surf
             }
         } else {
             G4cerr << "<DetectorConstruction> : Could not read file with reflectivities!" << G4endl;
-            exit (0);
+            exit(0);
         }
         myReadFile.close();
     } else {
@@ -308,7 +307,7 @@ void DetectorConstruction::initializeReflectivitySurface (G4OpticalSurface* surf
 
     }
     G4cout << "Reflectivities as a function of the photon energy:" << G4endl;
-    for (int i = 0; i < NumRefl; i++) {
+    for(int i = 0; i < NumRefl; i++) {
         G4cout << i << "   " << EphotonRefl[i] << "   " << Refl[i] << G4endl;
     }
 
@@ -321,7 +320,7 @@ void DetectorConstruction::initializeReflectivitySurface (G4OpticalSurface* surf
     G4double SpecularSpike[3]   = {this->specularspike, this->specularspike, this->specularspike};
     G4double Backscatter[3]     = {this->backscatter, this->backscatter, this->backscatter};
     G4double Lambertian[3]      = {this->lambertian, this->lambertian, this->lambertian};
-    G4MaterialPropertiesTable* myST = new G4MaterialPropertiesTable();
+    G4MaterialPropertiesTable *myST = new G4MaterialPropertiesTable();
     G4cout << "Read from config-file: " << G4endl;
     G4cout << "Read SPECULARLOBECONSTANT  : " << SpecularLobe[0] << G4endl;
     G4cout << "Read SPECULARSPIKECONSTANT : " << SpecularSpike[0] << G4endl;
@@ -329,22 +328,22 @@ void DetectorConstruction::initializeReflectivitySurface (G4OpticalSurface* surf
     G4cout << "Read LAMBERTIAN            : " << Lambertian[0] << G4endl;
     G4cout << "Read ref. index            : " << RefractiveIndex[0] << G4endl;
 
-    myST->AddProperty ("RINDEX", Ephoton, RefractiveIndex, 3);
-    if (this->specularlobe >= 0) {
+    myST->AddProperty("RINDEX", Ephoton, RefractiveIndex, 3);
+    if(this->specularlobe >= 0) {
         G4cout << "Setting SPECULARLOBECONSTANT to : " << SpecularLobe[0] << G4endl;
-        myST->AddProperty ("SPECULARLOBECONSTANT",  Ephoton, SpecularLobe,    3);
+        myST->AddProperty("SPECULARLOBECONSTANT",  Ephoton, SpecularLobe,    3);
     }
-    if (this->specularspike >= 0) {
+    if(this->specularspike >= 0) {
         G4cout << "Setting SPECULARSPIKECONSTANT to : " << SpecularSpike[0] << G4endl;
-        myST->AddProperty ("SPECULARSPIKECONSTANT", Ephoton, SpecularSpike,   3);
+        myST->AddProperty("SPECULARSPIKECONSTANT", Ephoton, SpecularSpike,   3);
     }
-    if (this->backscatter >= 0) {
+    if(this->backscatter >= 0) {
         G4cout << "Setting BACKSCATTERCONSTANT to : " << Backscatter[0] << G4endl;
-        myST->AddProperty ("BACKSCATTERCONSTANT",   Ephoton, Backscatter,     3);
+        myST->AddProperty("BACKSCATTERCONSTANT",   Ephoton, Backscatter,     3);
     }
-    if (this->lambertian >= 0) {
+    if(this->lambertian >= 0) {
         G4cout << "Setting LAMBERTIAN to : " << Lambertian[0] << G4endl;
-        myST->AddProperty ("LAMBERTIAN",            Ephoton, Lambertian,      3);
+        myST->AddProperty("LAMBERTIAN",            Ephoton, Lambertian,      3);
     }
 
 
@@ -365,8 +364,8 @@ void DetectorConstruction::initializeReflectivitySurface (G4OpticalSurface* surf
                                     6.03, 5.58, 5.38, 5.02, 4.71, 4.43, 4.24, 4.06, 3.84, 3.61
                                   };
     //-----------------------------------------------------------------------------------//
-    myST->AddProperty ("REALRINDEX", tyvek_rwavelength, tyvek_rindex, 19);
-    myST->AddProperty ("IMAGINARYRINDEX", tyvek_cwavelength, tyvek_cindex, 29);
+    myST->AddProperty("REALRINDEX", tyvek_rwavelength, tyvek_rindex, 19);
+    myST->AddProperty("IMAGINARYRINDEX", tyvek_cwavelength, tyvek_cindex, 29);
 
 
     G4double air_rwavelength[1000] = {0.1 * eV, 1 * eV, 2 * eV, 3 * eV, 4 * eV};
@@ -379,8 +378,8 @@ void DetectorConstruction::initializeReflectivitySurface (G4OpticalSurface* surf
 
 
 
-    surface->SetMaterialPropertiesTable (myST);
-    if (this->sigmaalpha >= 0) surface->SetSigmaAlpha (this->sigmaalpha);
+    surface->SetMaterialPropertiesTable(myST);
+    if(this->sigmaalpha >= 0) surface->SetSigmaAlpha(this->sigmaalpha);
 
 
 }
@@ -401,77 +400,77 @@ void DetectorConstruction::initializeMaterials()
     G4double EphotonMat[3] = {0.0001 * eV, 1.0 * eV, 4.08 * eV};
 
 
-    if (crystal_material == 1)        ScMaterial = MyMaterials::LSO();
-    else if (crystal_material == 2)   ScMaterial = MyMaterials::LYSO();
-    else if (crystal_material == 3)   ScMaterial = MyMaterials::LUAGCE();
-    else if (crystal_material == 4)   ScMaterial = MyMaterials::LUAGPR();
-    else if (crystal_material == 5)   ScMaterial = MyMaterials::PbWO();
-    else if (crystal_material == 6)   ScMaterial = MyMaterials::Air();
-    else if (crystal_material > 6 || crystal_material <= 0) {
+    if(crystal_material == 1)        ScMaterial = MyMaterials::LSO();
+    else if(crystal_material == 2)   ScMaterial = MyMaterials::LYSO();
+    else if(crystal_material == 3)   ScMaterial = MyMaterials::LUAGCE();
+    else if(crystal_material == 4)   ScMaterial = MyMaterials::LUAGPR();
+    else if(crystal_material == 5)   ScMaterial = MyMaterials::PbWO();
+    else if(crystal_material == 6)   ScMaterial = MyMaterials::Air();
+    else if(crystal_material > 6 || crystal_material <= 0) {
         G4cerr << "<DetectorConstruction::Construct>: Invalid material specifier " << crystal_material << G4endl;
-        exit (0);
+        exit(0);
     }
     G4cout << "Sc. material: " << ScMaterial << G4endl;
 
     //
     // modify default properties of the scintillator
     //
-    if (crystal_lightyield >= 0) {
-        ScMaterial->GetMaterialPropertiesTable()->RemoveConstProperty ("SCINTILLATIONYIELD");
-        ScMaterial->GetMaterialPropertiesTable()->AddConstProperty ("SCINTILLATIONYIELD", crystal_lightyield / MeV);
+    if(crystal_lightyield >= 0) {
+        ScMaterial->GetMaterialPropertiesTable()->RemoveConstProperty("SCINTILLATIONYIELD");
+        ScMaterial->GetMaterialPropertiesTable()->AddConstProperty("SCINTILLATIONYIELD", crystal_lightyield / MeV);
     } else {
-        CreateTree::Instance()->ScintillationYield = ScMaterial->GetMaterialPropertiesTable()->GetConstProperty ("SCINTILLATIONYIELD");
+        CreateTree::Instance()->ScintillationYield = ScMaterial->GetMaterialPropertiesTable()->GetConstProperty("SCINTILLATIONYIELD");
     }
-    if (crystal_risetime >= 0) {
-        ScMaterial->GetMaterialPropertiesTable()->RemoveConstProperty ("FASTSCINTILLATIONRISETIME");
-        ScMaterial->GetMaterialPropertiesTable()->AddConstProperty ("FASTSCINTILLATIONRISETIME", crystal_risetime / ns);
+    if(crystal_risetime >= 0) {
+        ScMaterial->GetMaterialPropertiesTable()->RemoveConstProperty("FASTSCINTILLATIONRISETIME");
+        ScMaterial->GetMaterialPropertiesTable()->AddConstProperty("FASTSCINTILLATIONRISETIME", crystal_risetime / ns);
     } else {
-        CreateTree::Instance()->RiseTime = ScMaterial->GetMaterialPropertiesTable()->GetConstProperty ("FASTSCINTILLATIONRISETIME");
+        CreateTree::Instance()->RiseTime = ScMaterial->GetMaterialPropertiesTable()->GetConstProperty("FASTSCINTILLATIONRISETIME");
     }
-    if (this->crystal_abslength >= 0) {
-        ScMaterial->GetMaterialPropertiesTable()->RemoveProperty ("ABSLENGTH");
-        G4double Abslengh[2]    = {crystal_abslength* mm, crystal_abslength* mm};
-        ScMaterial->GetMaterialPropertiesTable()->AddProperty ("ABSLENGTH", EphotonMat, Abslengh, 2);
+    if(this->crystal_abslength >= 0) {
+        ScMaterial->GetMaterialPropertiesTable()->RemoveProperty("ABSLENGTH");
+        G4double Abslengh[2]    = {crystal_abslength *mm, crystal_abslength *mm};
+        ScMaterial->GetMaterialPropertiesTable()->AddProperty("ABSLENGTH", EphotonMat, Abslengh, 2);
     } else {
         //CreateTree::Instance()->AbsLength = ScMaterial->GetMaterialPropertiesTable()->GetProperty("ABSLENGTH")->GetProperty(1.0*eV);
     }
 }
 
-void DetectorConstruction::readConfigFile (string configFileName)
+void DetectorConstruction::readConfigFile(string configFileName)
 {
 
-    ConfigFile config (configFileName);
-    config.readInto (crystal_height, "height");
-    config.readInto (crystal_x, "crystalx");
-    config.readInto (crystal_y, "crystaly");
-    config.readInto (airgap, "airgap");
+    ConfigFile config(configFileName);
+    config.readInto(crystal_height, "height");
+    config.readInto(crystal_x, "crystalx");
+    config.readInto(crystal_y, "crystaly");
+    config.readInto(airgap, "airgap");
 
-    config.readInto (crystal_material, "scmaterial");
-    config.readInto (crystal_risetime, "risetime");
-    config.readInto (crystal_lightyield, "lightyield");
-    config.readInto (surConfig, "surConfig");
-    config.readInto (wReffile, "wReffile");
-    config.readInto (wReflectivity, "wReflectivity");
-    config.readInto (wSurrefind, "wSurrefind");
-    config.readInto (wSurtype, "wSurtype");
-    config.readInto (wSpecularspike, "wSpecularspike");
-    config.readInto (wSpecularlobe, "wSpecularlobe");
-    config.readInto (wSigmaalpha, "wSigmaalpha");
-    config.readInto (wLambertian, "wLambertian");
-    config.readInto (wrappingSurfinish, "wrappingSurfinish");
-    config.readInto (cReffile, "cReffile");
-    config.readInto (crystal_reflectivity, "cReflectivity");
-    config.readInto (cSurrefind, "cSurrefind");
-    config.readInto (cSurtype, "cSurtype");
-    config.readInto (cSpecularspike, "cSpecularspike");
-    config.readInto (cSpecularlobe, "cSpecularlobe");
-    config.readInto (cSigmaalpha, "cSigmaalpha");
-    config.readInto (cSpecularspike, "cSpecularspike");
-    config.readInto (cSpecularlobe, "cSpecularlobe");
-    config.readInto (cSigmaalpha, "cSigmaalpha");
-    config.readInto (cBackscatter, "cBackscatter");
-    config.readInto (cLambertian, "cLambertian");
-    config.readInto (crystalSurfinish, "crystalSurfinish");
+    config.readInto(crystal_material, "scmaterial");
+    config.readInto(crystal_risetime, "risetime");
+    config.readInto(crystal_lightyield, "lightyield");
+    config.readInto(surConfig, "surConfig");
+    config.readInto(wReffile, "wReffile");
+    config.readInto(wReflectivity, "wReflectivity");
+    config.readInto(wSurrefind, "wSurrefind");
+    config.readInto(wSurtype, "wSurtype");
+    config.readInto(wSpecularspike, "wSpecularspike");
+    config.readInto(wSpecularlobe, "wSpecularlobe");
+    config.readInto(wSigmaalpha, "wSigmaalpha");
+    config.readInto(wLambertian, "wLambertian");
+    config.readInto(wrappingSurfinish, "wrappingSurfinish");
+    config.readInto(cReffile, "cReffile");
+    config.readInto(crystal_reflectivity, "cReflectivity");
+    config.readInto(cSurrefind, "cSurrefind");
+    config.readInto(cSurtype, "cSurtype");
+    config.readInto(cSpecularspike, "cSpecularspike");
+    config.readInto(cSpecularlobe, "cSpecularlobe");
+    config.readInto(cSigmaalpha, "cSigmaalpha");
+    config.readInto(cSpecularspike, "cSpecularspike");
+    config.readInto(cSpecularlobe, "cSpecularlobe");
+    config.readInto(cSigmaalpha, "cSigmaalpha");
+    config.readInto(cBackscatter, "cBackscatter");
+    config.readInto(cLambertian, "cLambertian");
+    config.readInto(crystalSurfinish, "crystalSurfinish");
 
 }
 

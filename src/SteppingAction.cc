@@ -27,30 +27,30 @@ SteppingAction::SteppingAction()
 SteppingAction::~SteppingAction()
 {}
 
-void SteppingAction::UserSteppingAction (const G4Step* theStep)
+void SteppingAction::UserSteppingAction(const G4Step *theStep)
 {
 
-    G4StepPoint* thePrePoint = theStep->GetPreStepPoint();
-    G4VPhysicalVolume* thePrePV = thePrePoint->GetPhysicalVolume();
-    G4StepPoint* thePostPoint = theStep->GetPostStepPoint();
-    G4VPhysicalVolume* thePostPV = thePostPoint->GetPhysicalVolume();
+    G4StepPoint *thePrePoint = theStep->GetPreStepPoint();
+    G4VPhysicalVolume *thePrePV = thePrePoint->GetPhysicalVolume();
+    G4StepPoint *thePostPoint = theStep->GetPostStepPoint();
+    G4VPhysicalVolume *thePostPV = thePostPoint->GetPhysicalVolume();
 
     G4OpBoundaryProcessStatus boundaryStatus = Undefined;
-    static G4OpBoundaryProcess* boundary = NULL;
+    static G4OpBoundaryProcess *boundary = NULL;
 
-    G4Track* theTrack = theStep->GetTrack();
-    G4ParticleDefinition* particleType = theTrack->GetDefinition();
+    G4Track *theTrack = theStep->GetTrack();
+    G4ParticleDefinition *particleType = theTrack->GetDefinition();
 
 
 
     // ------------------------ STORING PARTICLE AND PROCESSES ------------------------- //
 
     // Storing time, energy and position of optical photons absorbed
-    if (particleType == G4OpticalPhoton::OpticalPhotonDefinition()) {
-        if (thePostPoint->GetProcessDefinedStep()->GetProcessName() == "OpAbsorption") {
-            if (CreateTree::Instance()->Absorptions()) {
-                CreateTree::Instance()->BulkAbsorptionTime[CreateTree::Instance()->NumOptPhotonsAbsorbed] = theStep->GetTrack()->GetGlobalTime();
-                CreateTree::Instance()->BulkAbsorptionPhotonEnergy[CreateTree::Instance()->NumOptPhotonsAbsorbed] = theStep->GetTrack()->GetTotalEnergy();
+    if(particleType == G4OpticalPhoton::OpticalPhotonDefinition()) {
+        if(thePostPoint->GetProcessDefinedStep()->GetProcessName() == "OpAbsorption") {
+            if(CreateTree::Instance()->Absorptions()) {
+                CreateTree::Instance()->BulkAbsorptionTime[CreateTree::Instance()->NumOptPhotonsAbsorbed] = theTrack->GetGlobalTime();
+                CreateTree::Instance()->BulkAbsorptionPhotonEnergy[CreateTree::Instance()->NumOptPhotonsAbsorbed] = theTrack->GetTotalEnergy();
                 CreateTree::Instance()->BulkAbsorptionPosX[CreateTree::Instance()->NumOptPhotonsAbsorbed] = thePostPoint->GetPosition().x();
                 CreateTree::Instance()->BulkAbsorptionPosY[CreateTree::Instance()->NumOptPhotonsAbsorbed] = thePostPoint->GetPosition().y();
                 CreateTree::Instance()->BulkAbsorptionPosZ[CreateTree::Instance()->NumOptPhotonsAbsorbed] = thePostPoint->GetPosition().z();
@@ -60,7 +60,7 @@ void SteppingAction::UserSteppingAction (const G4Step* theStep)
     }
 
     // Printing out the processes step by step
-    if (thePostPoint->GetProcessDefinedStep()->GetProcessName() != "Transportation"
+    if(thePostPoint->GetProcessDefinedStep()->GetProcessName() != "Transportation"
             && thePostPoint->GetProcessDefinedStep()->GetProcessName() != "OpAbsorption"
             && thePostPoint->GetProcessDefinedStep()->GetProcessName() != "phot"
             && thePostPoint->GetProcessDefinedStep()->GetProcessName() != "compt"
@@ -76,7 +76,7 @@ void SteppingAction::UserSteppingAction (const G4Step* theStep)
     }
 
     // Storing photoelectric and low energy processes (DOI, energy)
-    if (thePostPoint->GetProcessDefinedStep()->GetProcessName() == "phot"
+    if(thePostPoint->GetProcessDefinedStep()->GetProcessName() == "phot"
             || thePostPoint->GetProcessDefinedStep()->GetProcessName() == "LowEnPhotoElec") {
         CreateTree::Instance() -> Process = 1;
         Float_t d = 0.5 * CreateTree::Instance()->CrystalHeight - thePostPoint->GetPosition().z();
@@ -91,7 +91,7 @@ void SteppingAction::UserSteppingAction (const G4Step* theStep)
     }
 
     // Storing Compton processes (DOI, energy)
-    if (thePostPoint->GetProcessDefinedStep()->GetProcessName() == "compt"
+    if(thePostPoint->GetProcessDefinedStep()->GetProcessName() == "compt"
             ||  thePostPoint->GetProcessDefinedStep()->GetProcessName() == "LowEnCompton") {
         CreateTree::Instance() -> Process = 2;
         Float_t d = 0.5 * CreateTree::Instance()->CrystalHeight - thePostPoint->GetPosition().z();
@@ -108,17 +108,17 @@ void SteppingAction::UserSteppingAction (const G4Step* theStep)
 
 
     // Storing Rayleigh processes
-    if (thePostPoint->GetProcessDefinedStep()->GetProcessName() == "OpRayleigh") {
+    if(thePostPoint->GetProcessDefinedStep()->GetProcessName() == "OpRayleigh") {
         CreateTree::Instance()->NumOptPhotonsRayleigh++;
     }
 
     // Storing Cerenkov processes
-    if (thePostPoint->GetProcessDefinedStep()->GetProcessName() == "Cerenkov") {
+    if(thePostPoint->GetProcessDefinedStep()->GetProcessName() == "Cerenkov") {
         CreateTree::Instance()->NumCherenkovPr++;
     }
 
     // Storing Brem processes
-    if (thePostPoint->GetProcessDefinedStep()->GetProcessName() == "eBrem") {
+    if(thePostPoint->GetProcessDefinedStep()->GetProcessName() == "eBrem") {
         CreateTree::Instance()->NumeBrem++;
     }
 
@@ -129,49 +129,49 @@ void SteppingAction::UserSteppingAction (const G4Step* theStep)
     cout<<"Tutti: "<<in[2]<<" "<<out[2]<<endl;
     }*/
 // ------------------------ MIA PARTE ------------------------- //
-    if (thePrePV->GetName() == "Crystal" &&  thePostPV->GetName() == "TopAir") {
+    if(thePrePV->GetName() == "Crystal" &&  thePostPV->GetName() == "TopAir") {
 
-        CreateTree::Instance()->PolInX.push_back (thePrePoint->GetPolarization().x());
-        CreateTree::Instance()->PolInY.push_back (thePrePoint->GetPolarization().y());
-        CreateTree::Instance()->PolInZ.push_back (thePrePoint->GetPolarization().z());
-        CreateTree::Instance()->MomentumInX.push_back (thePrePoint->GetMomentumDirection().x());
-        CreateTree::Instance()->MomentumInY.push_back (thePrePoint->GetMomentumDirection().y());
-        CreateTree::Instance()->MomentumInZ.push_back (thePrePoint->GetMomentumDirection().z());
+        CreateTree::Instance()->PolInX.push_back(thePrePoint->GetPolarization().x());
+        CreateTree::Instance()->PolInY.push_back(thePrePoint->GetPolarization().y());
+        CreateTree::Instance()->PolInZ.push_back(thePrePoint->GetPolarization().z());
+        CreateTree::Instance()->MomentumInX.push_back(thePrePoint->GetMomentumDirection().x());
+        CreateTree::Instance()->MomentumInY.push_back(thePrePoint->GetMomentumDirection().y());
+        CreateTree::Instance()->MomentumInZ.push_back(thePrePoint->GetMomentumDirection().z());
 
 
     }
-    if (thePrePV->GetName() == "TopAir" &&  thePostPV->GetName() == "Crystal") {
+    if(thePrePV->GetName() == "TopAir" &&  thePostPV->GetName() == "Crystal") {
 //if (thePrePV->GetName()=="TopAir" &&  thePostPV!=NULL){
 
         Int_t counter = CreateTree::Instance()->OutSurface;
         CreateTree::Instance()->OutSurface++;
 
-        CreateTree::Instance()->DeltaMomReflX.push_back (CreateTree::Instance()->MomentumInX.back() - thePostPoint->GetMomentumDirection().x());
-        CreateTree::Instance()->DeltaMomReflY.push_back (CreateTree::Instance()->MomentumInY.back() - thePostPoint->GetMomentumDirection().y());
-        CreateTree::Instance()->DeltaMomReflZ.push_back (CreateTree::Instance()->MomentumInZ.back() - thePostPoint->GetMomentumDirection().z());
+        CreateTree::Instance()->DeltaMomReflX.push_back(CreateTree::Instance()->MomentumInX.back() - thePostPoint->GetMomentumDirection().x());
+        CreateTree::Instance()->DeltaMomReflY.push_back(CreateTree::Instance()->MomentumInY.back() - thePostPoint->GetMomentumDirection().y());
+        CreateTree::Instance()->DeltaMomReflZ.push_back(CreateTree::Instance()->MomentumInZ.back() - thePostPoint->GetMomentumDirection().z());
 
-        CreateTree::Instance()->DeltaPolReflX.push_back (CreateTree::Instance()->PolInX.back() - thePostPoint->GetPolarization().x());
-        CreateTree::Instance()->DeltaPolReflY.push_back (CreateTree::Instance()->PolInY.back() - thePostPoint->GetPolarization().y());
-        CreateTree::Instance()->DeltaPolReflZ.push_back (CreateTree::Instance()->PolInZ.back() - thePostPoint->GetPolarization().z());
+        CreateTree::Instance()->DeltaPolReflX.push_back(CreateTree::Instance()->PolInX.back() - thePostPoint->GetPolarization().x());
+        CreateTree::Instance()->DeltaPolReflY.push_back(CreateTree::Instance()->PolInY.back() - thePostPoint->GetPolarization().y());
+        CreateTree::Instance()->DeltaPolReflZ.push_back(CreateTree::Instance()->PolInZ.back() - thePostPoint->GetPolarization().z());
 
-        CreateTree::Instance()->MomReflX.push_back (thePostPoint->GetMomentumDirection().x());
-        CreateTree::Instance()->MomReflY.push_back (thePostPoint->GetMomentumDirection().y());
-        CreateTree::Instance()->MomReflZ.push_back (thePostPoint->GetMomentumDirection().z());
+        CreateTree::Instance()->MomReflX.push_back(thePostPoint->GetMomentumDirection().x());
+        CreateTree::Instance()->MomReflY.push_back(thePostPoint->GetMomentumDirection().y());
+        CreateTree::Instance()->MomReflZ.push_back(thePostPoint->GetMomentumDirection().z());
 
-        if (!m_showPhotons) {
-            theStep->GetTrack()->SetTrackStatus (fStopAndKill);
+        if(!m_showPhotons) {
+            theStep->GetTrack()->SetTrackStatus(fStopAndKill);
         }
     }
 
-    if (thePrePV->GetName() == "TopAir" &&  thePostPV->GetName() == "World") {
+    if(thePrePV->GetName() == "TopAir" &&  thePostPV->GetName() == "World") {
 
-        CreateTree::Instance()->DeltaMomRefrX.push_back (CreateTree::Instance()->MomentumInX.back() - thePostPoint->GetMomentumDirection().x());
-        CreateTree::Instance()->DeltaMomRefrY.push_back (CreateTree::Instance()->MomentumInY.back() - thePostPoint->GetMomentumDirection().y());
-        CreateTree::Instance()->DeltaMomRefrZ.push_back (CreateTree::Instance()->MomentumInZ.back() - thePostPoint->GetMomentumDirection().z());
+        CreateTree::Instance()->DeltaMomRefrX.push_back(CreateTree::Instance()->MomentumInX.back() - thePostPoint->GetMomentumDirection().x());
+        CreateTree::Instance()->DeltaMomRefrY.push_back(CreateTree::Instance()->MomentumInY.back() - thePostPoint->GetMomentumDirection().y());
+        CreateTree::Instance()->DeltaMomRefrZ.push_back(CreateTree::Instance()->MomentumInZ.back() - thePostPoint->GetMomentumDirection().z());
 
-        CreateTree::Instance()->DeltaPolRefrX.push_back (CreateTree::Instance()->PolInX.back() - thePostPoint->GetPolarization().x());
-        CreateTree::Instance()->DeltaPolRefrY.push_back (CreateTree::Instance()->PolInY.back() - thePostPoint->GetPolarization().y());
-        CreateTree::Instance()->DeltaPolRefrZ.push_back (CreateTree::Instance()->PolInZ.back() - thePostPoint->GetPolarization().z());
+        CreateTree::Instance()->DeltaPolRefrX.push_back(CreateTree::Instance()->PolInX.back() - thePostPoint->GetPolarization().x());
+        CreateTree::Instance()->DeltaPolRefrY.push_back(CreateTree::Instance()->PolInY.back() - thePostPoint->GetPolarization().y());
+        CreateTree::Instance()->DeltaPolRefrZ.push_back(CreateTree::Instance()->PolInZ.back() - thePostPoint->GetPolarization().z());
 
 
     }
@@ -181,20 +181,20 @@ void SteppingAction::UserSteppingAction (const G4Step* theStep)
     // ------------------------ STORING OPTICAL PROCESSES ------------------------- //
 
     //find the boundary process only once
-    if (!boundary) {
-        G4ProcessManager* pm = theStep->GetTrack()->GetDefinition()->GetProcessManager();
+    if(!boundary) {
+        G4ProcessManager *pm = theStep->GetTrack()->GetDefinition()->GetProcessManager();
         G4int nprocesses = pm->GetProcessListLength();
-        G4ProcessVector* pv = pm->GetProcessList();
+        G4ProcessVector *pv = pm->GetProcessList();
         G4int i;
-        for (i = 0; i < nprocesses; i++) {
-            if ( (*pv) [i]->GetProcessName() == "OpBoundary") {
-                boundary = (G4OpBoundaryProcess*) (*pv) [i];
+        for(i = 0; i < nprocesses; i++) {
+            if((*pv) [i]->GetProcessName() == "OpBoundary") {
+                boundary = (G4OpBoundaryProcess *)(*pv) [i];
                 break;
             }
         }
     }
 
-    if (!boundary) return;
+    if(!boundary) return;
 
     boundaryStatus = boundary->GetStatus();
 
@@ -202,11 +202,11 @@ void SteppingAction::UserSteppingAction (const G4Step* theStep)
     //Otherwise the boundary status may not be valid
     //Prior to Geant4.6.0-p1 this would not have been enough to check
 
-    if (thePostPoint->GetStepStatus() == fGeomBoundary) {
+    if(thePostPoint->GetStepStatus() == fGeomBoundary) {
         bool ISREFL = false;
-        switch (boundaryStatus) {
+        switch(boundaryStatus) {
         case Absorption: {
-            if (CreateTree::Instance()->Absorptions()) {
+            if(CreateTree::Instance()->Absorptions()) {
 
 
 
@@ -272,8 +272,8 @@ void SteppingAction::UserSteppingAction (const G4Step* theStep)
             break;
         } // end switch
 
-        if (ISREFL) {
-            if (CreateTree::Instance()->Absorptions()) {
+        if(ISREFL) {
+            if(CreateTree::Instance()->Absorptions()) {
                 CreateTree::Instance()->BoundaryReflectionTime[CreateTree::Instance()->NumBoundaryReflection] = theStep->GetTrack()->GetGlobalTime();
                 CreateTree::Instance()->BoundaryReflectionPosX[CreateTree::Instance()->NumBoundaryReflection] = thePostPoint->GetPosition().x();
                 CreateTree::Instance()->BoundaryReflectionPosY[CreateTree::Instance()->NumBoundaryReflection] = thePostPoint->GetPosition().y();

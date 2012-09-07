@@ -14,7 +14,7 @@ public:
     ~StackingAction();
 
 public:
-    G4ClassificationOfNewTrack ClassifyNewTrack (const G4Track* aTrack);
+    G4ClassificationOfNewTrack ClassifyNewTrack(const G4Track *aTrack);
     void NewStage();
     void PrepareNewEvent();
 
