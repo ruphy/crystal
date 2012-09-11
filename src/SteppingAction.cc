@@ -174,7 +174,10 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
         tree->DeltaPolRefrY.push_back(tree->PolInY.back() - thePostPoint->GetPolarization().y());
         tree->DeltaPolRefrZ.push_back(tree->PolInZ.back() - thePostPoint->GetPolarization().z());
 
-//         tree->MomentumOutX
+        tree->MomentumOutX.push_back(thePostPoint->GetMomentumDirection().x());
+        tree->MomentumOutY.push_back(thePostPoint->GetMomentumDirection().y());
+        tree->MomentumOutZ.push_back(thePostPoint->GetMomentumDirection().z());
+
 //     this->GetTree()->Branch("MomentumOutX",&this->MomentumOutX,"MomentumOutX[NumOptPhotonsInterface]/F");
 //     this->GetTree()->Branch("MomentumOutY",&this->MomentumOutY,"MomentumOutY[NumOptPhotonsInterface]/F");
 //     this->GetTree()->Branch("MomentumOutZ",&this->MomentumOutZ,"MomentumOutZ[NumOptPhotonsInterface]/F");
