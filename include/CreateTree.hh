@@ -165,34 +165,6 @@ public:
 
     map<CreateTree::DataType, vector<ROOT::Math::Cartesian3D<double> > > m_data;
 
-    vector<float> MomentumInX;
-    vector<float> MomentumInY;
-    vector<float> MomentumInZ;
-
-    vector<float> MomentumOutX;
-    vector<float> MomentumOutY;
-    vector<float> MomentumOutZ;
-
-    vector<float> DeltaMomReflX;
-    vector<float> DeltaMomReflY;
-    vector<float> DeltaMomReflZ;
-    vector<float> DeltaMomRefrX;
-    vector<float> DeltaMomRefrY;
-    vector<float> DeltaMomRefrZ;
-    vector<float> PolInX;
-    vector<float> PolInY;
-    vector<float> PolInZ;
-    vector<float> DeltaPolReflX;
-    vector<float> DeltaPolReflY;
-    vector<float> DeltaPolReflZ;
-    vector<float> DeltaPolRefrX;
-    vector<float> DeltaPolRefrY;
-    vector<float> DeltaPolRefrZ;
-    vector<float> MomReflX;
-    vector<float> MomReflY;
-    vector<float> MomReflZ;
-
-
     Int_t               TestI;
     Float_t             TestF;
 };
