@@ -9,8 +9,6 @@ using namespace std;
 
 CreateTree::CreateTree(TString name, Bool_t hits, Bool_t absorptions)
 {
-
-
     if(fInstance) {
         return;
     }
