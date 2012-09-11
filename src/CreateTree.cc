@@ -128,30 +128,6 @@ CreateTree::CreateTree(TString name, Bool_t hits, Bool_t absorptions)
     this->GetTree()->Branch("DeltaPolRefract", "vector<ROOT::Math::Cartesian3D<double> >", &(m_data[CreateTree::DeltaPolRefract]));
     this->GetTree()->Branch("MomRefl", "vector<ROOT::Math::Cartesian3D<double> >", &(m_data[CreateTree::MomRefl]));
 
-    this->GetTree()->Branch("MomentumInY", &MomentumInY);
-    this->GetTree()->Branch("MomentumInZ", &MomentumInZ);
-    this->GetTree()->Branch("MomentumOutX", &MomentumOutX);
-    this->GetTree()->Branch("MomentumOutY", &MomentumOutY);
-    this->GetTree()->Branch("MomentumOutZ", &MomentumOutZ);
-    this->GetTree()->Branch("DeltaMomReflX", &DeltaMomReflX);
-    this->GetTree()->Branch("DeltaMomReflY", &DeltaMomReflY);
-    this->GetTree()->Branch("DeltaMomReflZ", &DeltaMomReflZ);
-    this->GetTree()->Branch("DeltaMomRefrX", &DeltaMomRefrX);
-    this->GetTree()->Branch("DeltaMomRefrY", &DeltaMomRefrY);
-    this->GetTree()->Branch("DeltaMomRefrZ", &DeltaMomRefrZ);
-    this->GetTree()->Branch("PolInX", &PolInX);
-    this->GetTree()->Branch("PolInY", &PolInY);
-    this->GetTree()->Branch("PolInZ", &PolInZ);
-    this->GetTree()->Branch("DeltaPolRefrX", &DeltaPolRefrX);
-    this->GetTree()->Branch("DeltaPolRefrY", &DeltaPolRefrY);
-    this->GetTree()->Branch("DeltaPolRefrZ", &DeltaPolRefrZ);
-    this->GetTree()->Branch("DeltaPolReflX", &DeltaPolReflX);
-    this->GetTree()->Branch("DeltaPolReflY", &DeltaPolReflY);
-    this->GetTree()->Branch("DeltaPolReflZ", &DeltaPolReflZ);
-    this->GetTree()->Branch("MomReflX", &MomReflX);
-    this->GetTree()->Branch("MomReflY", &MomReflY);
-    this->GetTree()->Branch("MomReflZ", &MomReflZ);
-
     this->Clear();
 }
 
@@ -226,37 +202,4 @@ void CreateTree::Clear()
     for (iter = m_data.begin(); iter != m_data.end(); ++iter) {
         iter->second.clear();
     }
-        /*
-    for (int index = CreateTree::FirstElement; index != CreateTree::LastElement; index++) {
-        DataType type = static_cast
-{
-//    Foo foo = static_cast<Foo>(fooInt);
-   // ...
-}*/
-    MomentumOutX.clear();
-    MomentumOutY.clear();
-    MomentumOutZ.clear();
-    MomentumInX.clear();
-    MomentumInY.clear();
-    MomentumInZ.clear();
-    PolInX.clear();
-    PolInY.clear();
-    PolInZ.clear();
-    DeltaMomReflX.clear();
-    DeltaMomReflY.clear();
-    DeltaMomReflZ.clear();
-    DeltaMomRefrX.clear();
-    DeltaMomRefrY.clear();
-    DeltaMomRefrZ.clear();
-    DeltaPolRefrX.clear();
-    DeltaPolRefrY.clear();
-    DeltaPolRefrZ.clear();
-    DeltaPolReflX.clear();
-    DeltaPolReflY.clear();
-    DeltaPolReflZ.clear();
-    MomReflX.clear();
-    MomReflY.clear();
-    MomReflZ.clear();
-
-
 }

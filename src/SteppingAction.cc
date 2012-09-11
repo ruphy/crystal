@@ -133,16 +133,10 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
     if(thePrePV->GetName() == "Crystal" &&  thePostPV->GetName() == "Sensor") {
 
         tree->pushData(CreateTree::PolIn, thePrePoint->GetPolarization());
-
-        tree->PolInX.push_back(thePrePoint->GetPolarization().x());
-        tree->PolInY.push_back(thePrePoint->GetPolarization().y());
-        tree->PolInZ.push_back(thePrePoint->GetPolarization().z());
-        tree->MomentumInX.push_back(thePrePoint->GetMomentumDirection().x());
-        tree->MomentumInY.push_back(thePrePoint->GetMomentumDirection().y());
-        tree->MomentumInZ.push_back(thePrePoint->GetMomentumDirection().z());
-
+        tree->pushData(CreateTree::MomentumIn, thePrePoint->GetMomentumDirection());
 
     }
+
     if(thePrePV->GetName() == "Sensor" &&  thePostPV->GetName() == "Crystal") {
 //if (thePrePV->GetName()=="TopAir" &&  thePostPV!=NULL){
 
