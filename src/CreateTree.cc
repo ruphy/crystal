@@ -1,6 +1,8 @@
 #include "CreateTree.hh"
 #include <vector>
 
+#include <map>
+
 CreateTree *CreateTree::fInstance = NULL;
 
 using namespace std;
@@ -116,7 +118,16 @@ CreateTree::CreateTree(TString name, Bool_t hits, Bool_t absorptions)
     /*--------------------MY STUFF-----------------*/
 
     this->GetTree()->Branch("OutSurface", &this->OutSurface, "OutSurface/I");
-    this->GetTree()->Branch("MomentumInX", &MomentumInX);
+
+    this->GetTree()->Branch("MomentumIn", "vector<ROOT::Math::Cartesian3D<double> >", &(m_data[CreateTree::MomentumIn]));
+    this->GetTree()->Branch("MomentumOut", "vector<ROOT::Math::Cartesian3D<double> >", &(m_data[CreateTree::MomentumOut]));
+    this->GetTree()->Branch("DeltaMomReflect", "vector<ROOT::Math::Cartesian3D<double> >", &(m_data[CreateTree::DeltaMomReflect]));
+    this->GetTree()->Branch("DeltaMomRefract", "vector<ROOT::Math::Cartesian3D<double> >", &(m_data[CreateTree::DeltaMomRefract]));
+    this->GetTree()->Branch("PolIn", "vector<ROOT::Math::Cartesian3D<double> >", &(m_data[CreateTree::PolIn]));
+    this->GetTree()->Branch("DeltaPolReflect", "vector<ROOT::Math::Cartesian3D<double> >", &(m_data[CreateTree::DeltaPolReflect]));
+    this->GetTree()->Branch("DeltaPolRefract", "vector<ROOT::Math::Cartesian3D<double> >", &(m_data[CreateTree::DeltaPolRefract]));
+    this->GetTree()->Branch("MomRefl", "vector<ROOT::Math::Cartesian3D<double> >", &(m_data[CreateTree::MomRefl]));
+
     this->GetTree()->Branch("MomentumInY", &MomentumInY);
     this->GetTree()->Branch("MomentumInZ", &MomentumInZ);
     this->GetTree()->Branch("MomentumOutX", &MomentumOutX);
@@ -147,6 +158,16 @@ CreateTree::CreateTree(TString name, Bool_t hits, Bool_t absorptions)
 CreateTree::~CreateTree()
 {
 
+}
+
+void CreateTree::pushData(CreateTree::DataType type, const G4ThreeVector &vector)
+{
+//     cout << "Debug blog: pushing a threevector of type " << type;
+    ROOT::Math::Cartesian3D<double> vec;
+    vec.SetX(vector.x());
+    vec.SetY(vector.y());
+    vec.SetZ(vector.z());
+    m_data[type].push_back(vec);
 }
 
 Bool_t CreateTree::Write()
@@ -199,6 +220,19 @@ void CreateTree::Clear()
     PartNum = 0;
 
     OutSurface = 0;
+
+    map<CreateTree::DataType, vector<ROOT::Math::Cartesian3D<double> > >::iterator iter;
+
+    for (iter = m_data.begin(); iter != m_data.end(); ++iter) {
+        iter->second.clear();
+    }
+        /*
+    for (int index = CreateTree::FirstElement; index != CreateTree::LastElement; index++) {
+        DataType type = static_cast
+{
+//    Foo foo = static_cast<Foo>(fooInt);
+   // ...
+}*/
     MomentumOutX.clear();
     MomentumOutY.clear();
     MomentumOutZ.clear();

@@ -1,12 +1,18 @@
 // Martin Goettlich @ DESY
 //
+#ifndef CREATETREE_H
+#define CREATETREE_H
+
 #include <iostream>
 #include <vector>
 #include "TFile.h"
 #include "TTree.h"
 #include "TString.h"
-using namespace std;
 
+#include <G4ThreeVector.hh>
+#include <root/Math/Cartesian3D.h>
+
+using namespace std;
 
 class CreateTree
 {
@@ -23,6 +29,19 @@ private:
 
 public:
 
+    enum DataType {
+        FirstElement, // Leave me first!!
+        MomentumIn,
+        MomentumOut,
+        DeltaMomReflect,
+        DeltaMomRefract,
+        PolIn,
+        DeltaPolReflect,
+        DeltaPolRefract,
+        MomRefl,
+        LastElement // Leave me last!!
+    };
+    
     CreateTree(TString name, Bool_t hits, Bool_t absorptions);
     ~CreateTree();
 
@@ -48,6 +67,8 @@ public:
     Bool_t              Absorptions() const {
         return this->ABSORPTIONS;
     };
+
+    void pushData(CreateTree::DataType type, const G4ThreeVector &vector);
 
     Int_t               Run;
     Int_t               Event;
@@ -141,6 +162,9 @@ public:
 
 
     Int_t       OutSurface;
+
+    map<CreateTree::DataType, vector<ROOT::Math::Cartesian3D<double> > > m_data;
+
     vector<float> MomentumInX;
     vector<float> MomentumInY;
     vector<float> MomentumInZ;
@@ -182,3 +206,5 @@ public:
  00090                                   Absorption, Detection, NotAtBoundary,
  00091                                   SameMaterial, StepTooSmall, NoRINDEX };
 */
+
+#endif

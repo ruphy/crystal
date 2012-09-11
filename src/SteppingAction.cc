@@ -132,6 +132,8 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
 // ------------------------ MIA PARTE ------------------------- //
     if(thePrePV->GetName() == "Crystal" &&  thePostPV->GetName() == "Sensor") {
 
+        tree->pushData(CreateTree::PolIn, thePrePoint->GetPolarization());
+
         tree->PolInX.push_back(thePrePoint->GetPolarization().x());
         tree->PolInY.push_back(thePrePoint->GetPolarization().y());
         tree->PolInZ.push_back(thePrePoint->GetPolarization().z());
@@ -147,17 +149,13 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
         Int_t counter = tree->OutSurface;
         tree->OutSurface++;
 
-        tree->DeltaMomReflX.push_back(tree->MomentumInX.back() - thePostPoint->GetMomentumDirection().x());
-        tree->DeltaMomReflY.push_back(tree->MomentumInY.back() - thePostPoint->GetMomentumDirection().y());
-        tree->DeltaMomReflZ.push_back(tree->MomentumInZ.back() - thePostPoint->GetMomentumDirection().z());
 
-        tree->DeltaPolReflX.push_back(tree->PolInX.back() - thePostPoint->GetPolarization().x());
-        tree->DeltaPolReflY.push_back(tree->PolInY.back() - thePostPoint->GetPolarization().y());
-        tree->DeltaPolReflZ.push_back(tree->PolInZ.back() - thePostPoint->GetPolarization().z());
-
-        tree->MomReflX.push_back(thePostPoint->GetMomentumDirection().x());
-        tree->MomReflY.push_back(thePostPoint->GetMomentumDirection().y());
-        tree->MomReflZ.push_back(thePostPoint->GetMomentumDirection().z());
+        G4ThreeVector deltaPolReflect = thePrePoint->GetPolarization() - thePostPoint->GetPolarization();
+        G4ThreeVector deltaMomentumReflect = thePrePoint->GetMomentumDirection() - thePostPoint->GetMomentumDirection();
+ 
+        tree->pushData(CreateTree::DeltaMomReflect, deltaMomentumReflect);
+        tree->pushData(CreateTree::DeltaPolReflect, deltaPolReflect);
+        tree->pushData(CreateTree::MomRefl, thePostPoint->GetMomentumDirection());
 
         if(!m_showPhotons) {
             theStep->GetTrack()->SetTrackStatus(fStopAndKill);
@@ -166,17 +164,12 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
 
     if(thePrePV->GetName() == "Sensor" &&  thePostPV->GetName() == "World") {
 
-        tree->DeltaMomRefrX.push_back(tree->MomentumInX.back() - thePostPoint->GetMomentumDirection().x());
-        tree->DeltaMomRefrY.push_back(tree->MomentumInY.back() - thePostPoint->GetMomentumDirection().y());
-        tree->DeltaMomRefrZ.push_back(tree->MomentumInZ.back() - thePostPoint->GetMomentumDirection().z());
-
-        tree->DeltaPolRefrX.push_back(tree->PolInX.back() - thePostPoint->GetPolarization().x());
-        tree->DeltaPolRefrY.push_back(tree->PolInY.back() - thePostPoint->GetPolarization().y());
-        tree->DeltaPolRefrZ.push_back(tree->PolInZ.back() - thePostPoint->GetPolarization().z());
-
-        tree->MomentumOutX.push_back(thePostPoint->GetMomentumDirection().x());
-        tree->MomentumOutY.push_back(thePostPoint->GetMomentumDirection().y());
-        tree->MomentumOutZ.push_back(thePostPoint->GetMomentumDirection().z());
+        G4ThreeVector deltaMomRefr = thePrePoint->GetMomentumDirection() - thePostPoint->GetMomentumDirection();
+        G4ThreeVector deltaPolRefr = thePrePoint->GetPolarization() - thePostPoint->GetPolarization();
+        
+        tree->pushData(CreateTree::DeltaMomRefract, deltaMomRefr);
+        tree->pushData(CreateTree::DeltaPolRefract, deltaPolRefr);
+        tree->pushData(CreateTree::MomentumOut, thePostPoint->GetMomentumDirection());
     }
 
 // ------------------------ FINE ------------------------- //

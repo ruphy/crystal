@@ -42,6 +42,7 @@
 
 #include "G4UIExecutive.hh"
 
+#include <G4ThreeVector.hh>
 
 #include "TCint.h"
 using namespace std;
@@ -49,7 +50,6 @@ using namespace std;
 // Ciao vecchio pirata
 
 long int CreateSeed();
-
 
 
 int main(int argc, char **argv)
@@ -66,9 +66,10 @@ int main(int argc, char **argv)
     }
 #pragma link off all classes;
 #pragma link C++ class std::vector<float>;
+#pragma link C++ class std::vector<ROOT::Math::Cartesian3D<double> >;
+
     gInterpreter->GenerateDictionary("vector<float>", "vector");
-
-
+    gInterpreter->GenerateDictionary("vector<ROOT::Math::Cartesian3D<double> >", "root/Math/Cartesian3D.h");
 
     cout << "\n" << endl;
     cout << "###########################################################" << endl;
