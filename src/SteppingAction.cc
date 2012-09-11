@@ -177,18 +177,6 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
         tree->MomentumOutX.push_back(thePostPoint->GetMomentumDirection().x());
         tree->MomentumOutY.push_back(thePostPoint->GetMomentumDirection().y());
         tree->MomentumOutZ.push_back(thePostPoint->GetMomentumDirection().z());
-
-//     this->GetTree()->Branch("MomentumOutX",&this->MomentumOutX,"MomentumOutX[NumOptPhotonsInterface]/F");
-//     this->GetTree()->Branch("MomentumOutY",&this->MomentumOutY,"MomentumOutY[NumOptPhotonsInterface]/F");
-//     this->GetTree()->Branch("MomentumOutZ",&this->MomentumOutZ,"MomentumOutZ[NumOptPhotonsInterface]/F");
-//
-//     this->GetTree()->Branch("HitX",&this->HitX,"HitX[NumOptPhotonsInterface]/F");
-//     this->GetTree()->Branch("HitY",&this->HitY,"HitY[NumOptPhotonsInterface]/F");
-//     this->GetTree()->Branch("HitZ",&this->HitZ,"HitZ[NumOptPhotonsInterface]/F");
-//     this->GetTree()->Branch("IntOut",&this->IntOut,"IntOut[NumOptPhotonsInterface]/I");
-//     this->GetTree()->Branch("Time",&this->Time,"Time[NumOptPhotonsInterface]/F");
-//     this->GetTree()->Branch("Parent",&this->Parent,"Parent[NumOptPhotonsInterface]/I");
-//     this->GetTree()->Branch("ID",&this->ID,"ID[NumOptPhotonsInterface]/I");
     }
 
 // ------------------------ FINE ------------------------- //
