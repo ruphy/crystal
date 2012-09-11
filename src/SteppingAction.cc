@@ -42,20 +42,21 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
     G4ParticleDefinition *particleType = theTrack->GetDefinition();
 
 
+    CreateTree *tree = CreateTree::Instance();
 
     // ------------------------ STORING PARTICLE AND PROCESSES ------------------------- //
 
     // Storing time, energy and position of optical photons absorbed
     if(particleType == G4OpticalPhoton::OpticalPhotonDefinition()) {
         if(thePostPoint->GetProcessDefinedStep()->GetProcessName() == "OpAbsorption") {
-            if(CreateTree::Instance()->Absorptions()) {
-                CreateTree::Instance()->BulkAbsorptionTime[CreateTree::Instance()->NumOptPhotonsAbsorbed] = theTrack->GetGlobalTime();
-                CreateTree::Instance()->BulkAbsorptionPhotonEnergy[CreateTree::Instance()->NumOptPhotonsAbsorbed] = theTrack->GetTotalEnergy();
-                CreateTree::Instance()->BulkAbsorptionPosX[CreateTree::Instance()->NumOptPhotonsAbsorbed] = thePostPoint->GetPosition().x();
-                CreateTree::Instance()->BulkAbsorptionPosY[CreateTree::Instance()->NumOptPhotonsAbsorbed] = thePostPoint->GetPosition().y();
-                CreateTree::Instance()->BulkAbsorptionPosZ[CreateTree::Instance()->NumOptPhotonsAbsorbed] = thePostPoint->GetPosition().z();
+            if(tree->Absorptions()) {
+                tree->BulkAbsorptionTime[tree->NumOptPhotonsAbsorbed] = theTrack->GetGlobalTime();
+                tree->BulkAbsorptionPhotonEnergy[tree->NumOptPhotonsAbsorbed] = theTrack->GetTotalEnergy();
+                tree->BulkAbsorptionPosX[tree->NumOptPhotonsAbsorbed] = thePostPoint->GetPosition().x();
+                tree->BulkAbsorptionPosY[tree->NumOptPhotonsAbsorbed] = thePostPoint->GetPosition().y();
+                tree->BulkAbsorptionPosZ[tree->NumOptPhotonsAbsorbed] = thePostPoint->GetPosition().z();
             }
-            CreateTree::Instance()->NumOptPhotonsAbsorbed++;
+            tree->NumOptPhotonsAbsorbed++;
         }
     }
 
@@ -78,48 +79,48 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
     // Storing photoelectric and low energy processes (DOI, energy)
     if(thePostPoint->GetProcessDefinedStep()->GetProcessName() == "phot"
             || thePostPoint->GetProcessDefinedStep()->GetProcessName() == "LowEnPhotoElec") {
-        CreateTree::Instance() -> Process = 1;
-        Float_t d = 0.5 * CreateTree::Instance()->CrystalHeight - thePostPoint->GetPosition().z();
-        CreateTree::Instance() -> DOI = d;
-        //CreateTree::Instance()->zPhotCompt = thePostPoint->GetPosition().z();
+        tree->Process = 1;
+        Float_t d = 0.5 * tree->CrystalHeight - thePostPoint->GetPosition().z();
+        tree->DOI = d;
+        //tree->zPhotCompt = thePostPoint->GetPosition().z();
 
-        CreateTree::Instance() -> EProcessStart[CreateTree::Instance()->NumProcess] = thePrePoint->GetTotalEnergy();
-        CreateTree::Instance() -> EProcessFinal[CreateTree::Instance()->NumProcess] = thePostPoint->GetTotalEnergy();
-        CreateTree::Instance() -> IDProcess[CreateTree::Instance()->NumProcess] = 1;
-        CreateTree::Instance() -> DOIProcess[CreateTree::Instance()->NumProcess] = d;
-        CreateTree::Instance() -> NumProcess++;
+        tree->EProcessStart[tree->NumProcess] = thePrePoint->GetTotalEnergy();
+        tree->EProcessFinal[tree->NumProcess] = thePostPoint->GetTotalEnergy();
+        tree->IDProcess[tree->NumProcess] = 1;
+        tree->DOIProcess[tree->NumProcess] = d;
+        tree->NumProcess++;
     }
 
     // Storing Compton processes (DOI, energy)
     if(thePostPoint->GetProcessDefinedStep()->GetProcessName() == "compt"
             ||  thePostPoint->GetProcessDefinedStep()->GetProcessName() == "LowEnCompton") {
-        CreateTree::Instance() -> Process = 2;
-        Float_t d = 0.5 * CreateTree::Instance()->CrystalHeight - thePostPoint->GetPosition().z();
-        CreateTree::Instance() -> DOI = d;
-        //CreateTree::Instance()->zPhotCompt = thePostPoint->GetPosition().z();
+        tree->Process = 2;
+        Float_t d = 0.5 * tree->CrystalHeight - thePostPoint->GetPosition().z();
+        tree->DOI = d;
+        //tree->zPhotCompt = thePostPoint->GetPosition().z();
 
-        CreateTree::Instance()->EProcessStart[CreateTree::Instance()->NumProcess] = thePrePoint->GetTotalEnergy();
-        CreateTree::Instance()->EProcessFinal[CreateTree::Instance()->NumProcess] = thePostPoint->GetTotalEnergy();
-        CreateTree::Instance()->DOIProcess[CreateTree::Instance()->NumProcess] = d;
-        CreateTree::Instance()->IDProcess[CreateTree::Instance()->NumProcess] = 2;
-        CreateTree::Instance()->NumProcess++;
+        tree->EProcessStart[tree->NumProcess] = thePrePoint->GetTotalEnergy();
+        tree->EProcessFinal[tree->NumProcess] = thePostPoint->GetTotalEnergy();
+        tree->DOIProcess[tree->NumProcess] = d;
+        tree->IDProcess[tree->NumProcess] = 2;
+        tree->NumProcess++;
     }
 
 
 
     // Storing Rayleigh processes
     if(thePostPoint->GetProcessDefinedStep()->GetProcessName() == "OpRayleigh") {
-        CreateTree::Instance()->NumOptPhotonsRayleigh++;
+        tree->NumOptPhotonsRayleigh++;
     }
 
     // Storing Cerenkov processes
     if(thePostPoint->GetProcessDefinedStep()->GetProcessName() == "Cerenkov") {
-        CreateTree::Instance()->NumCherenkovPr++;
+        tree->NumCherenkovPr++;
     }
 
     // Storing Brem processes
     if(thePostPoint->GetProcessDefinedStep()->GetProcessName() == "eBrem") {
-        CreateTree::Instance()->NumeBrem++;
+        tree->NumeBrem++;
     }
 
     /*if (thePrePV->GetName()!="World"){
@@ -129,51 +130,62 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
     cout<<"Tutti: "<<in[2]<<" "<<out[2]<<endl;
     }*/
 // ------------------------ MIA PARTE ------------------------- //
-    if(thePrePV->GetName() == "Crystal" &&  thePostPV->GetName() == "TopAir") {
+    if(thePrePV->GetName() == "Crystal" &&  thePostPV->GetName() == "Sensor") {
 
-        CreateTree::Instance()->PolInX.push_back(thePrePoint->GetPolarization().x());
-        CreateTree::Instance()->PolInY.push_back(thePrePoint->GetPolarization().y());
-        CreateTree::Instance()->PolInZ.push_back(thePrePoint->GetPolarization().z());
-        CreateTree::Instance()->MomentumInX.push_back(thePrePoint->GetMomentumDirection().x());
-        CreateTree::Instance()->MomentumInY.push_back(thePrePoint->GetMomentumDirection().y());
-        CreateTree::Instance()->MomentumInZ.push_back(thePrePoint->GetMomentumDirection().z());
+        tree->PolInX.push_back(thePrePoint->GetPolarization().x());
+        tree->PolInY.push_back(thePrePoint->GetPolarization().y());
+        tree->PolInZ.push_back(thePrePoint->GetPolarization().z());
+        tree->MomentumInX.push_back(thePrePoint->GetMomentumDirection().x());
+        tree->MomentumInY.push_back(thePrePoint->GetMomentumDirection().y());
+        tree->MomentumInZ.push_back(thePrePoint->GetMomentumDirection().z());
 
 
     }
-    if(thePrePV->GetName() == "TopAir" &&  thePostPV->GetName() == "Crystal") {
+    if(thePrePV->GetName() == "Sensor" &&  thePostPV->GetName() == "Crystal") {
 //if (thePrePV->GetName()=="TopAir" &&  thePostPV!=NULL){
 
-        Int_t counter = CreateTree::Instance()->OutSurface;
-        CreateTree::Instance()->OutSurface++;
+        Int_t counter = tree->OutSurface;
+        tree->OutSurface++;
 
-        CreateTree::Instance()->DeltaMomReflX.push_back(CreateTree::Instance()->MomentumInX.back() - thePostPoint->GetMomentumDirection().x());
-        CreateTree::Instance()->DeltaMomReflY.push_back(CreateTree::Instance()->MomentumInY.back() - thePostPoint->GetMomentumDirection().y());
-        CreateTree::Instance()->DeltaMomReflZ.push_back(CreateTree::Instance()->MomentumInZ.back() - thePostPoint->GetMomentumDirection().z());
+        tree->DeltaMomReflX.push_back(tree->MomentumInX.back() - thePostPoint->GetMomentumDirection().x());
+        tree->DeltaMomReflY.push_back(tree->MomentumInY.back() - thePostPoint->GetMomentumDirection().y());
+        tree->DeltaMomReflZ.push_back(tree->MomentumInZ.back() - thePostPoint->GetMomentumDirection().z());
 
-        CreateTree::Instance()->DeltaPolReflX.push_back(CreateTree::Instance()->PolInX.back() - thePostPoint->GetPolarization().x());
-        CreateTree::Instance()->DeltaPolReflY.push_back(CreateTree::Instance()->PolInY.back() - thePostPoint->GetPolarization().y());
-        CreateTree::Instance()->DeltaPolReflZ.push_back(CreateTree::Instance()->PolInZ.back() - thePostPoint->GetPolarization().z());
+        tree->DeltaPolReflX.push_back(tree->PolInX.back() - thePostPoint->GetPolarization().x());
+        tree->DeltaPolReflY.push_back(tree->PolInY.back() - thePostPoint->GetPolarization().y());
+        tree->DeltaPolReflZ.push_back(tree->PolInZ.back() - thePostPoint->GetPolarization().z());
 
-        CreateTree::Instance()->MomReflX.push_back(thePostPoint->GetMomentumDirection().x());
-        CreateTree::Instance()->MomReflY.push_back(thePostPoint->GetMomentumDirection().y());
-        CreateTree::Instance()->MomReflZ.push_back(thePostPoint->GetMomentumDirection().z());
+        tree->MomReflX.push_back(thePostPoint->GetMomentumDirection().x());
+        tree->MomReflY.push_back(thePostPoint->GetMomentumDirection().y());
+        tree->MomReflZ.push_back(thePostPoint->GetMomentumDirection().z());
 
         if(!m_showPhotons) {
             theStep->GetTrack()->SetTrackStatus(fStopAndKill);
         }
     }
 
-    if(thePrePV->GetName() == "TopAir" &&  thePostPV->GetName() == "World") {
+    if(thePrePV->GetName() == "Sensor" &&  thePostPV->GetName() == "World") {
 
-        CreateTree::Instance()->DeltaMomRefrX.push_back(CreateTree::Instance()->MomentumInX.back() - thePostPoint->GetMomentumDirection().x());
-        CreateTree::Instance()->DeltaMomRefrY.push_back(CreateTree::Instance()->MomentumInY.back() - thePostPoint->GetMomentumDirection().y());
-        CreateTree::Instance()->DeltaMomRefrZ.push_back(CreateTree::Instance()->MomentumInZ.back() - thePostPoint->GetMomentumDirection().z());
+        tree->DeltaMomRefrX.push_back(tree->MomentumInX.back() - thePostPoint->GetMomentumDirection().x());
+        tree->DeltaMomRefrY.push_back(tree->MomentumInY.back() - thePostPoint->GetMomentumDirection().y());
+        tree->DeltaMomRefrZ.push_back(tree->MomentumInZ.back() - thePostPoint->GetMomentumDirection().z());
 
-        CreateTree::Instance()->DeltaPolRefrX.push_back(CreateTree::Instance()->PolInX.back() - thePostPoint->GetPolarization().x());
-        CreateTree::Instance()->DeltaPolRefrY.push_back(CreateTree::Instance()->PolInY.back() - thePostPoint->GetPolarization().y());
-        CreateTree::Instance()->DeltaPolRefrZ.push_back(CreateTree::Instance()->PolInZ.back() - thePostPoint->GetPolarization().z());
+        tree->DeltaPolRefrX.push_back(tree->PolInX.back() - thePostPoint->GetPolarization().x());
+        tree->DeltaPolRefrY.push_back(tree->PolInY.back() - thePostPoint->GetPolarization().y());
+        tree->DeltaPolRefrZ.push_back(tree->PolInZ.back() - thePostPoint->GetPolarization().z());
 
-
+//         tree->MomentumOutX
+//     this->GetTree()->Branch("MomentumOutX",&this->MomentumOutX,"MomentumOutX[NumOptPhotonsInterface]/F");
+//     this->GetTree()->Branch("MomentumOutY",&this->MomentumOutY,"MomentumOutY[NumOptPhotonsInterface]/F");
+//     this->GetTree()->Branch("MomentumOutZ",&this->MomentumOutZ,"MomentumOutZ[NumOptPhotonsInterface]/F");
+//
+//     this->GetTree()->Branch("HitX",&this->HitX,"HitX[NumOptPhotonsInterface]/F");
+//     this->GetTree()->Branch("HitY",&this->HitY,"HitY[NumOptPhotonsInterface]/F");
+//     this->GetTree()->Branch("HitZ",&this->HitZ,"HitZ[NumOptPhotonsInterface]/F");
+//     this->GetTree()->Branch("IntOut",&this->IntOut,"IntOut[NumOptPhotonsInterface]/I");
+//     this->GetTree()->Branch("Time",&this->Time,"Time[NumOptPhotonsInterface]/F");
+//     this->GetTree()->Branch("Parent",&this->Parent,"Parent[NumOptPhotonsInterface]/I");
+//     this->GetTree()->Branch("ID",&this->ID,"ID[NumOptPhotonsInterface]/I");
     }
 
 // ------------------------ FINE ------------------------- //

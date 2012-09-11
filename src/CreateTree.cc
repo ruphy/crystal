@@ -119,6 +119,9 @@ CreateTree::CreateTree(TString name, Bool_t hits, Bool_t absorptions)
     this->GetTree()->Branch("MomentumInX", &MomentumInX);
     this->GetTree()->Branch("MomentumInY", &MomentumInY);
     this->GetTree()->Branch("MomentumInZ", &MomentumInZ);
+    this->GetTree()->Branch("MomentumOutX", &MomentumOutX);
+    this->GetTree()->Branch("MomentumOutY", &MomentumOutY);
+    this->GetTree()->Branch("MomentumOutZ", &MomentumOutZ);
     this->GetTree()->Branch("DeltaMomReflX", &DeltaMomReflX);
     this->GetTree()->Branch("DeltaMomReflY", &DeltaMomReflY);
     this->GetTree()->Branch("DeltaMomReflZ", &DeltaMomReflZ);
@@ -196,6 +199,9 @@ void CreateTree::Clear()
     PartNum = 0;
 
     OutSurface = 0;
+    MomentumOutX.clear();
+    MomentumOutY.clear();
+    MomentumOutZ.clear();
     MomentumInX.clear();
     MomentumInY.clear();
     MomentumInZ.clear();

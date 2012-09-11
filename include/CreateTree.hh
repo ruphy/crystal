@@ -144,6 +144,11 @@ public:
     vector<float> MomentumInX;
     vector<float> MomentumInY;
     vector<float> MomentumInZ;
+
+    vector<float> MomentumOutX;
+    vector<float> MomentumOutY;
+    vector<float> MomentumOutZ;
+
     vector<float> DeltaMomReflX;
     vector<float> DeltaMomReflY;
     vector<float> DeltaMomReflZ;
