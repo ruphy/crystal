@@ -16,6 +16,7 @@
 
 EventAction::EventAction()
 {
+    fillingcount = 0;
     mppcCollID = -1;
 }
 
@@ -43,6 +44,8 @@ void EventAction::BeginOfEventAction (const G4Event *evt)
 
 void EventAction::EndOfEventAction (const G4Event *evt)
 {
+    fillingcount++;
+//     cout << "Filling" << fillingcount << endl;
     CreateTree::Instance()->Fill();
 
     if (0) {

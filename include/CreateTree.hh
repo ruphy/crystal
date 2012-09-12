@@ -39,6 +39,7 @@ public:
         DeltaPolReflect,
         DeltaPolRefract,
         MomRefl,
+        PositionOut,
         LastElement // Leave me last!!
     };
     
@@ -87,6 +88,8 @@ public:
     Int_t               NumBoundaryTotalInternalReflection;
     Int_t               NumBoundaryLambertianReflection;
     Int_t               NumBoundaryBackScattering;
+    Int_t               NumOutOfTheCrystalBySide;
+    Int_t               FresnelCS;
 
     Int_t               NumBoundaryStepTooSmall;
     Int_t               Process; // 1: Photo-Effect; 2: Compton-Effect

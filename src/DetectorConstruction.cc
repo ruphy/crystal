@@ -177,6 +177,7 @@ G4bool DetectorConstruction::GetUpdated() const
 void DetectorConstruction::initializeSurface(G4OpticalSurface *mySurface, string surfaceType)
 {
     if(surfaceType == "crystal") {
+//         cout << "CRISTALLO " << crystalSurfinish << endl;
         surfinish   = crystalSurfinish;
         RefFile     = cReffile;
         reflectivity    = cReflectivity;

@@ -160,10 +160,11 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
 
         G4ThreeVector deltaMomRefr = thePrePoint->GetMomentumDirection() - thePostPoint->GetMomentumDirection();
         G4ThreeVector deltaPolRefr = thePrePoint->GetPolarization() - thePostPoint->GetPolarization();
-        
+
         tree->pushData(CreateTree::DeltaMomRefract, deltaMomRefr);
         tree->pushData(CreateTree::DeltaPolRefract, deltaPolRefr);
         tree->pushData(CreateTree::MomentumOut, thePostPoint->GetMomentumDirection());
+        tree->pushData(CreateTree::PositionOut, thePostPoint->GetPosition());
     }
 
 // ------------------------ FINE ------------------------- //
@@ -197,9 +198,6 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
         switch(boundaryStatus) {
         case Absorption: {
             if(CreateTree::Instance()->Absorptions()) {
-
-
-
 
                 CreateTree::Instance()->BoundaryAbsorptionTime[CreateTree::Instance()->NumBoundaryAbsorption] = theStep->GetTrack()->GetGlobalTime();
                 CreateTree::Instance()->BoundaryAbsorptionPhotonEnergy[CreateTree::Instance()->NumBoundaryAbsorption] = theStep->GetTrack()->GetTotalEnergy();
@@ -248,8 +246,15 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
             break;
 
         case FresnelRefraction:
+            if(thePrePV->GetName() == "Crystal" &&  thePostPV->GetName() == "Sensor") {
+                CreateTree::Instance()->FresnelCS++;
+            }
+            if(thePrePV->GetName() == "Crystal" &&  thePostPV->GetName() == "World") {
+                CreateTree::Instance()->NumOutOfTheCrystalBySide++;
+            }
+
             CreateTree::Instance()->NumBoundaryFresnelRefraction++;
-            ISREFL = true;
+            ISREFL = false;
             break;
 
         case BackScattering:

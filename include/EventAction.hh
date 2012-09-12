@@ -13,7 +13,7 @@ class G4Event;
 class EventAction : public G4UserEventAction
 {
 private:
-
+    int fillingcount;
     G4int mppcCollID;
 
 public:

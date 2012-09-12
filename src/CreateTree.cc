@@ -63,6 +63,9 @@ CreateTree::CreateTree(TString name, Bool_t hits, Bool_t absorptions)
     this->GetTree()->Branch("NumBoundaryTotalInternalReflection", &this->NumBoundaryTotalInternalReflection, "NumBoundaryTotalInternalReflection/I");
     this->GetTree()->Branch("NumBoundaryLambertianReflection", &this->NumBoundaryLambertianReflection, "NumBoundaryLambertianReflection/I");
     this->GetTree()->Branch("NumBoundaryBackScattering", &this->NumBoundaryBackScattering, "NumBoundaryBackScattering/I");
+    this->GetTree()->Branch("NumOutOfTheCrystalBySide", &this->NumOutOfTheCrystalBySide, "NumOutOfTheCrystalBySide/I");
+
+    this->GetTree()->Branch("FresnelCS", &this->FresnelCS, "FresnelCS/I");
 
     this->GetTree()->Branch("ScintillationYield", &this->ScintillationYield, "ScintillationYield/F");
     this->GetTree()->Branch("RiseTime", &this->RiseTime, "RiseTime/F");
@@ -125,6 +128,7 @@ CreateTree::CreateTree(TString name, Bool_t hits, Bool_t absorptions)
     this->GetTree()->Branch("DeltaPolReflect", "vector<ROOT::Math::Cartesian3D<double> >", &(m_data[CreateTree::DeltaPolReflect]));
     this->GetTree()->Branch("DeltaPolRefract", "vector<ROOT::Math::Cartesian3D<double> >", &(m_data[CreateTree::DeltaPolRefract]));
     this->GetTree()->Branch("MomRefl", "vector<ROOT::Math::Cartesian3D<double> >", &(m_data[CreateTree::MomRefl]));
+    this->GetTree()->Branch("PositionOut", "vector<ROOT::Math::Cartesian3D<double> >", &(m_data[CreateTree::PositionOut]));
 
     this->Clear();
 }
@@ -136,7 +140,6 @@ CreateTree::~CreateTree()
 
 void CreateTree::pushData(CreateTree::DataType type, const G4ThreeVector &vector)
 {
-//     cout << "Debug blog: pushing a threevector of type " << type;
     ROOT::Math::Cartesian3D<double> vec;
     vec.SetX(vector.x());
     vec.SetY(vector.y());
@@ -182,13 +185,16 @@ void CreateTree::Clear()
     NumBoundaryReflection = 0;
     NumBoundaryStepTooSmall = 0;
     NumBoundaryFresnelRefraction = 0;
-
+    
+    FresnelCS = 0;
+    
     NumBoundaryFresnelReflection = 0;
     NumBoundaryLobeReflection = 0;
     NumBoundarySpikeReflection = 0;
     NumBoundaryTotalInternalReflection = 0;
     NumBoundaryLambertianReflection = 0;
     NumBoundaryBackScattering = 0;
+    NumOutOfTheCrystalBySide = 0;
 
     NumProcess = 0;
     PartNum = 0;
