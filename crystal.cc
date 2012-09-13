@@ -60,6 +60,7 @@ int main(int argc, char **argv)
     // -----------------------------------------
     // -----------------------------------------
 
+
     if(argc < 2) {
         cout << "Syntax: crystal <configuration file>" << endl;
         exit(0);

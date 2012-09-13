@@ -10,7 +10,7 @@
 #include "TString.h"
 
 #include <G4ThreeVector.hh>
-#include <root/Math/Cartesian3D.h>
+#include <Math/Cartesian3D.h>
 
 using namespace std;
 
