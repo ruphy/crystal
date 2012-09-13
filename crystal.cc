@@ -70,7 +70,7 @@ int main(int argc, char **argv)
 #pragma link C++ class std::vector<ROOT::Math::Cartesian3D<double> >;
 
     gInterpreter->GenerateDictionary("vector<float>", "vector");
-    gInterpreter->GenerateDictionary("vector<ROOT::Math::Cartesian3D<double> >", "root/Math/Cartesian3D.h");
+    gInterpreter->GenerateDictionary("vector<ROOT::Math::Cartesian3D<double> >", "Math/Cartesian3D.h");
 
     cout << "\n" << endl;
     cout << "###########################################################" << endl;
