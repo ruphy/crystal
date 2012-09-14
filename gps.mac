@@ -3,8 +3,8 @@
 # to be used together with "task2b.c"
 #
 #
-#/gps/energy 2.95 eV
-/gps/energy 1.91 eV
+/gps/energy 2.952 eV
+#/gps/energy 1.91 eV
 /gps/particle opticalphoton
 #/gps/position -5. 0. 49. mm
 /gps/position 0. 0. 0. mm
@@ -16,4 +16,4 @@
 #/gps/direction 0.1736 0.0 0.9848
 #34
 #/gps/direction 0.559 0.0 0.829
-/run/beamOn 10000
+/run/beamOn 100000
