@@ -52,6 +52,7 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
             if(tree->Absorptions()) {
                 tree->BulkAbsorptionTime[tree->NumOptPhotonsAbsorbed] = theTrack->GetGlobalTime();
                 tree->BulkAbsorptionPhotonEnergy[tree->NumOptPhotonsAbsorbed] = theTrack->GetTotalEnergy();
+                tree->AbsLength = theStep->GetTrack()->GetTrackLength();
                 tree->BulkAbsorptionPosX[tree->NumOptPhotonsAbsorbed] = thePostPoint->GetPosition().x();
                 tree->BulkAbsorptionPosY[tree->NumOptPhotonsAbsorbed] = thePostPoint->GetPosition().y();
                 tree->BulkAbsorptionPosZ[tree->NumOptPhotonsAbsorbed] = thePostPoint->GetPosition().z();
