@@ -7,10 +7,10 @@
 #/gps/energy 1.91 eV
 /gps/particle opticalphoton
 #/gps/position -5. 0. 49. mm
-/gps/position 0. 0. 0. mm
-/gps/ang/type iso
+/gps/position 0. 0. 800. mm
+#/gps/ang/type iso
 #25
-#/gps/direction 1.01 0 0
+/gps/direction 0 0 1
 #/gps/direction 0.4226 0.0 0.9063
 #10
 #/gps/direction 0.1736 0.0 0.9848
