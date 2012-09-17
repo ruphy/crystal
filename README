@@ -1,19 +1,28 @@
 
-When doing a new experiment/test/benchmark:
-
-1) Create a branch for your setup
-2) Make sure you commit in the branch only the code relevant to your
-   experiment. General fixes belong to master.
-3) Edit this file to contain a brief description of what you are doing,
-   expected (theoretical) results and outcome of your tests.
-
-
 === Description ===
 
+This test should check whether G4 respects Fresnel's law of reflection.
+
+- Setup:
+Crystal 1800 mm long, with the source at 100 mm distant from one end, shooting towards it.
+The photons will be arriving from a perpendicular direction.
+
+Firing 100000 (10^5) photons, 2.952 eV, n≃2.2 and lambda=185.4mm.
 
 === Theoretical outcome ===
 
+About 58500 (58.5%) of the photons should reach the face of the crystal without being absorbed,
+at which point about 8000 (8% of the original 10^5) should be reflected back, and the rest would
+continue their journey towards infinite (and beyond).
 
 === Actual outcome ===
 
+The data shows agreement. In particular:
+
+* MomentumIn: (the number of photons reaching the crystal's face) is about 58300
+
+* MomentumOut (the number of photons that quit the sensor's face) and NumOfPhotonsThatQuitTheCrystal
+agree that about 50100 photons leave the crystal
+
+* BulkAbsorbtionTime correctly shows that 49905 photons are absorbed within the crystal (at different times)
 
