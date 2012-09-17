@@ -110,7 +110,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
     airgap = 100; // TODO HACK FIXME
     G4Box *TA_box = new G4Box("Sensor", 0.5 * crystal_x, 0.5 * crystal_y, 0.5 * airgap);
     G4LogicalVolume *TA_log  = new G4LogicalVolume(TA_box, Air, "Sensor", 0, 0, 0);
-    G4VPhysicalVolume *TA_phys = new G4PVPlacement(0, G4ThreeVector(0, 0, 0.5 * (crystal_height + airgap)), TA_log, "Sensor", expHall_log, false, 0);
+    G4VPhysicalVolume *TA_phys = new G4PVPlacement(0, G4ThreeVector(0, 0, 0.5 * (crystal_height)+airgap), TA_log, "Sensor", expHall_log, false, 0);
     TA_log->SetVisAttributes(G4Color(128/255,0,0));
 
 

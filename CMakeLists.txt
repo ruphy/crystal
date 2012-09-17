@@ -46,6 +46,7 @@ set(crystal_CFGS
   vis.mac
   gps.mac
   crystal.cfg
+  extract.py
   run.in
   )
 
