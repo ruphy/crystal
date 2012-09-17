@@ -157,8 +157,10 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
         }
     }
 
-    if((thePrePV->GetName() == "Crystal") &&  ((thePostPV->GetName() == "Sensor") xor (thePostPV->GetName() == "World")) ) {
+    if((thePrePV->GetName() == "Crystal") &&  ((thePostPV->GetName() == "Sensor") or (thePostPV->GetName() == "World")) ) {
+//         tree->NumPhotonsThatQuitTheCrystal = 1;
         tree->NumPhotonsThatQuitTheCrystal++;
+
     }
 
     if(thePrePV->GetName() == "Sensor" &&  thePostPV->GetName() == "World") {
@@ -233,7 +235,7 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
 
         case FresnelReflection:
             CreateTree::Instance()->NumBoundaryFresnelReflection++;
-        tree->NumPhotonsThatQuitTheCrystal = 0;
+            tree->NumPhotonsThatQuitTheCrystal = 0;
             ISREFL = true;
             break;
 
