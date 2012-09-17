@@ -107,10 +107,10 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
 
     /*-------Sensor-------*/
-    airgap = 100; // TODO HACK FIXME
-    G4Box *TA_box = new G4Box("Sensor", 0.5 * crystal_x, 0.5 * crystal_y, 0.5 * airgap);
+    float sensorThickness = 1;
+    G4Box *TA_box = new G4Box("Sensor", 0.5 * crystal_x, 0.5 * crystal_y, sensorThickness*0.5);
     G4LogicalVolume *TA_log  = new G4LogicalVolume(TA_box, Air, "Sensor", 0, 0, 0);
-    G4VPhysicalVolume *TA_phys = new G4PVPlacement(0, G4ThreeVector(0, 0, 0.5 * (crystal_height)+airgap), TA_log, "Sensor", expHall_log, false, 0);
+    G4VPhysicalVolume *TA_phys = new G4PVPlacement(0, G4ThreeVector(0, 0, 0.5 * (crystal_height+sensorThickness)+airgap), TA_log, "Sensor", expHall_log, false, 0);
     TA_log->SetVisAttributes(G4Color(128/255,0,0));
 
 
@@ -344,7 +344,7 @@ void DetectorConstruction::initializeReflectivitySurface(G4OpticalSurface *surfa
     }
 
 
-    //myST->AddProperty("REFLECTIVITY", EphotonRefl, Refl, NumRefl);
+    myST->AddProperty("REFLECTIVITY", EphotonRefl, Refl, NumRefl);
     //try with real and complex index... remove line above and use ones below.
     G4double tyvek_rwavelength[1000] = { 1.24984 * eV, 1.3051 * eV, 1.3776 * eV, 1.45864 * eV, 1.5498 * eV, 1.65312 * eV, 1.7712 * eV, 1.90745 * eV, 2.0664 * eV,
                                          2.25426 * eV, 2.47968 * eV, 2.7552 * eV, 3.0996 * eV, 3.17908 * eV, 3.26274 * eV, 3.35092 * eV, 3.44401 * eV, 3.54241 * eV, 4.13281 * eV
@@ -370,8 +370,8 @@ void DetectorConstruction::initializeReflectivitySurface(G4OpticalSurface *surfa
 
     G4double air_cwavelength[1000] = {0.1 * eV, 1 * eV, 2 * eV, 3 * eV, 4 * eV};
     G4double air_cindex[1000] = {1, 1, 1, 1, 1};
-    //myST->AddProperty("REALRINDEX", air_rwavelength, air_rindex, 5);
-    //myST->AddProperty("IMAGINARYRINDEX", air_cwavelength, air_cindex, 5);
+//     myST->AddProperty("REALRINDEX", air_rwavelength, air_rindex, 5);
+//     myST->AddProperty("IMAGINARYRINDEX", air_cwavelength, air_cindex, 5);
 
 
 
