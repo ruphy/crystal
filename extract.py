@@ -6,7 +6,7 @@ from ROOT import gInterpreter, gSystem, gROOT, gDirectory
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import odr
-
+from re import sub
 
 gSystem.AddLinkedLibs(popen('root-config --libs').read())
 gInterpreter.GenerateDictionary("vector<ROOT::Math::Cartesian3D<double> >", "Math/Cartesian3D.h")
@@ -15,37 +15,59 @@ gInterpreter.GenerateDictionary("vector<ROOT::Math::Cartesian3D<double> >", "Mat
 # Inizio codice serio    #
 # ---------------------- #
 
-# open the file
-myfile = TFile( 'out.root' )
+def run_sim(nm):
+    ev = 1239.84/nm
+    # sub the new energy in the file
+    with open('gps.mac','r') as f:
+        newlines = []
+        for line in f.readlines():
+            newlines.append(sub(r'/gps/energy.*', '/gps/energy %.3f eV' % ev, line))
+    with open('gps.mac', 'w') as f:
+        for line in newlines:
+            f.write(line)
+    # run the simulation
+    popen('./crystal crystal.cfg')
 
-# retrieve the ntuple of interest
-mychain = gDirectory.Get( 'tree' )
-entries = mychain.GetEntriesFast()
+    # open the tree file
+    myfile = TFile( 'out.root' )
 
-data = []
+    # retrieve the ntuple of interest
+    mychain = gDirectory.Get( 'tree' )
+    entries = mychain.GetEntriesFast()
 
-for jentry in xrange( entries ):
-    nb = mychain.GetEntry( jentry )
-    data.append(mychain.AbsLength)
+    data = []
 
-def funz(P, x):
-    return 10000*np.exp(-x/P[0])
+    for jentry in xrange( entries ):
+        nb = mychain.GetEntry( jentry )
+        data.append(mychain.AbsLength)
 
-plt.clf()
-plt.grid(True)
+    def funz(P, x):
+        return P[1]*np.exp(-x/P[0])
 
-(n, bins, patches) = plt.hist(data, 100, color='#50e300', alpha=.7)
-bins = 0.5*(bins[:-1] + bins[1:])
+    plt.clf()
+    plt.grid(True)
 
-(param, errors, cov) = odr.odr(funz, [184.5], n, bins)
+    (n, bins, patches) = plt.hist(data, 100, color='#50e300', alpha=.7)
+    bins = 0.5*(bins[:-1] + bins[1:])
 
-ydata = funz(param, np.arange(min(bins), max(bins)))
-plt.plot(np.arange(min(bins), max(bins)), ydata)
+    (param, errors, cov) = odr.odr(funz, [184.5, 10000], n, bins)
+
+    ydata = funz(param, np.arange(min(bins), max(bins)))
+    plt.plot(np.arange(min(bins), max(bins)), ydata)
+
+    plt.title(r"Mean absorption length (%dnm): $\lambda=$ %.1f mm" % (nm, param[0]))
+    plt.ylabel("Photons")
+    plt.xlabel("Distance travelled (mm)")
+
+    #print "lambda calcolato = ", param[0]
+
+    plt.savefig("out%d.png" %nm)
 
 
-print "lambda calcolato = ", param[0]
+nms = [420, 470, 500];
 
-plt.savefig("out.png")
+for i in nms:
+    run_sim(i)
 
 
 # ----------- #
