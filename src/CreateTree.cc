@@ -64,7 +64,7 @@ CreateTree::CreateTree(TString name, Bool_t hits, Bool_t absorptions)
     this->GetTree()->Branch("NumBoundaryLambertianReflection", &this->NumBoundaryLambertianReflection, "NumBoundaryLambertianReflection/I");
     this->GetTree()->Branch("NumBoundaryBackScattering", &this->NumBoundaryBackScattering, "NumBoundaryBackScattering/I");
     this->GetTree()->Branch("NumOutOfTheCrystalBySide", &this->NumOutOfTheCrystalBySide, "NumOutOfTheCrystalBySide/I");
-    this->GetTree()->Branch("NumPhotonsThatQuitTheCrystal", &this->PhotonHasQuitTheCrystal, "NumPhotonsThatQuitTheCrystal/I");
+    this->GetTree()->Branch("PhotonHasQuitTheCrystal", &this->PhotonHasQuitTheCrystal, "PhotonHasQuitTheCrystal/I");
 
     this->GetTree()->Branch("FresnelCS", &this->FresnelCS, "FresnelCS/I");
 
