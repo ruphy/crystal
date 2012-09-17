@@ -1,0 +1,19 @@
+
+When doing a new experiment/test/benchmark:
+
+1) Create a branch for your setup
+2) Make sure you commit in the branch only the code relevant to your
+   experiment. General fixes belong to master.
+3) Edit this file to contain a brief description of what you are doing,
+   expected (theoretical) results and outcome of your tests.
+
+
+=== Description ===
+
+
+=== Theoretical outcome ===
+
+
+=== Actual outcome ===
+
+
