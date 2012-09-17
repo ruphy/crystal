@@ -1,19 +1,15 @@
 
-When doing a new experiment/test/benchmark:
-
-1) Create a branch for your setup
-2) Make sure you commit in the branch only the code relevant to your
-   experiment. General fixes belong to master.
-3) Edit this file to contain a brief description of what you are doing,
-   expected (theoretical) results and outcome of your tests.
-
-
 === Description ===
 
+This experiment aims to check whether G4 correctly uses a given absorption length.
+
+Photons: 2.952 eV
 
 === Theoretical outcome ===
 
+The mean absorbtion length lambda should be 184.5 mm
 
 === Actual outcome ===
 
+The experiment is succesfull, with a measured lambda of about 185 mm
 
