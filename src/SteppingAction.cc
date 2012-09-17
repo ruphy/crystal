@@ -158,9 +158,7 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
     }
 
     if((thePrePV->GetName() == "Crystal") &&  ((thePostPV->GetName() == "Sensor") or (thePostPV->GetName() == "World")) ) {
-//         tree->NumPhotonsThatQuitTheCrystal = 1;
         tree->NumPhotonsThatQuitTheCrystal++;
-
     }
 
     if(thePrePV->GetName() == "Sensor" &&  thePostPV->GetName() == "World") {
