@@ -89,6 +89,7 @@ public:
     Int_t               NumBoundaryLambertianReflection;
     Int_t               NumBoundaryBackScattering;
     Int_t               NumOutOfTheCrystalBySide;
+    Int_t               NumPhotonsThatQuitTheCrystal;
     Int_t               FresnelCS;
 
     Int_t               NumBoundaryStepTooSmall;
