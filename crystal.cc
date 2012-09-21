@@ -243,9 +243,9 @@ int main(int argc, char **argv)
     }
 
     //per fermare il terminale utente
-    G4UIExecutive *ui = new G4UIExecutive(argc, argv);
-    ui->SessionStart();
-    delete ui;
+    //G4UIExecutive *ui = new G4UIExecutive(argc, argv);
+    //ui->SessionStart();
+    //delete ui;
 
     // Job termination
     // Free the store: user actions, physics_list and detector_description are
