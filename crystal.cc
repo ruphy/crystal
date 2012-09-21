@@ -143,9 +143,13 @@ int main(int argc, char **argv)
     // SET DETECTOR PROPERTIES
     // -----------------------------------------
     // -----------------------------------------
-   
+    
+    if(argv[2] != NULL) {
+        filename = argv[2];
+    }
     TFile *outfile = new TFile((TString) filename, "RECREATE");
     outfile->cd();
+    
     CreateTree *mytree = new CreateTree("g4pet", HITS, ABSORPTIONS);
     DetectorConstruction *detector = new DetectorConstruction();
 
@@ -260,9 +264,7 @@ int main(int argc, char **argv)
     delete runManager;
     delete verbosity;
 
-    if(argv[2] != NULL) {
-        filename = argv[2];
-    }
+    
     
     G4cout << "Writing tree to file " << filename << " ..." << G4endl;
     mytree->GetTree()->Write();
