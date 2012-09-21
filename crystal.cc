@@ -143,7 +143,9 @@ int main(int argc, char **argv)
     // SET DETECTOR PROPERTIES
     // -----------------------------------------
     // -----------------------------------------
-
+   
+    TFile *outfile = new TFile((TString) filename, "RECREATE");
+    outfile->cd();
     CreateTree *mytree = new CreateTree("g4pet", HITS, ABSORPTIONS);
     DetectorConstruction *detector = new DetectorConstruction();
 
@@ -243,9 +245,9 @@ int main(int argc, char **argv)
     }
 
     //per fermare il terminale utente
-    G4UIExecutive *ui = new G4UIExecutive(argc, argv);
-    ui->SessionStart();
-    delete ui;
+    //G4UIExecutive *ui = new G4UIExecutive(argc, argv);
+    //ui->SessionStart();
+    //delete ui;
 
     // Job termination
     // Free the store: user actions, physics_list and detector_description are
@@ -261,8 +263,7 @@ int main(int argc, char **argv)
     if(argv[2] != NULL) {
         filename = argv[2];
     }
-    TFile *outfile = new TFile((TString) filename, "RECREATE");
-    outfile->cd();
+    
     G4cout << "Writing tree to file " << filename << " ..." << G4endl;
     mytree->GetTree()->Write();
     outfile->Write();

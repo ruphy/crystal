@@ -89,9 +89,9 @@ public:
     Int_t               NumBoundaryLambertianReflection;
     Int_t               NumBoundaryBackScattering;
     Int_t               NumOutOfTheCrystalBySide;
-    Int_t               PhotonHasQuitTheCrystal;
-    Int_t               FresnelCS;
+    Int_t               NumOutOfTheCrystalBySensor;
 
+    Int_t               PhotonHasQuitTheCrystal;
     Int_t               NumBoundaryStepTooSmall;
     Int_t               Process; // 1: Photo-Effect; 2: Compton-Effect
 

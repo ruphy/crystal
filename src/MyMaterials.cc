@@ -37,11 +37,11 @@ G4Material *MyMaterials::Air()
     };
 
     G4double RefractiveIndex[nEntries] = {
-        1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
-        1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
-        1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
-        1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00,
-        1.00, 1.00, 1.00, 1.00, 1.00
+        1.0003, 1.0003, 1.0003, 1.0003, 1.0003, 1.0003, 1.0003, 1.0003,
+        1.0003, 1.0003, 1.0003, 1.0003, 1.0003, 1.0003, 1.0003,
+        1.0003, 1.0003, 1.0003, 1.0003, 1.0003, 1.0003, 1.0003,
+        1.0003, 1.0003, 1.0003, 1.0003, 1.0003, 1.0003, 1.0003,
+        1.0003, 1.0003, 1.0003, 1.0003, 1.0003
     };
 
     G4MaterialPropertiesTable *myMPT = new G4MaterialPropertiesTable();
@@ -2311,16 +2311,15 @@ G4Material *MyMaterials::PbWO()
 
     const G4int PbWO_NUMENTRIES_2 = 4;
     G4double PbWO_RIND_Energy[PbWO_NUMENTRIES_2]      = { 0.0001 * eV, 1.0 * eV, 1.84 * eV, 4.08 * eV };
-    G4double PbWO_RIND_INDEX[PbWO_NUMENTRIES_2]       = { 2.2, 2.2, 2.2, 2.2};
+    G4double PbWO_RIND_INDEX[PbWO_NUMENTRIES_2]       = { 2.325, 2.325, 2.325, 2.325};
     /*G4double PbWO_RIND_INDEX[PbWO_NUMENTRIES_2]       = {
     CalculateSellmeier(PbWO_indexZero,PbWO_nVec,PbWO_lVec,fromEvToNm(0.0001)),
     CalculateSellmeier(PbWO_indexZero,PbWO_nVec,PbWO_lVec,fromEvToNm(1.0)),
     CalculateSellmeier(PbWO_indexZero,PbWO_nVec,PbWO_lVec,fromEvToNm(1.84)),
     CalculateSellmeier(PbWO_indexZero,PbWO_nVec,PbWO_lVec,fromEvToNm(4.08)),
     };*/
+/*
     const G4int PbWO_ABS_entries = 70;
-
-
     G4double PbWO_ABS_Energy[PbWO_ABS_entries]       = {
         1.25237 * eV, 1.26514 * eV, 1.27819 * eV, 1.2915 * eV, 1.3051 * eV, 1.31898 * eV, 1.33316 * eV, 1.34765 * eV, 1.36246 * eV, 1.3776 * eV,
         1.39308 * eV, 1.40891 * eV, 1.42511 * eV, 1.44168 * eV, 1.45864 * eV, 1.476 * eV, 1.49379 * eV, 1.512 * eV, 1.53067 * eV, 1.5498 * eV,
@@ -2342,8 +2341,12 @@ G4Material *MyMaterials::PbWO()
         467 * mm, 430.2 * mm, 390.1 * mm, 345.3 * mm, 298.9 * mm, 256.7 * mm, 219.8 * mm, 185.4 * mm, 150.9 * mm, 116.4 * mm,
         84.8 * mm, 59.4 * mm, 41.1 * mm, 27.5 * mm, 24.2 * mm, 24.2 * mm, 24.3 * mm, 24.3 * mm, 24.4 * mm, 24.6 * mm
     };
+    */
 
 
+    const G4int PbWO_ABS_entries = 4;
+    G4double PbWO_ABS_Energy[PbWO_ABS_entries]       = { 0.0001 * eV, 1.0 * eV, 1.84 * eV, 4.08 * eV };
+    G4double PbWO_ABS_LENGTH[PbWO_ABS_entries] 	= { 185.4 * mm, 185.4 * mm, 185.4 * mm, 185.4 * mm};
 
     G4MaterialPropertiesTable *PbWO_mt = new G4MaterialPropertiesTable();
     PbWO_mt->AddProperty ("FASTCOMPONENT", PbWO_FAST_Energy, PbWO_FAST_COMPONENT, PbWO_NUMENTRIES_1);

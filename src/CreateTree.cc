@@ -64,9 +64,9 @@ CreateTree::CreateTree(TString name, Bool_t hits, Bool_t absorptions)
     this->GetTree()->Branch("NumBoundaryLambertianReflection", &this->NumBoundaryLambertianReflection, "NumBoundaryLambertianReflection/I");
     this->GetTree()->Branch("NumBoundaryBackScattering", &this->NumBoundaryBackScattering, "NumBoundaryBackScattering/I");
     this->GetTree()->Branch("NumOutOfTheCrystalBySide", &this->NumOutOfTheCrystalBySide, "NumOutOfTheCrystalBySide/I");
-    this->GetTree()->Branch("PhotonHasQuitTheCrystal", &this->PhotonHasQuitTheCrystal, "PhotonHasQuitTheCrystal/I");
+    this->GetTree()->Branch("NumOutOfTheCrystalBySensor", &this->NumOutOfTheCrystalBySensor, "NumOutOfTheCrystalBySensor/I");
 
-    this->GetTree()->Branch("FresnelCS", &this->FresnelCS, "FresnelCS/I");
+    this->GetTree()->Branch("PhotonHasQuitTheCrystal", &this->PhotonHasQuitTheCrystal, "PhotonHasQuitTheCrystal/I");
 
     this->GetTree()->Branch("ScintillationYield", &this->ScintillationYield, "ScintillationYield/F");
     this->GetTree()->Branch("RiseTime", &this->RiseTime, "RiseTime/F");
@@ -187,9 +187,7 @@ void CreateTree::Clear()
     NumBoundaryReflection = 0;
     NumBoundaryStepTooSmall = 0;
     NumBoundaryFresnelRefraction = 0;
-    
-    FresnelCS = 0;
-    
+        
     NumBoundaryFresnelReflection = 0;
     NumBoundaryLobeReflection = 0;
     NumBoundarySpikeReflection = 0;
@@ -197,7 +195,7 @@ void CreateTree::Clear()
     NumBoundaryLambertianReflection = 0;
     NumBoundaryBackScattering = 0;
     NumOutOfTheCrystalBySide = 0;
-
+    NumOutOfTheCrystalBySensor = 0;
     NumProcess = 0;
     PartNum = 0;
 
