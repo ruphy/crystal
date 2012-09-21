@@ -254,7 +254,7 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
 
         case FresnelRefraction:
             if(thePrePV->GetName() == "Crystal" &&  thePostPV->GetName() == "Sensor") {
-                CreateTree::Instance()->FresnelCS++;
+                CreateTree::Instance()->NumOutOfTheCrystalBySensor++;
             }
             if(thePrePV->GetName() == "Crystal" &&  thePostPV->GetName() == "World") {
                 CreateTree::Instance()->NumOutOfTheCrystalBySide++;
