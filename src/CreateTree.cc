@@ -20,32 +20,32 @@ CreateTree::CreateTree(TString name, Bool_t hits, Bool_t absorptions)
     this->fname = name;
     this->ftree = new TTree("tree", "name");
 
-    this->GetTree()->Branch("Run", &this->Run, "Run/I");
-    this->GetTree()->Branch("Event", &this->Event, "Event/I");
-    this->GetTree()->Branch("Process", &this->Process, "Process/I");
-    this->GetTree()->Branch("NumOptPhotons", &this->NumOptPhotons, "NumOptPhotons/I");
-    this->GetTree()->Branch("NumCerenkovPhotons", &this->NumCerenkovPhotons, "NumCerenkovPhotons/I");
-    this->GetTree()->Branch("NumScintPhotons", &this->NumScintPhotons, "NumScintPhotons/I");
+//     this->GetTree()->Branch("Run", &this->Run, "Run/I");
+//     this->GetTree()->Branch("Event", &this->Event, "Event/I");
+//     this->GetTree()->Branch("Process", &this->Process, "Process/I");
+//     this->GetTree()->Branch("NumOptPhotons", &this->NumOptPhotons, "NumOptPhotons/I");
+//     this->GetTree()->Branch("NumCerenkovPhotons", &this->NumCerenkovPhotons, "NumCerenkovPhotons/I");
+//     this->GetTree()->Branch("NumScintPhotons", &this->NumScintPhotons, "NumScintPhotons/I");
     this->GetTree()->Branch("NumOptPhotonsAbsorbed", &this->NumOptPhotonsAbsorbed, "NumOptPhotonsAbsorbed/I");
-    this->GetTree()->Branch("NumOptPhotonsRayleigh", &this->NumOptPhotonsRayleigh, "NumOptPhotonsRayleigh/I");
-    this->GetTree()->Branch("NumCherenkovPr", &this->NumCherenkovPr, "NumCherenkovPr/I");
-    this->GetTree()->Branch("NumeBrem", &this->NumeBrem, "NumeBrem/I");
-
-
-    this->GetTree()->Branch("NumBoundaryAbsorption", &this->NumBoundaryAbsorption, "NumBoundaryAbsorption/I");
-    this->GetTree()->Branch("NumBoundaryReflection", &this->NumBoundaryReflection, "NumBoundaryReflection/I");
+//     this->GetTree()->Branch("NumOptPhotonsRayleigh", &this->NumOptPhotonsRayleigh, "NumOptPhotonsRayleigh/I");
+//     this->GetTree()->Branch("NumCherenkovPr", &this->NumCherenkovPr, "NumCherenkovPr/I");
+//     this->GetTree()->Branch("NumeBrem", &this->NumeBrem, "NumeBrem/I");
+// 
+// 
+//     this->GetTree()->Branch("NumBoundaryAbsorption", &this->NumBoundaryAbsorption, "NumBoundaryAbsorption/I");
+//     this->GetTree()->Branch("NumBoundaryReflection", &this->NumBoundaryReflection, "NumBoundaryReflection/I");
     if(this->ABSORPTIONS) {
-        this->GetTree()->Branch("BoundaryAbsorptionPosX", &this->BoundaryAbsorptionPosX, "BoundaryAbsorptionPosX[NumBoundaryAbsorption]/F");
-        this->GetTree()->Branch("BoundaryAbsorptionPosY", &this->BoundaryAbsorptionPosY, "BoundaryAbsorptionPosY[NumBoundaryAbsorption]/F");
-        this->GetTree()->Branch("BoundaryAbsorptionPosZ", &this->BoundaryAbsorptionPosZ, "BoundaryAbsorptionPosZ[NumBoundaryAbsorption]/F");
-        this->GetTree()->Branch("BoundaryAbsorptionTime", &this->BoundaryAbsorptionTime, "BoundaryAbsorptionTime[NumBoundaryAbsorption]/F");
-        this->GetTree()->Branch("BoundaryAbsorptionPhotonEnergy", &this->BoundaryAbsorptionPhotonEnergy, "BoundaryAbsorptionPhotonEnergy[NumBoundaryAbsorption]/F");
-
+//         this->GetTree()->Branch("BoundaryAbsorptionPosX", &this->BoundaryAbsorptionPosX, "BoundaryAbsorptionPosX[NumBoundaryAbsorption]/F");
+//         this->GetTree()->Branch("BoundaryAbsorptionPosY", &this->BoundaryAbsorptionPosY, "BoundaryAbsorptionPosY[NumBoundaryAbsorption]/F");
+//         this->GetTree()->Branch("BoundaryAbsorptionPosZ", &this->BoundaryAbsorptionPosZ, "BoundaryAbsorptionPosZ[NumBoundaryAbsorption]/F");
+//         this->GetTree()->Branch("BoundaryAbsorptionTime", &this->BoundaryAbsorptionTime, "BoundaryAbsorptionTime[NumBoundaryAbsorption]/F");
+//         this->GetTree()->Branch("BoundaryAbsorptionPhotonEnergy", &this->BoundaryAbsorptionPhotonEnergy, "BoundaryAbsorptionPhotonEnergy[NumBoundaryAbsorption]/F");
+/*
         this->GetTree()->Branch("BoundaryReflectionPosX", &this->BoundaryReflectionPosX, "BoundaryPosX[NumBoundaryReflection]/F");
         this->GetTree()->Branch("BoundaryReflectionPosY", &this->BoundaryReflectionPosY, "BoundaryPosY[NumBoundaryReflection]/F");
         this->GetTree()->Branch("BoundaryReflectionPosZ", &this->BoundaryReflectionPosZ, "BoundaryPosZ[NumBoundaryReflection]/F");
         this->GetTree()->Branch("BoundaryReflectionTime", &this->BoundaryReflectionTime, "BoundaryTime[NumBoundaryReflection]/F");
-        this->GetTree()->Branch("BoundaryReflectionType", &this->BoundaryReflectionType, "BoundaryReflectionType[NumBoundaryReflection]/I");
+        this->GetTree()->Branch("BoundaryReflectionType", &this->BoundaryReflectionType, "BoundaryReflectionType[NumBoundaryReflection]/I");*/
 
         this->GetTree()->Branch("BulkAbsorptionPosX", &this->BulkAbsorptionPosX, "BulkAbsorptionPosX[NumOptPhotonsAbsorbed]/F");
         this->GetTree()->Branch("BulkAbsorptionPosY", &this->BulkAbsorptionPosY, "BulkAbsorptionPosY[NumOptPhotonsAbsorbed]/F");
@@ -54,15 +54,15 @@ CreateTree::CreateTree(TString name, Bool_t hits, Bool_t absorptions)
         this->GetTree()->Branch("BulkAbsorptionPhotonEnergy", &this->BulkAbsorptionPhotonEnergy, "BulkAbsorptionPhotonEnergy[NumOptPhotonsAbsorbed]/F");
     }
 
-    this->GetTree()->Branch("OptPhotonEnergy", &this->OptPhotonEnergy, "OptPhotonEnergy[NumOptPhotons]/F");
-    this->GetTree()->Branch("NumBoundaryFresnelRefraction", &this->NumBoundaryFresnelRefraction, "NumBoundaryFresnelRefraction/I");
-    this->GetTree()->Branch("NumBoundaryStepTooSmall", &this->NumBoundaryStepTooSmall, "NumBoundaryStepTooSmall/I");
-    this->GetTree()->Branch("NumBoundaryFresnelReflection", &this->NumBoundaryFresnelReflection, "NumBoundaryFresnelReflection/I");
-    this->GetTree()->Branch("NumBoundaryLobeReflection", &this->NumBoundaryLobeReflection, "NumBoundaryLobeReflection/I");
-    this->GetTree()->Branch("NumBoundarySpikeReflection", &this->NumBoundarySpikeReflection, "NumBoundarySpikeReflection/I");
-    this->GetTree()->Branch("NumBoundaryTotalInternalReflection", &this->NumBoundaryTotalInternalReflection, "NumBoundaryTotalInternalReflection/I");
-    this->GetTree()->Branch("NumBoundaryLambertianReflection", &this->NumBoundaryLambertianReflection, "NumBoundaryLambertianReflection/I");
-    this->GetTree()->Branch("NumBoundaryBackScattering", &this->NumBoundaryBackScattering, "NumBoundaryBackScattering/I");
+//     this->GetTree()->Branch("OptPhotonEnergy", &this->OptPhotonEnergy, "OptPhotonEnergy[NumOptPhotons]/F");
+//     this->GetTree()->Branch("NumBoundaryFresnelRefraction", &this->NumBoundaryFresnelRefraction, "NumBoundaryFresnelRefraction/I");
+//     this->GetTree()->Branch("NumBoundaryStepTooSmall", &this->NumBoundaryStepTooSmall, "NumBoundaryStepTooSmall/I");
+//     this->GetTree()->Branch("NumBoundaryFresnelReflection", &this->NumBoundaryFresnelReflection, "NumBoundaryFresnelReflection/I");
+//     this->GetTree()->Branch("NumBoundaryLobeReflection", &this->NumBoundaryLobeReflection, "NumBoundaryLobeReflection/I");
+//     this->GetTree()->Branch("NumBoundarySpikeReflection", &this->NumBoundarySpikeReflection, "NumBoundarySpikeReflection/I");
+//     this->GetTree()->Branch("NumBoundaryTotalInternalReflection", &this->NumBoundaryTotalInternalReflection, "NumBoundaryTotalInternalReflection/I");
+//     this->GetTree()->Branch("NumBoundaryLambertianReflection", &this->NumBoundaryLambertianReflection, "NumBoundaryLambertianReflection/I");
+//     this->GetTree()->Branch("NumBoundaryBackScattering", &this->NumBoundaryBackScattering, "NumBoundaryBackScattering/I");
     this->GetTree()->Branch("NumOutOfTheCrystalBySide", &this->NumOutOfTheCrystalBySide, "NumOutOfTheCrystalBySide/I");
     this->GetTree()->Branch("NumOutOfTheCrystalBySensor", &this->NumOutOfTheCrystalBySensor, "NumOutOfTheCrystalBySensor/I");
 
@@ -70,14 +70,14 @@ CreateTree::CreateTree(TString name, Bool_t hits, Bool_t absorptions)
 
     this->GetTree()->Branch("ScintillationYield", &this->ScintillationYield, "ScintillationYield/F");
     this->GetTree()->Branch("RiseTime", &this->RiseTime, "RiseTime/F");
-    this->GetTree()->Branch("Reflectivity", &this->Reflectivity, "Reflectivity/F");
-    this->GetTree()->Branch("CrystalHeight", &this->CrystalHeight, "CrystalHeight/F");
-    this->GetTree()->Branch("CrystalDiameter", &this->CrystalDiameter, "CrystalDiameter/F");
-    this->GetTree()->Branch("CrystalX", &this->CrystalX, "CrystalX/F");
-    this->GetTree()->Branch("CrystalY", &this->CrystalY, "CrystalY/F");
-    this->GetTree()->Branch("Gap", &this->Gap, "Gap/F");
-    this->GetTree()->Branch("GapMaterial", &this->GapMaterial, "GapMaterial/F");
-    this->GetTree()->Branch("GapRefIndex", &this->GapRefIndex, "GapRefIndex/F");
+//     this->GetTree()->Branch("Reflectivity", &this->Reflectivity, "Reflectivity/F");
+//     this->GetTree()->Branch("CrystalHeight", &this->CrystalHeight, "CrystalHeight/F");
+//     this->GetTree()->Branch("CrystalDiameter", &this->CrystalDiameter, "CrystalDiameter/F");
+//     this->GetTree()->Branch("CrystalX", &this->CrystalX, "CrystalX/F");
+//     this->GetTree()->Branch("CrystalY", &this->CrystalY, "CrystalY/F");
+//     this->GetTree()->Branch("Gap", &this->Gap, "Gap/F");
+//     this->GetTree()->Branch("GapMaterial", &this->GapMaterial, "GapMaterial/F");
+//     this->GetTree()->Branch("GapRefIndex", &this->GapRefIndex, "GapRefIndex/F");
     this->GetTree()->Branch("AbsLength", &this->AbsLength, "AbsLength/F");
 
     this->GetTree()->Branch("Shape", &this->Shape, "Shape/F");
