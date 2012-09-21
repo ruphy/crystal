@@ -107,10 +107,10 @@ G4VPhysicalVolume *DetectorConstruction::Construct()
 
 
     /*-------Sensor-------*/
-
-    G4Box *TA_box = new G4Box("Sensor", 0.5 * crystal_x, 0.5 * crystal_y, 0.5 * airgap);
+    float sensorThickness = 1;
+    G4Box *TA_box = new G4Box("Sensor", 0.5 * crystal_x, 0.5 * crystal_y, sensorThickness*0.5);
     G4LogicalVolume *TA_log  = new G4LogicalVolume(TA_box, Air, "Sensor", 0, 0, 0);
-    G4VPhysicalVolume *TA_phys = new G4PVPlacement(0, G4ThreeVector(0, 0, 0.5 * (crystal_height+airgap)), TA_log, "Sensor", expHall_log, false, 0);
+    G4VPhysicalVolume *TA_phys = new G4PVPlacement(0, G4ThreeVector(0, 0, 0.5 * (crystal_height+sensorThickness)+airgap), TA_log, "Sensor", expHall_log, false, 0);
     TA_log->SetVisAttributes(G4Color(128/255,0,0));
 
 
@@ -376,8 +376,8 @@ void DetectorConstruction::initializeReflectivitySurface(G4OpticalSurface *surfa
 
     G4double air_cwavelength[1000] = {0.1 * eV, 1 * eV, 2 * eV, 3 * eV, 4 * eV};
     G4double air_cindex[1000] = {1, 1, 1, 1, 1};
-    //myST->AddProperty("REALRINDEX", air_rwavelength, air_rindex, 5);
-    //myST->AddProperty("IMAGINARYRINDEX", air_cwavelength, air_cindex, 5);
+//     myST->AddProperty("REALRINDEX", air_rwavelength, air_rindex, 5);
+//     myST->AddProperty("IMAGINARYRINDEX", air_cwavelength, air_cindex, 5);
 
 
 
