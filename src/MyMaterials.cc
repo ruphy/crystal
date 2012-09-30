@@ -2348,12 +2348,18 @@ G4Material *MyMaterials::PbWO()
     G4double PbWO_ABS_Energy[PbWO_ABS_entries]       = { 0.0001 * eV, 1.0 * eV, 1.84 * eV, 4.08 * eV };
     G4double PbWO_ABS_LENGTH[PbWO_ABS_entries] 	= { 185.4 * mm, 185.4 * mm, 185.4 * mm, 185.4 * mm};
 
+
+    G4double FAST_Energy[PbWO_ABS_entries]  = {0.0001 * eV, 1.0 * eV, 1.84 * keV, 4.08 * MeV};
+    G4double FAST_Component[PbWO_ABS_entries]  = { 2.952*eV, 2.952*eV, 2.952*eV, 2.952*eV};
+
     G4MaterialPropertiesTable *PbWO_mt = new G4MaterialPropertiesTable();
-    PbWO_mt->AddProperty ("FASTCOMPONENT", PbWO_FAST_Energy, PbWO_FAST_COMPONENT, PbWO_NUMENTRIES_1);
+//     PbWO_mt->AddProperty ("FASTCOMPONENT", PbWO_FAST_Energy, PbWO_FAST_COMPONENT, PbWO_NUMENTRIES_1);
+    PbWO_mt->AddProperty ("FASTCOMPONENT", FAST_Energy, FAST_Component, PbWO_ABS_entries);
+
     PbWO_mt->AddProperty ("RINDEX",        PbWO_RIND_Energy, PbWO_RIND_INDEX,     PbWO_NUMENTRIES_2);
     PbWO_mt->AddProperty ("ABSLENGTH",      PbWO_ABS_Energy,  PbWO_ABS_LENGTH,  PbWO_ABS_entries);
 
-    PbWO_mt->AddConstProperty ("SCINTILLATIONYIELD", 60000. / MeV);
+    PbWO_mt->AddConstProperty ("SCINTILLATIONYIELD", 100000. / MeV);
     PbWO_mt->AddConstProperty ("RESOLUTIONSCALE", 3.2);
     PbWO_mt->AddConstProperty ("FASTTIMECONSTANT", 40.*ns);
     PbWO_mt->AddConstProperty ("YIELDRATIO", 1.0);

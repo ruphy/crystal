@@ -67,6 +67,7 @@ CreateTree::CreateTree(TString name, Bool_t hits, Bool_t absorptions)
     this->GetTree()->Branch("NumOutOfTheCrystalBySensor", &this->NumOutOfTheCrystalBySensor, "NumOutOfTheCrystalBySensor/I");
 
     this->GetTree()->Branch("PhotonHasQuitTheCrystal", &this->PhotonHasQuitTheCrystal, "PhotonHasQuitTheCrystal/I");
+    this->GetTree()->Branch("PhotonExitTime", &this->PhotonExitTime, "PhotonExitTime/I");
 
     this->GetTree()->Branch("ScintillationYield", &this->ScintillationYield, "ScintillationYield/F");
     this->GetTree()->Branch("RiseTime", &this->RiseTime, "RiseTime/F");
@@ -187,7 +188,9 @@ void CreateTree::Clear()
     NumBoundaryReflection = 0;
     NumBoundaryStepTooSmall = 0;
     NumBoundaryFresnelRefraction = 0;
-        
+
+    PhotonExitTime = 0;
+    
     NumBoundaryFresnelReflection = 0;
     NumBoundaryLobeReflection = 0;
     NumBoundarySpikeReflection = 0;

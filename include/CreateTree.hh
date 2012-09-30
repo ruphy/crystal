@@ -171,6 +171,7 @@ public:
 
     Int_t               TestI;
     Float_t             TestF;
+    Float_t             PhotonExitTime;
 };
 
 /*

@@ -158,7 +158,8 @@ void SteppingAction::UserSteppingAction(const G4Step *theStep)
     }
 
     if((thePrePV->GetName() == "Crystal") &&  ((thePostPV->GetName() == "Sensor") or (thePostPV->GetName() == "World")) ) {
-        tree->PhotonHasQuitTheCrystal++;
+        tree->PhotonHasQuitTheCrystal = 1;
+        tree->PhotonExitTime = theTrack->GetGlobalTime();
     }
 
     if(thePrePV->GetName() == "Sensor" &&  thePostPV->GetName() == "World") {
